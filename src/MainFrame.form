@@ -10,7 +10,11 @@
     <children>
       <component id="efe7a" class="javax.swing.JButton" binding="exitButton">
         <constraints>
-          <grid row="2" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="2" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+            <minimum-size width="120" height="-1"/>
+            <preferred-size width="120" height="-1"/>
+            <maximum-size width="120" height="-1"/>
+          </grid>
         </constraints>
         <properties>
           <text value="Exit"/>
@@ -18,7 +22,11 @@
       </component>
       <component id="3e14c" class="javax.swing.JButton" binding="procButton">
         <constraints>
-          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+            <minimum-size width="120" height="-1"/>
+            <preferred-size width="120" height="-1"/>
+            <maximum-size width="120" height="-1"/>
+          </grid>
         </constraints>
         <properties>
           <text value="Proc"/>
@@ -26,7 +34,11 @@
       </component>
       <component id="424c0" class="javax.swing.JButton" binding="resetButton">
         <constraints>
-          <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+            <minimum-size width="120" height="-1"/>
+            <preferred-size width="120" height="-1"/>
+            <maximum-size width="120" height="-1"/>
+          </grid>
         </constraints>
         <properties>
           <text value="Reset"/>
@@ -34,7 +46,11 @@
       </component>
       <component id="971c4" class="javax.swing.JButton" binding="cleanButton" default-binding="true">
         <constraints>
-          <grid row="2" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="2" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+            <minimum-size width="120" height="-1"/>
+            <preferred-size width="120" height="-1"/>
+            <maximum-size width="120" height="-1"/>
+          </grid>
         </constraints>
         <properties>
           <text value="Clean"/>
@@ -42,7 +58,11 @@
       </component>
       <component id="6ebf1" class="javax.swing.JButton" binding="memButton">
         <constraints>
-          <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+            <minimum-size width="120" height="-1"/>
+            <preferred-size width="120" height="-1"/>
+            <maximum-size width="120" height="-1"/>
+          </grid>
         </constraints>
         <properties>
           <text value="Mem"/>
@@ -74,7 +94,11 @@
       </component>
       <component id="17185" class="javax.swing.JButton" binding="helpButton" default-binding="true">
         <constraints>
-          <grid row="2" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="2" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+            <minimum-size width="120" height="-1"/>
+            <preferred-size width="120" height="-1"/>
+            <maximum-size width="120" height="-1"/>
+          </grid>
         </constraints>
         <properties>
           <text value="Help"/>

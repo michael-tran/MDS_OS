@@ -21,9 +21,11 @@ public class MainFrame extends JFrame {
 
     public MainFrame() {
         addText(mainDisplay, mddoc, "Welcome to Michael Doesn't Do Shit OS");
-        addText(monitorDisplay, mtdoc, "System Resource Monitor \n TO-DO: Figure out multithreading so we can" +
+        addText(monitorDisplay, mtdoc, "System Resource Monitor \nTO-DO: Figure out multithreading so we can " +
                 "update system info in real time \n" +
-                "https://www.tutorialspoint.com/java/java_multithreading.htm");
+                "https://www.tutorialspoint.com/java/java_multithreading.htm \n" +
+                "We may not need to do this in literal real time. The description made it sound like we can just " +
+                "update this screen when the CPU processes one cycle");
 
         exitButton.addActionListener(new ActionListener() {
             @Override
@@ -84,6 +86,7 @@ public class MainFrame extends JFrame {
         frame.setVisible(true);
         frame.setTitle("OOOOOOS");
         frame.setSize(800, 600);
+        frame.setResizable(false);
     }
 
     // Appends text to specified JTextPane
