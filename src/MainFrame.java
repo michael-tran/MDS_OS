@@ -33,22 +33,6 @@ public class MainFrame extends JFrame {
                 "update this screen when the CPU processes one cycle");
 
         ///List of buttons
-        //action for Proc button
-        procButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                addText(mainDisplay, mddoc, "TODO: Displaying all running processes");
-            }
-        });
-
-        //action for exit button
-        exitButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.exit(0);
-            }
-        });
-
         //action for help button
         helpButton.addActionListener(new ActionListener() {
             @Override
@@ -68,11 +52,19 @@ public class MainFrame extends JFrame {
             }
         });
 
-        //action for clean button
-        cleanButton.addActionListener(new ActionListener() {
+        //action for Proc button
+        procButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                mainDisplay.setText("Welcome to Michael Doesn't Do Shit OS \n");
+                addText(mainDisplay, mddoc, "TODO: Displaying all running processes");
+            }
+        });
+
+        //action for mem button
+        memButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                addText(mainDisplay, mddoc, "TODO: Clears memory");
             }
         });
 
@@ -81,6 +73,22 @@ public class MainFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 addText(mainDisplay, mddoc, "TODO: RESETS EVERYTHING");
+            }
+        });
+
+        //action for exit button
+        exitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
+
+        //action for clean button
+        cleanButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mainDisplay.setText("Welcome to Michael Doesn't Do Shit OS \n");
             }
         });
 
