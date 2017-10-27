@@ -96,10 +96,6 @@ public class MainFrame extends JFrame {
             }
         });
 
-        mdScrollPane = new JScrollPane(mainDisplay, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
-                ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-
-        os_display.add(mdScrollPane);
     }
 
     public void runGUI() {
@@ -121,6 +117,9 @@ public class MainFrame extends JFrame {
         JFrame frame = new JFrame("MDS OS");
         frame.setContentPane(new MainFrame().os_display);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        mainDisplay = new JTextPane();
+        mdScrollPane = new JScrollPane(mainDisplay);
+        frame.getContentPane().add(mdScrollPane);
         frame.pack();
         frame.setVisible(true);
         frame.setTitle("OOOOOOS");
