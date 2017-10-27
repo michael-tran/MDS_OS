@@ -18,7 +18,6 @@ public class MainFrame extends JFrame {
     private JTextPane mainDisplay;
     private JTextField inputField;
     private JTextPane monitorDisplay;
-    private JScrollPane mdScrollPane;
     private StyledDocument mddoc = mainDisplay.getStyledDocument();
     private StyledDocument mtdoc = monitorDisplay.getStyledDocument();
     private SimpleAttributeSet keyWord = new SimpleAttributeSet();
@@ -95,7 +94,6 @@ public class MainFrame extends JFrame {
                 parseCommand(input.toLowerCase());
             }
         });
-
     }
 
     public void runGUI() {
@@ -117,9 +115,6 @@ public class MainFrame extends JFrame {
         JFrame frame = new JFrame("MDS OS");
         frame.setContentPane(new MainFrame().os_display);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        mainDisplay = new JTextPane();
-        mdScrollPane = new JScrollPane(mainDisplay);
-        frame.getContentPane().add(mdScrollPane);
         frame.pack();
         frame.setVisible(true);
         frame.setTitle("OOOOOOS");
