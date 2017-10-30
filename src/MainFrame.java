@@ -38,8 +38,8 @@ public class MainFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (count >= 4) {
-                    addText(mainDisplay, mddoc, "\n\n\n\nPlease stop\n\n\n\n");
-                    count=0;
+                    addText(mainDisplay, mddoc, "\n\nPlease stop\n\n");
+                    count = 0;
                 } else {
                     addText(mainDisplay, mddoc, "List of Commands:" +
                             "\n Proc: " +
@@ -64,7 +64,7 @@ public class MainFrame extends JFrame {
         memButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                addText(mainDisplay, mddoc, "TODO: Clears memory");
+                addText(mainDisplay, mddoc, "TODO: Display memory status");
             }
         });
 
@@ -125,7 +125,7 @@ public class MainFrame extends JFrame {
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
-        frame.setTitle("OOOOOOS");
+        frame.setTitle("MDS OS");
         frame.setSize(800, 600);
         frame.setResizable(true);
     }
@@ -155,11 +155,29 @@ public class MainFrame extends JFrame {
         // Parse exe command
         switch (args[0]) {
             case "exe":
-                addText(mainDisplay, mddoc, "Running simulation");
-                return 0;
+                addText(mainDisplay, mddoc, "Implement exe function");
+                return 1;
             case "proc":
-                addText(mainDisplay, mddoc, "Displaying all running processes");
-                return 0;
+                addText(mainDisplay, mddoc, "Implement proc function");
+                return 1;
+            case "help":
+                if (count >= 4) {
+                    addText(mainDisplay, mddoc, "\n\nPlease stop\n\n");
+                    count = 0;
+                } else {
+                    addText(mainDisplay, mddoc, "List of Commands:" +
+                            "\n Proc: " +
+                            "\n Mem: " +
+                            "\n Exe: " +
+                            "\n Load: " +
+                            "\n Reset: ");
+                }
+                count++;
+                return 1;
+            case "reset":
+                addText(mainDisplay, mddoc, "Implement reset function");
+            case "clean":
+                mainDisplay.setText("Welcome to Michael Doesn't Do Shit OS \n");
         }
 
         addText(mainDisplay, mddoc, "Please enter a valid command.");
