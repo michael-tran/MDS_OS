@@ -9,6 +9,7 @@ import java.awt.event.AdjustmentListener;
 public class MainFrame extends JFrame {
     public JPanel os_display;
     private int count;
+    private boolean on = true;
     private JButton exitButton;
     private JButton procButton;
     private JButton cleanButton;
@@ -37,18 +38,20 @@ public class MainFrame extends JFrame {
         helpButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (count >= 4) {
-                    addText(mainDisplay, mddoc, "\n\n\n\nPlease stop\n\n\n\n");
-                    count=0;
-                } else {
-                    addText(mainDisplay, mddoc, "List of Commands:" +
-                            "\n Proc: " +
-                            "\n Mem: " +
-                            "\n Exe: " +
-                            "\n Load: " +
-                            "\n Reset: ");
+                if (on) {
+                    if (count >= 4) {
+                        addText(mainDisplay, mddoc, "\n\n\n\nPlease stop\n\n\n\n");
+                        count = 0;
+                    } else {
+                        addText(mainDisplay, mddoc, "List of Commands:" +
+                                "\n Proc: Shows all unfinished Processes" +
+                                "\n Mem: Shows the current Usage of memory space" +
+                                "\n Exe: Lets the simulation run on its own" +
+                                "\n Load: loads a program" +
+                                "\n Reset: Resets everything");
+                    }
+                    count++;
                 }
-                count++;
             }
         });
 
@@ -73,6 +76,7 @@ public class MainFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 addText(mainDisplay, mddoc, "TODO: RESETS EVERYTHING");
+                on = true;
             }
         });
 
@@ -143,6 +147,8 @@ public class MainFrame extends JFrame {
 
     // Parses user inputs in JTextField
     private int parseCommand(String input) {
+        Commands commands = new Commands();
+
         // Error messages for incomplete commands
         switch (input) {
             case "exe":
@@ -160,8 +166,73 @@ public class MainFrame extends JFrame {
             case "proc":
                 addText(mainDisplay, mddoc, "Displaying all running processes");
                 return 0;
+            case "mem":
+                addText(mainDisplay, mddoc, "Memory");
+                return 0;
+            case "load":
+                if (args.length > 1) {
+                    addText(mainDisplay, mddoc, commands.load(args[1]));
+                } else {
+                    addText(mainDisplay, mddoc, "No arguments");
+                }
+                return 0;
+            case "reset":
+                addText(mainDisplay, mddoc, "Resets");
+                on = true;
+                return 0;
+            case "exit":
+                System.exit(0);
+                return 0;
+            case "help":
+                if (on) {
+                    if (args.length > 1) {
+                        switch (args[1]) {
+                            case "exe":
+                                addText(mainDisplay, mddoc, "\n\nLets the simulation run on its own\n" +
+                                        "load\n");
+                                break;
+                            case "proc":
+                                addText(mainDisplay, mddoc, "\n\nProc: Shows all unfinished Processes\n" +
+                                        "Proc\n");
+                                break;
+                            case "mem":
+                                addText(mainDisplay, mddoc, "\n\nMem: Shows the current Usage of memory space\n" +
+                                        "mem\n");
+                                break;
+                            case "load":
+                                addText(mainDisplay, mddoc, "\n\nLoads a program\n" +
+                                        "load names\n" +
+                                        "names \t The name of the file used to load into the OS");
+                                break;
+                            case "reset":
+                                addText(mainDisplay, mddoc, "\n\nReset: Resets everything\"\n" +
+                                        "reset\n");
+                                break;
+                            case "exit":
+                                System.exit(0);
+                                break;
+                            case "help":
+                                addText(mainDisplay, mddoc, "Disabling help");
+                                on = false;
+                                break;
+                            default:
+                                addText(mainDisplay, mddoc, "Please enter a valid command.");
+                                break;
+                        }
+                    } else {
+                        addText(mainDisplay, mddoc, "List of Commands:" +
+                                "\n Proc: Shows all unfinished Processes" +
+                                "\n Mem: Shows the current Usage of memory space" +
+                                "\n Exe: Lets the simulation run on its own" +
+                                "\n Load: loads a program" +
+                                "\n Reset: Resets everything");
+                    }
+                }
+                return 0;
+            default:
+                addText(mainDisplay, mddoc, "Please enter a valid command.");
+                break;
         }
-
         addText(mainDisplay, mddoc, "Please enter a valid command.");
         return 1;
     }
