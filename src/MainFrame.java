@@ -67,7 +67,7 @@ public class MainFrame extends JFrame {
         memButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                addText(mainDisplay, mddoc, "TODO: Clears memory");
+                addText(mainDisplay, mddoc, "TODO: Display memory status");
             }
         });
 
@@ -129,7 +129,7 @@ public class MainFrame extends JFrame {
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
-        frame.setTitle("OOOOOOS");
+        frame.setTitle("MDS OS");
         frame.setSize(800, 600);
         frame.setResizable(true);
     }
@@ -161,8 +161,8 @@ public class MainFrame extends JFrame {
         // Parse exe command
         switch (args[0]) {
             case "exe":
-                addText(mainDisplay, mddoc, "Running simulation");
-                return 0;
+                addText(mainDisplay, mddoc, "Implement exe function");
+                return 1;
             case "proc":
                 addText(mainDisplay, mddoc, "Displaying all running processes");
                 return 0;
