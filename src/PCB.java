@@ -1,8 +1,8 @@
 public class PCB {
     private String name;
-    private int clockIn, clockOut, breakTime, pid, state, CPU, beginTime, Deadlin;
+    private int clockIn, clockOut, breakTime, pid, state, CPU, beginTime, Deadline;
 
-    public PCB(String name, int clockIn, int clockOut, int breakTime, int pid, int state, int CPU, int beginTime, int deadlin) {
+    public PCB(String name, int clockIn, int clockOut, int breakTime, int pid, int state, int CPU, int beginTime, int deadline) {
         this.name = name;
         this.clockIn = clockIn;
         this.clockOut = clockOut;
@@ -11,7 +11,7 @@ public class PCB {
         this.state = state;
         this.CPU = CPU;
         this.beginTime = beginTime;
-        Deadlin = deadlin;
+        Deadline = deadline;
     }
 
     public String getName() {
@@ -78,11 +78,11 @@ public class PCB {
         this.beginTime = beginTime;
     }
 
-    public int getDeadlin() {
-        return Deadlin;
+    public int getDeadline() {
+        return Deadline;
     }
 
-    public void setDeadlin(int deadlin) {
-        Deadlin = deadlin;
+    public void setDeadline(int deadline) {
+        Deadline = deadline;
     }
 }
