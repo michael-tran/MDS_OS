@@ -4,6 +4,7 @@ import java.util.Scanner;
 public class Commands {
     private Memory memory;
     private Scheduler scheduler;
+    private int processid;
 
     public Commands() {
         memory = null;

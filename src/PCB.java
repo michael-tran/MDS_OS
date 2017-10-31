@@ -1,17 +1,26 @@
 public class PCB {
     private String name;
-    private int clockIn, clockOut, breakTime, pid, state, CPU, beginTime, Deadline;
+    private int clockIn, clockOut, breakTime, pid, state, CPU, beginTime, deadline;
 
-    public PCB(String name, int clockIn, int clockOut, int breakTime, int pid, int state, int CPU, int beginTime, int deadline) {
+    /**
+     * Program file format:
+     * line 1 - name
+     * line 2 - total cycle count
+     * line 3 - burst time
+     * line 4 - mem needs
+     * line 5 - priority, lower number is higher priority
+     * ???
+     */
+    public PCB(String name, int clockIn, int clockOut, int breakTime, int processid, int state, int CPU, int beginTime, int deadline) {
         this.name = name;
         this.clockIn = clockIn;
         this.clockOut = clockOut;
         this.breakTime = breakTime;
-        this.pid = pid;
+        this.pid = processid; //calculated from incrementing int processid from Commands.java
         this.state = state;
         this.CPU = CPU;
         this.beginTime = beginTime;
-        Deadline = deadline;
+        this.deadline = deadline;
     }
 
     public String getName() {
@@ -79,10 +88,10 @@ public class PCB {
     }
 
     public int getDeadline() {
-        return Deadline;
+        return deadline;
     }
 
     public void setDeadline(int deadline) {
-        Deadline = deadline;
+        this.deadline = deadline;
     }
 }
