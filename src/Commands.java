@@ -1,9 +1,6 @@
 import java.io.File;
 import java.util.Scanner;
 
-/**
- * @author Michael Tran
- **/
 public class Commands {
     private Memory memory;
     private Scheduler scheduler;
