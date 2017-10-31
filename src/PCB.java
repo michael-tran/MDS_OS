@@ -1,6 +1,6 @@
 public class PCB {
     private String name;
-    private int clockIn, clockOut, breakTime, pid, state, CPU, beginTime, deadline;
+    private int clockIn, clockOut, breakTime, pid, state, CPU, beginTime, deadline, priority, cycle, burstTime, memory;
 
     /**
      * Program file format:
@@ -97,5 +97,37 @@ public class PCB {
 
     public void setDeadline(int deadline) {
         this.deadline = deadline;
+    }
+
+    public int getPriority() {
+        return priority;
+    }
+
+    public void setPriority(int priority) {
+        this.priority = priority;
+    }
+
+    public int getCycle() {
+        return cycle;
+    }
+
+    public void setCycle(int cycle) {
+        this.cycle = cycle;
+    }
+
+    public int getBurstTime() {
+        return burstTime;
+    }
+
+    public void setBurstTime(int burstTime) {
+        this.burstTime = burstTime;
+    }
+
+    public int getMemory() {
+        return memory;
+    }
+
+    public void setMemory(int memory) {
+        this.memory = memory;
     }
 }

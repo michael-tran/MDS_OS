@@ -7,6 +7,7 @@ import java.awt.event.AdjustmentEvent;
 import java.awt.event.AdjustmentListener;
 
 public class MainFrame extends JFrame {
+    private Commands commands = new Commands();
     public JPanel os_display;
     private int count;
     private boolean on = true;
@@ -129,7 +130,7 @@ public class MainFrame extends JFrame {
 
     // Parses user inputs in JTextField
     private int parseCommand(String input) {
-        Commands commands = new Commands();
+
 
         // Error messages for incomplete commands
         switch (input) {
