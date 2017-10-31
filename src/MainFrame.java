@@ -56,55 +56,37 @@ public class MainFrame extends JFrame {
         });
 
         //action for Proc button
-        procButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                addText(mainDisplay, mddoc, "TODO: Displaying all running processes");
-            }
+        procButton.addActionListener((e) -> {
+            addText(mainDisplay, mddoc, "TODO: Displaying all running processes");
         });
 
         //action for mem button
-        memButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                addText(mainDisplay, mddoc, "TODO: Display memory status");
-            }
+        memButton.addActionListener((e) -> {
+            addText(mainDisplay, mddoc, "TODO: Display memory status");
         });
 
         //action for reset button
-        resetButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                addText(mainDisplay, mddoc, "TODO: RESETS EVERYTHING");
-                on = true;
-            }
+        resetButton.addActionListener((e) -> {
+            addText(mainDisplay, mddoc, "TODO: RESETS EVERYTHING");
+            on = true;
         });
 
         //action for exit button
-        exitButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.exit(0);
-            }
+        exitButton.addActionListener((e) -> {
+            System.exit(0);
         });
 
         //action for clean button
-        cleanButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                mainDisplay.setText("Welcome to Michael Doesn't Do Shit OS \n");
-            }
+        cleanButton.addActionListener((e) -> {
+            mainDisplay.setText("Welcome to Michael Doesn't Do Shit OS \n");
         });
 
         //input text box
-        inputField.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String input = e.getActionCommand();
-                inputField.setText("");
-                addText(mainDisplay, mddoc, input);
-                parseCommand(input.toLowerCase());
-            }
+        inputField.addActionListener((e) -> {
+            String input = e.getActionCommand();
+            inputField.setText("");
+            addText(mainDisplay, mddoc, input);
+            parseCommand(input.toLowerCase());
         });
     }
 
@@ -231,9 +213,7 @@ public class MainFrame extends JFrame {
                 return 0;
             default:
                 addText(mainDisplay, mddoc, "Please enter a valid command.");
-                break;
+                return 0;
         }
-        addText(mainDisplay, mddoc, "Please enter a valid command.");
-        return 1;
     }
 }
