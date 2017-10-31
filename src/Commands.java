@@ -1,26 +1,28 @@
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class Commands {
     private Memory memory;
     private Scheduler scheduler;
     private int processid;
+    private
 
     public Commands() {
         memory = null;
         scheduler = null;
     }
 
-    public String load(String input) {
-        String file_content = "";
+    public void load(String input) {
+        File file = new File("pornhub.txt");
         try {
-            Scanner in = new Scanner(new File(input));
-            while (in.hasNextLine()) {
-                file_content += in.nextLine() + "\n";
-            }
-        } catch (Exception e) {
-            System.out.println(e);
+            Scanner in = new Scanner(file);
+            PCB in.nextLine() =
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         }
-        return file_content;
+
+        // Pass into PCB
+
     }
 }

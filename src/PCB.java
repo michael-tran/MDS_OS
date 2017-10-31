@@ -23,6 +23,10 @@ public class PCB {
         this.deadline = deadline;
     }
 
+    public PCB() {
+
+    }
+
     public String getName() {
         return name;
     }
