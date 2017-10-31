@@ -19,10 +19,8 @@ public class Commands {
         try {
             Scanner in = new Scanner(file);
             PCB process = new PCB();
-            process.setName(in.nextLine());
             process.setPid(processid++);
-            process.setCycle(in.nextInt());
-            process.setBurstTime(in.nextInt());
+            process.setState(0);
             process.setMemory(in.nextInt());
             PCBs.add(process);
             System.out.println(PCBs);

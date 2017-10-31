@@ -8,7 +8,9 @@ public class Memory {
     }
 
     public void allocateMemory(int mem) {
-        memory =+ mem;
+        if (remainingMemory() > mem){
+            memory =+ mem;
+        }
     }
 
     public void resetMemory() {
@@ -27,3 +29,5 @@ public class Memory {
         return MAX_RAM - memory;
     }
 }
+
+//Counter for PCB and make process memory usage never goes above MAX

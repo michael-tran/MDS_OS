@@ -4,12 +4,11 @@ public class PCB {
 
     /**
      * Program file format:
-     * line 1 - name
-     * line 2 - total cycle count
-     * line 3 - burst time
-     * line 4 - mem needs
-     * line 5 - priority, lower number is higher priority
-     * ???
+     * line 1 - memory
+     * line 2 - Calculate I
+     * line 3 I/O
+     * line 4 Yield
+     * line 5 Out
      */
     public PCB(String name, int clockIn, int clockOut, int breakTime, int processid, int state, int CPU, int beginTime, int deadline) {
         this.name = name;
@@ -72,6 +71,11 @@ public class PCB {
     }
 
     public void setState(int state) {
+        //0 new
+        //1 ready
+        //2 running
+        //3 waiting
+        //4 Terminated
         this.state = state;
     }
 
