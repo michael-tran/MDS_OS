@@ -22,4 +22,8 @@ public class Memory {
     public void setMemory(int memory) {
         this.memory = memory;
     }
+
+    public int remainingMemory(){
+        return MAX_RAM - memory;
+    }
 }
