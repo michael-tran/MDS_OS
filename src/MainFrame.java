@@ -7,7 +7,7 @@ import java.awt.event.AdjustmentEvent;
 import java.awt.event.AdjustmentListener;
 
 public class MainFrame extends JFrame {
-    private Commands commands = new Commands();
+    private Computer computer = new Computer();
     public JPanel os_display;
     private int count;
     private boolean on = true;
@@ -68,7 +68,8 @@ public class MainFrame extends JFrame {
 
         //action for reset button
         resetButton.addActionListener((e) -> {
-            addText(mainDisplay, mddoc, "TODO: RESETS EVERYTHING");
+            mainDisplay.setText("System resetting...\n");
+            computer = new Computer();
             on = true;
         });
 
@@ -130,37 +131,33 @@ public class MainFrame extends JFrame {
 
     // Parses user inputs in JTextField
     private int parseCommand(String input) {
-
-
-        // Error messages for incomplete commands
-        switch (input) {
-            case "exe":
-                addText(mainDisplay, mddoc, "Missing arguments");
-                return 0;
-        }
-
         String[] args = input.split(" ");
 
         // Parse exe command
         switch (args[0]) {
             case "exe":
-                addText(mainDisplay, mddoc, "Implement exe function");
-                return 1;
+                if (args.length > 1) {
+                    addText(mainDisplay, mddoc, "Implement exe function");
+                    return 1;
+                } else {
+                    addText(mainDisplay, mddoc, "No arguments");
+                }
             case "proc":
                 addText(mainDisplay, mddoc, "Displaying all running processes");
                 return 0;
             case "mem":
-                addText(mainDisplay, mddoc, "Memory");
+                addText(mainDisplay, mddoc, "Displaying memory info");
                 return 0;
             case "load":
                 if (args.length > 1) {
-                    addText(mainDisplay, mddoc, commands.load(args[1]));
+                    addText(mainDisplay, mddoc, computer.load(args[1]));
                 } else {
                     addText(mainDisplay, mddoc, "No arguments");
                 }
                 return 0;
             case "reset":
-                addText(mainDisplay, mddoc, "Resets");
+                mainDisplay.setText("System resetting...");
+                computer = new Computer();
                 on = true;
                 return 0;
             case "exit":

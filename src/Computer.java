@@ -3,15 +3,15 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Commands {
-    private Memory memory;
-    private Scheduler scheduler;
+public class Computer {
+    Clock clock = new Clock();
+    CPU cpu = new CPU();
+    Memory mem = new Memory();
+    Scheduler rrScheduler = new Scheduler();
     private int processid = 0;
     private ArrayList<PCB> PCBs = new ArrayList<PCB>();
 
-    public Commands() {
-        memory = null;
-        scheduler = null;
+    public Computer() {
     }
 
     public String load(String input) {
@@ -31,4 +31,13 @@ public class Commands {
         // Pass into PCB
 
     }
+
+    public void exe(int n) {
+
+    }
+
+    public void mem() {
+        mem.toString();
+    }
+
 }

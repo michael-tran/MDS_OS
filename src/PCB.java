@@ -3,6 +3,15 @@ public class PCB {
     private int clockIn, clockOut, breakTime, pid, state, CPU, beginTime, deadline, priority, cycle, burstTime, memory;
 
     /**
+     * process state:
+     * 0 NEW
+     * 1 READY
+     * 2 RUN
+     * 3 WAIT/BLOCKED
+     * 4 EXIT
+     */
+
+    /**
      * Program file format:
      * line 1 - memory
      * line 2 - Calculate I
@@ -15,7 +24,7 @@ public class PCB {
         this.clockIn = clockIn;
         this.clockOut = clockOut;
         this.breakTime = breakTime;
-        this.pid = processid; //calculated from incrementing int processid from Commands.java
+        this.pid = processid; //calculated from incrementing int processid from Computer.java
         this.state = state;
         this.CPU = CPU;
         this.beginTime = beginTime;
