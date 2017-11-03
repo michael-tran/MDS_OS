@@ -3,8 +3,8 @@ import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyledDocument;
 
 public class MainFrame extends JFrame {
-    private Computer computer = new Computer();
     public JPanel os_display;
+    private Computer computer = new Computer();
     private int count;
     private boolean on = true;
     private JButton exitButton;
@@ -30,34 +30,34 @@ public class MainFrame extends JFrame {
                 "We may not need to do this in literal real time. The description made it sound like we can just " +
                 "update this screen when the CPU processes one cycle");
 
-        ///List of buttons
-        //action for help button
-        helpButton.addActionListener((e) ->  {
-                if (on) {
-                    if (count >= 4) {
-                        addText(mainDisplay, mddoc, "\n\n\n\nPlease stop\n\n\n\n");
-                        count = 0;
-                    } else {
-                        addText(mainDisplay, mddoc, "List of Commands:" +
-                                "\n Proc: Shows all unfinished Processes" +
-                                "\n Mem: Shows the current Usage of memory space" +
-                                "\n Exe: Lets the simulation run on its own" +
-                                "\n Load: loads a program" +
-                                "\n Reset: Resets everything");
-                    }
-                    count++;
+        // List of buttons
+        // action for help button
+        helpButton.addActionListener((e) -> {
+            if (on) {
+                if (count >= 4) {
+                    addText(mainDisplay, mddoc, "\n\n\n\nPlease stop\n\n\n\n");
+                    count = 0;
+                } else {
+                    addText(mainDisplay, mddoc, "List of Commands:" +
+                            "\n Proc: Shows all unfinished Processes" +
+                            "\n Mem: Shows the current Usage of memory space" +
+                            "\n Exe: Lets the simulation run on its own" +
+                            "\n Load: loads a program" +
+                            "\n Reset: Resets everything");
                 }
+                count++;
+            }
 
         });
 
         //action for Proc button
         procButton.addActionListener((e) -> {
-            addText(mainDisplay, mddoc, "TODO: Displaying all running processes");
+            addText(mainDisplay, mddoc, computer.proc());
         });
 
         //action for mem button
         memButton.addActionListener((e) -> {
-            addText(mainDisplay, mddoc, "TODO: Display memory status");
+            addText(mainDisplay, mddoc, computer.mem());
         });
 
         //action for reset button
@@ -136,20 +136,22 @@ public class MainFrame extends JFrame {
                     return 1;
                 } else {
                     addText(mainDisplay, mddoc, "No arguments");
+                    return 0;
                 }
             case "proc":
-                addText(mainDisplay, mddoc, "Displaying all running processes");
-                return 0;
+                addText(mainDisplay, mddoc, computer.proc());
+                return 1;
             case "mem":
-                addText(mainDisplay, mddoc, "Displaying memory info");
-                return 0;
+                addText(mainDisplay, mddoc, computer.mem());
+                return 1;
             case "load":
                 if (args.length > 1) {
                     addText(mainDisplay, mddoc, computer.load(args[1]));
+                    return 1;
                 } else {
                     addText(mainDisplay, mddoc, "No arguments");
+                    return 0;
                 }
-                return 0;
             case "reset":
                 mainDisplay.setText("System resetting...\n");
                 computer = new Computer();

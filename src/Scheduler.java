@@ -1,18 +1,20 @@
-import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.PriorityQueue;
 
 public class Scheduler {
-    private ArrayList<PCB> PCBs;
+    private final int QUANTUM = 15;
+    private PriorityQueue<PCB> PCBs;
 
     public Scheduler() {
-        this.PCBs = new ArrayList<PCB>();
+        this.PCBs = new PriorityQueue<PCB>();
     }
 
-    public ArrayList<PCB> getPCBs() {
+    public PriorityQueue<PCB> getPCBs() {
         return PCBs;
     }
 
     public void addPCB(PCB pcb) {
-        this.PCBs.add(pcb);
+        PCBs.add(pcb);
     }
 
     @Override
@@ -20,6 +22,19 @@ public class Scheduler {
         return "Scheduler{" +
                 "PCBs=" + PCBs +
                 '}';
+    }
+
+    public String displayProcesses() {
+        Iterator it = PCBs.iterator();
+        String output = "";
+        if (PCBs.isEmpty()) {
+            return "No processes loaded";
+        } else {
+            while (it.hasNext()) {
+                output = output + it.next().toString();
+            }
+            return "Displaying all processes:\n" + output;
+        }
     }
 }
 //Round Robin

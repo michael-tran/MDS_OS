@@ -1,6 +1,6 @@
 public class PCB {
     private String name;
-    private int clockIn, clockOut, breakTime, pid, state, CPU, beginTime, deadline, priority, cycle, burstTime, memory;
+    private int clockIn, clockOut, breakTime, pid, state, CPU, beginTime, deadline, priority, cycle, burstCycle, memoryRequirement;
 
     /**
      * process state:
@@ -13,7 +13,7 @@ public class PCB {
 
     /**
      * Program file format:
-     * line 1 - memory
+     * line 1 - memory requirements
      * line 2 - Calculate
      * line 3 - I/O
      * line 4 - Yield
@@ -33,6 +33,16 @@ public class PCB {
 
     public PCB() {
 
+    }
+
+    // USING THIS ONE RIGHT NOW FOR TESTING
+    public PCB(String name, int processid, int memoryRequirement, int burstCycle, int priority) {
+        this.name = name;
+        this.pid = processid;
+        this.memoryRequirement = memoryRequirement;
+        this.burstCycle = burstCycle;
+        this.priority = priority;
+        this.state = 0;
     }
 
     public String getName() {
@@ -79,7 +89,9 @@ public class PCB {
         return state;
     }
 
-    public void setState(int state) { this.state = state; }
+    public void setState(int state) {
+        this.state = state;
+    }
 
     public int getCPU() {
         return CPU;
@@ -121,38 +133,42 @@ public class PCB {
         this.cycle = cycle;
     }
 
-    public int getBurstTime() {
-        return burstTime;
+    public int getBurstCycle() {
+        return burstCycle;
     }
 
-    public void setBurstTime(int burstTime) {
-        this.burstTime = burstTime;
+    public void setBurstCycle(int burstCycle) {
+        this.burstCycle = burstCycle;
     }
 
-    public int getMemory() {
-        return memory;
+    public int getMemoryRequirement() {
+        return memoryRequirement;
     }
 
-    public void setMemory(int memory) {
-        this.memory = memory;
+    public void setMemoryRequirement(int memoryRequirement) {
+        this.memoryRequirement = memoryRequirement;
+    }
+
+    public String getStateName() {
+        switch (state) {
+            case 0: return "NEW";
+            case 1: return "READY";
+            case 2: return "RUNNING";
+            case 3: return "WAITING/BLOCKED";
+            case 4: return "TERMINATED";
+            default: return "You shouldn't see this";
+        }
     }
 
     @Override
     public String toString() {
         return "PCB{" +
                 "name='" + name + '\'' +
-                ", clockIn=" + clockIn +
-                ", clockOut=" + clockOut +
-                ", breakTime=" + breakTime +
                 ", pid=" + pid +
-                ", state=" + state +
-                ", CPU=" + CPU +
-                ", beginTime=" + beginTime +
-                ", deadline=" + deadline +
+                ", state=" + getStateName() +
                 ", priority=" + priority +
-                ", cycle=" + cycle +
-                ", burstTime=" + burstTime +
-                ", memory=" + memory +
+                ", burstCycle=" + burstCycle +
+                ", memoryRequirement=" + memoryRequirement +
                 '}';
     }
 }

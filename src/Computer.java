@@ -5,38 +5,46 @@ import java.util.Scanner;
 
 public class Computer {
     CPU cpu = new CPU();
-    Memory memory = new Memory();
+    MainMemory memory = new MainMemory();
     Scheduler rrScheduler = new Scheduler();
-
+    Dispatcher swag = new Dispatcher(cpu, memory);
     private int processid = 0;
-    private ArrayList<PCB> PCBs = new ArrayList<PCB>();
 
     public Computer() {
     }
 
+    // List of OS Commands below: load, exe, mem, proc
+
     public String load(String input) {
-        File file = new File(input);
+        File file = new File(input + ".txt");
+        String name;
+        int memoryRequirement;
+        int burstCycle;
+        int priority;
         try {
             Scanner in = new Scanner(file);
-            PCB process = new PCB();
-            process.setPid(processid++);
-            process.setState(0);
-            process.setMemory(in.nextInt());
-            PCBs.add(process);
-            System.out.println(PCBs);
+            name = in.nextLine();
+            memoryRequirement = in.nextInt();
+            burstCycle = in.nextInt();
+            priority = in.nextInt();
         } catch (FileNotFoundException e) {
             return "File not found";
         }
-        return "0";
-        // Pass into PCB
+        PCB newProcess = new PCB(name, processid, memoryRequirement, burstCycle, priority);
+        rrScheduler.addPCB(newProcess);
+        return "Program " + name + " successfully loaded.";
     }
 
     public void exe(int n) {
 
     }
 
-    public void mem() {
-        memory.toString();
+    public String mem() {
+        return memory.toString();
+    }
+
+    public String proc() {
+        return rrScheduler.displayProcesses();
     }
 
 }
