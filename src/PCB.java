@@ -14,10 +14,10 @@ public class PCB {
     /**
      * Program file format:
      * line 1 - memory
-     * line 2 - Calculate I
-     * line 3 I/O
-     * line 4 Yield
-     * line 5 Out
+     * line 2 - Calculate
+     * line 3 - I/O
+     * line 4 - Yield
+     * line 5 - Out
      */
     public PCB(String name, int clockIn, int clockOut, int breakTime, int processid, int state, int CPU, int beginTime, int deadline) {
         this.name = name;
@@ -142,5 +142,24 @@ public class PCB {
 
     public void setMemory(int memory) {
         this.memory = memory;
+    }
+
+    @Override
+    public String toString() {
+        return "PCB{" +
+                "name='" + name + '\'' +
+                ", clockIn=" + clockIn +
+                ", clockOut=" + clockOut +
+                ", breakTime=" + breakTime +
+                ", pid=" + pid +
+                ", state=" + state +
+                ", CPU=" + CPU +
+                ", beginTime=" + beginTime +
+                ", deadline=" + deadline +
+                ", priority=" + priority +
+                ", cycle=" + cycle +
+                ", burstTime=" + burstTime +
+                ", memory=" + memory +
+                '}';
     }
 }

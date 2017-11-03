@@ -4,14 +4,13 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Computer {
-    Clock clock = new Clock();
-    CPU cpu = new CPU();
-    Memory mem = new Memory();
-    Scheduler rrScheduler = new Scheduler();
+    private Memory memory;
+    private Scheduler scheduler;
     private int processid = 0;
-    private ArrayList<PCB> PCBs = new ArrayList<PCB>();
 
     public Computer() {
+        memory = null;
+        scheduler = new Scheduler();
     }
 
     public String load(String input) {
@@ -22,8 +21,8 @@ public class Computer {
             process.setPid(processid++);
             process.setState(0);
             process.setMemory(in.nextInt());
-            PCBs.add(process);
-            System.out.println(PCBs);
+            scheduler.addPCB(process);
+            System.out.println(scheduler);
         } catch (FileNotFoundException e) {
             return "File not found";
         }
@@ -31,13 +30,4 @@ public class Computer {
         // Pass into PCB
 
     }
-
-    public void exe(int n) {
-
-    }
-
-    public void mem() {
-        mem.toString();
-    }
-
 }
