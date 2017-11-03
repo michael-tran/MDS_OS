@@ -28,6 +28,8 @@ public class Memory {
     public int remainingMemory(){
         return MAX_RAM - memory;
     }
+
+
 }
 
 //Counter for PCB and make process memory usage never goes above MAX

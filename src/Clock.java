@@ -21,4 +21,5 @@ public class Clock {
     public void reset() {
         clockCycle = 0;
     }
+
 }

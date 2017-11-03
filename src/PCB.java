@@ -79,14 +79,7 @@ public class PCB {
         return state;
     }
 
-    public void setState(int state) {
-        //0 new
-        //1 ready
-        //2 running
-        //3 waiting
-        //4 Terminated
-        this.state = state;
-    }
+    public void setState(int state) { this.state = state; }
 
     public int getCPU() {
         return CPU;

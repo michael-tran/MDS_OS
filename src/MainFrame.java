@@ -1,10 +1,6 @@
 import javax.swing.*;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyledDocument;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.AdjustmentEvent;
-import java.awt.event.AdjustmentListener;
 
 public class MainFrame extends JFrame {
     private Computer computer = new Computer();
@@ -36,9 +32,7 @@ public class MainFrame extends JFrame {
 
         ///List of buttons
         //action for help button
-        helpButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        helpButton.addActionListener((e) ->  {
                 if (on) {
                     if (count >= 4) {
                         addText(mainDisplay, mddoc, "\n\n\n\nPlease stop\n\n\n\n");
@@ -53,7 +47,7 @@ public class MainFrame extends JFrame {
                     }
                     count++;
                 }
-            }
+
         });
 
         //action for Proc button
@@ -92,6 +86,7 @@ public class MainFrame extends JFrame {
         });
     }
 
+    // Initializes GUI
     public void runGUI() {
 
         // Changes UI appearance to not ugly
@@ -156,7 +151,7 @@ public class MainFrame extends JFrame {
                 }
                 return 0;
             case "reset":
-                mainDisplay.setText("System resetting...");
+                mainDisplay.setText("System resetting...\n");
                 computer = new Computer();
                 on = true;
                 return 0;
