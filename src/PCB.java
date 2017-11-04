@@ -1,6 +1,16 @@
-public class PCB implements Comparable<PCB>{
+public class PCB implements Comparable<PCB> {
     private String name;
-    private int clockIn, clockOut, breakTime, pid, state, CPU, beginTime, deadline, priority, cycle, burstCycle, memoryRequirement;
+    private int clockIn;
+    private int clockOut;
+    private int breakTime;
+    private int pid;
+    private int state;
+    private int ioCycle;
+    private int yieldCycle;
+    private int priority;
+    private int totalCycleCount;
+    private int burstCycle;
+    private int memoryRequirement;
 
     /**
      * process state:
@@ -13,36 +23,25 @@ public class PCB implements Comparable<PCB>{
 
     /**
      * Program file format:
+     * line 0 - name
      * line 1 - memory requirements
-     * line 2 - Calculate
-     * line 3 - I/O
-     * line 4 - Yield
-     * line 5 - Out
+     * line 2 - burstCycle
+     * line 3 - priority
+     * line 4 - totalCycle
+     * line 5 - ioCycle
+     * line 6 - yieldCycle
      */
-    public PCB(String name, int clockIn, int clockOut, int breakTime, int processid, int state, int CPU, int beginTime, int deadline) {
-        this.name = name;
-        this.clockIn = clockIn;
-        this.clockOut = clockOut;
-        this.breakTime = breakTime;
-        this.pid = processid; //calculated from incrementing int processid from Computer.java
-        this.state = state;
-        this.CPU = CPU;
-        this.beginTime = beginTime;
-        this.deadline = deadline;
-    }
-
-    public PCB() {
-
-    }
-
-    // USING THIS ONE RIGHT NOW FOR TESTING
-    public PCB(String name, int processid, int memoryRequirement, int burstCycle, int priority) {
+    public PCB(String name, int processid, int memoryRequirement, int burstCycle, int priority, int totalCycleCount,
+               int ioCycle, int yieldCycle) {
         this.name = name;
         this.pid = processid;
         this.memoryRequirement = memoryRequirement;
         this.burstCycle = burstCycle;
         this.priority = priority;
         this.state = 0;
+        this.totalCycleCount = totalCycleCount;
+        this.ioCycle = ioCycle;
+        this.yieldCycle = yieldCycle;
     }
 
     @Override
@@ -94,32 +93,24 @@ public class PCB implements Comparable<PCB>{
         return state;
     }
 
+    public int getIoCycle() {
+        return ioCycle;
+    }
+
+    public void setIoCycle(int ioCycle) {
+        this.ioCycle = ioCycle;
+    }
+
+    public int getYieldCycle() {
+        return yieldCycle;
+    }
+
+    public void setYieldCycle(int yieldCycle) {
+        this.yieldCycle = yieldCycle;
+    }
+
     public void setState(int state) {
         this.state = state;
-    }
-
-    public int getCPU() {
-        return CPU;
-    }
-
-    public void setCPU(int CPU) {
-        this.CPU = CPU;
-    }
-
-    public int getBeginTime() {
-        return beginTime;
-    }
-
-    public void setBeginTime(int beginTime) {
-        this.beginTime = beginTime;
-    }
-
-    public int getDeadline() {
-        return deadline;
-    }
-
-    public void setDeadline(int deadline) {
-        this.deadline = deadline;
     }
 
     public int getPriority() {
@@ -130,12 +121,12 @@ public class PCB implements Comparable<PCB>{
         this.priority = priority;
     }
 
-    public int getCycle() {
-        return cycle;
+    public int getTotalCycleCount() {
+        return totalCycleCount;
     }
 
-    public void setCycle(int cycle) {
-        this.cycle = cycle;
+    public void setTotalCycleCount(int totalCycleCount) {
+        this.totalCycleCount = totalCycleCount;
     }
 
     public int getBurstCycle() {
@@ -156,12 +147,18 @@ public class PCB implements Comparable<PCB>{
 
     public String getStateName() {
         switch (state) {
-            case 0: return "NEW";
-            case 1: return "READY";
-            case 2: return "RUNNING";
-            case 3: return "WAITING/BLOCKED";
-            case 4: return "TERMINATED";
-            default: return "You shouldn't see this";
+            case 0:
+                return "NEW";
+            case 1:
+                return "READY";
+            case 2:
+                return "RUNNING";
+            case 3:
+                return "WAITING/BLOCKED";
+            case 4:
+                return "TERMINATED";
+            default:
+                return "You shouldn't see this";
         }
     }
 

@@ -7,10 +7,15 @@ public class MainMemory {
         this.currentMemory = 0;
     }
 
-    public void allocateMemory(int mem) {
+    public boolean allocateMemory(int mem) {
         if (remainingMemory() > mem) {
-            currentMemory = currentMemory+mem;
-        }
+            currentMemory = currentMemory + mem;
+            return true;
+        } else return false;
+    }
+
+    public void deallocateMemory(int mem) {
+        currentMemory = currentMemory - mem;
     }
 
     public int getCurrentMemory() {

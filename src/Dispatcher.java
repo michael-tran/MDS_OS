@@ -24,9 +24,39 @@ public class Dispatcher {
             return "No processes loaded";
         } else {
             while (it.hasNext()) {
-                it.next().toString();
+                output = output + it.next().toString();
             }
             return "Displaying all processes:\n" + output;
+        }
+    }
+
+    public void dispatch(PCB process) {
+        switch (process.getState()) {
+            // NEW
+            case 0:
+                if(memory.allocateMemory(process.getMemoryRequirement())) {
+                    // adds to waiting queue?
+                } else {
+                    process.setPriority(process.getPriority() - 1);
+                };
+                break;
+
+            // READY
+            case 1:
+                break;
+
+            // RUNNING
+            case 2:
+                break;
+
+            // WAITING/BLOCKED
+            case 3:
+                break;
+
+            // TERMINATING
+            case 4:
+                memory.deallocateMemory(process.getMemoryRequirement());
+                break;
         }
     }
 }

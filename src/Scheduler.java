@@ -15,10 +15,6 @@ public class Scheduler {
         return PCBs;
     }
 
-    public void addPCB(PCB process) {
-        memory.allocateMemory(process.getMemoryRequirement());
-        PCBs.add(process);
-    }
 
     @Override
     public String toString() {
@@ -27,16 +23,5 @@ public class Scheduler {
                 '}';
     }
 
-    public String displayProcesses() {
-        Iterator it = PCBs.iterator();
-        String output = "";
-        if (PCBs.isEmpty()) {
-            return "No processes loaded";
-        } else {
-            while (it.hasNext()) {
-                output = output + it.next().toString();
-            }
-            return "Displaying all processes:\n" + output;
-        }
-    }
+
 }

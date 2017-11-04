@@ -1,13 +1,12 @@
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Computer {
     CPU cpu = new CPU();
     MainMemory memory = new MainMemory();
     Scheduler rrScheduler = new Scheduler(memory);
-    Dispatcher swag = new Dispatcher(cpu, memory);
+    Dispatcher dispatcher = new Dispatcher(cpu, memory);
     private int processid = 0;
 
     public Computer() {
@@ -18,20 +17,22 @@ public class Computer {
     public String load(String input) {
         File file = new File(input + ".txt");
         String name;
-        int memoryRequirement;
-        int burstCycle;
-        int priority;
+        int memoryRequirement, burstCycle, priority, totalCycleCount, ioCycle, yieldCycle;
         try {
             Scanner in = new Scanner(file);
             name = in.nextLine();
             memoryRequirement = in.nextInt();
             burstCycle = in.nextInt();
             priority = in.nextInt();
+            totalCycleCount = in.nextInt();
+            ioCycle = in.nextInt();
+            yieldCycle = in.nextInt();
         } catch (FileNotFoundException e) {
             return "File not found";
         }
-        PCB newProcess = new PCB(name, processid, memoryRequirement, burstCycle, priority);
-        rrScheduler.addPCB(newProcess);
+        PCB newProcess = new PCB(name, processid, memoryRequirement, burstCycle, priority, totalCycleCount,
+                ioCycle, yieldCycle);
+        dispatcher.addProcess(newProcess);
         processid++;
         return "Program " + name + " successfully loaded.";
     }
@@ -45,7 +46,7 @@ public class Computer {
     }
 
     public String proc() {
-        return rrScheduler.displayProcesses();
+        return dispatcher.displayProcesses();
     }
 
 }
