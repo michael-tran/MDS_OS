@@ -33,11 +33,11 @@ public class Dispatcher {
             // NEW
             case 0:
                 if(memory.allocateMemory(process.getMemoryRequirement())) {
-                    processes.add(process);
                     process.setState(1);
-                    // adds to waiting queue?
+                    processes.add(process);
                 } else {
                     process.setPriority(process.getPriority() - 1);
+                    // add to whatever queue
                 };
                 break;
 
