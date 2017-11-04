@@ -13,8 +13,6 @@ public class Dispatcher {
     }
 
     public void addProcess(PCB process) {
-        memory.allocateMemory(process.getMemoryRequirement());
-        processes.add(process);
     }
 
     public String displayProcesses() {
@@ -35,6 +33,8 @@ public class Dispatcher {
             // NEW
             case 0:
                 if(memory.allocateMemory(process.getMemoryRequirement())) {
+                    processes.add(process);
+                    process.setState(1);
                     // adds to waiting queue?
                 } else {
                     process.setPriority(process.getPriority() - 1);

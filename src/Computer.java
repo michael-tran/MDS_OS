@@ -32,7 +32,7 @@ public class Computer {
         }
         PCB newProcess = new PCB(name, processid, memoryRequirement, burstCycle, priority, totalCycleCount,
                 ioCycle, yieldCycle);
-        dispatcher.addProcess(newProcess);
+        dispatcher.dispatch(newProcess);
         processid++;
         return "Program " + name + " successfully loaded.";
     }
