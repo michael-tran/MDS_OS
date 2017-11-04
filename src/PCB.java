@@ -1,4 +1,4 @@
-public class PCB {
+public class PCB implements Comparable<PCB>{
     private String name;
     private int clockIn, clockOut, breakTime, pid, state, CPU, beginTime, deadline, priority, cycle, burstCycle, memoryRequirement;
 
@@ -43,6 +43,11 @@ public class PCB {
         this.burstCycle = burstCycle;
         this.priority = priority;
         this.state = 0;
+    }
+
+    @Override
+    public int compareTo(PCB process) {
+        return priority - process.priority;
     }
 
     public String getName() {
