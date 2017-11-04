@@ -1,6 +1,7 @@
 import javax.swing.*;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyledDocument;
+import java.awt.*;
 
 public class MainFrame extends JFrame {
     public JPanel os_display;
@@ -102,6 +103,13 @@ public class MainFrame extends JFrame {
             // handle exception
         }
 
+        // get the screen size as a java dimension
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+
+        // get 2/3 of the height, and 2/3 of the width
+        int height = screenSize.height * 2 / 3;
+        int width = screenSize.width * 2 / 3;
+
         // UI Initialize
         JFrame frame = new JFrame("MDS OS");
         frame.setContentPane(new MainFrame().os_display);
@@ -109,7 +117,7 @@ public class MainFrame extends JFrame {
         frame.pack();
         frame.setVisible(true);
         frame.setTitle("MDS OS");
-        frame.setSize(800, 600);
+        frame.setSize(width, height);
         frame.setResizable(true);
     }
 
@@ -179,7 +187,8 @@ public class MainFrame extends JFrame {
                             case "load":
                                 addText(mainDisplay, mddoc, "\n\nLoads a program\n" +
                                         "load names\n" +
-                                        "names \t The name of the file used to load into the OS");
+                                        "names \t The name of the file used to load into the OS\n" +
+                                        "Example: Load Test");
                                 break;
                             case "reset":
                                 addText(mainDisplay, mddoc, "\n\nReset: Resets everything\"\n" +
