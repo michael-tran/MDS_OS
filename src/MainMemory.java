@@ -9,12 +9,8 @@ public class MainMemory {
 
     public void allocateMemory(int mem) {
         if (remainingMemory() > mem) {
-            currentMemory = +mem;
+            currentMemory = currentMemory+mem;
         }
-    }
-
-    public void resetMemory() {
-        currentMemory = 0;
     }
 
     public int getCurrentMemory() {

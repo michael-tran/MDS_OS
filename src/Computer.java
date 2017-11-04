@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class Computer {
     CPU cpu = new CPU();
     MainMemory memory = new MainMemory();
-    Scheduler rrScheduler = new Scheduler();
+    Scheduler rrScheduler = new Scheduler(memory);
     Dispatcher swag = new Dispatcher(cpu, memory);
     private int processid = 0;
 
@@ -32,6 +32,7 @@ public class Computer {
         }
         PCB newProcess = new PCB(name, processid, memoryRequirement, burstCycle, priority);
         rrScheduler.addPCB(newProcess);
+        processid++;
         return "Program " + name + " successfully loaded.";
     }
 

@@ -4,7 +4,7 @@ import javax.swing.text.StyledDocument;
 import java.awt.*;
 
 public class MainFrame extends JFrame {
-    public JPanel os_display;
+    private JPanel os_display;
     private Computer computer = new Computer();
     private int count;
     private boolean on = true;
@@ -107,8 +107,8 @@ public class MainFrame extends JFrame {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
         // get 2/3 of the height, and 2/3 of the width
-        int height = screenSize.height * 2 / 3;
-        int width = screenSize.width * 2 / 3;
+        int height = screenSize.height * 1 / 2;
+        int width = screenSize.width * 1 / 2;
 
         // UI Initialize
         JFrame frame = new JFrame("MDS OS");

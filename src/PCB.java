@@ -174,6 +174,6 @@ public class PCB implements Comparable<PCB>{
                 ", priority=" + priority +
                 ", burstCycle=" + burstCycle +
                 ", memoryRequirement=" + memoryRequirement +
-                '}';
+                "}\n";
     }
 }
