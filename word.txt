@@ -2,3 +2,6 @@ word_processor
 100
 11
 2
+50
+7
+20

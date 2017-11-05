@@ -8,4 +8,8 @@ public class CPU {
     public Clock getTicktock() {
         return ticktock;
     }
+
+    public void startProcess(PCB pcb){
+
+    }
 }

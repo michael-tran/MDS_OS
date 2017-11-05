@@ -38,7 +38,7 @@ public class Computer {
     }
 
     public void exe(int n) {
-
+        dispatcher.start();
     }
 
     public String mem() {

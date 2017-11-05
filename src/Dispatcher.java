@@ -4,27 +4,28 @@ import java.util.PriorityQueue;
 public class Dispatcher {
     private CPU cpu;
     private MainMemory memory;
-    private PriorityQueue<PCB> processes; // All new processes go here
+    private PriorityQueue<PCB> readyProcesses; // All new readyProcesses go here
+    private PriorityQueue<PCB> otherProcesses; // All new readyProcesses go here
 
     public Dispatcher(CPU cpu, MainMemory memory) {
         this.cpu = cpu;
         this.memory = memory;
-        this.processes = new PriorityQueue<PCB>();
+        this.readyProcesses = new PriorityQueue<PCB>();
     }
 
     public void addProcess(PCB process) {
     }
 
     public String displayProcesses() {
-        Iterator it = processes.iterator();
+        Iterator it = readyProcesses.iterator();
         String output = "";
-        if (processes.isEmpty()) {
-            return "No processes loaded";
+        if (readyProcesses.isEmpty()) {
+            return "No readyProcesses loaded";
         } else {
             while (it.hasNext()) {
                 output = output + it.next().toString();
             }
-            return "Displaying all processes:\n" + output;
+            return "Displaying all readyProcesses:\n" + output;
         }
     }
 
@@ -34,9 +35,10 @@ public class Dispatcher {
             case 0:
                 if(memory.allocateMemory(process.getMemoryRequirement())) {
                     process.setState(1);
-                    processes.add(process);
+                    readyProcesses.add(process);
                 } else {
                     process.setPriority(process.getPriority() - 1);
+                    otherProcesses.add(process);
                     // add to whatever queue
                 };
                 break;
@@ -57,6 +59,12 @@ public class Dispatcher {
             case 4:
                 memory.deallocateMemory(process.getMemoryRequirement());
                 break;
+        }
+    }
+
+    public void start (){
+        for (PCB item: readyProcesses) {
+            cpu.startProcess(item);
         }
     }
 }
