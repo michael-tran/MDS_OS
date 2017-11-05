@@ -2,15 +2,15 @@ import java.util.Iterator;
 import java.util.PriorityQueue;
 
 public class Dispatcher {
-    private CPU cpu;
     private MainMemory memory;
+    private Scheduler scheduler;
     private PriorityQueue<PCB> readyProcesses; // All new readyProcesses go here
     private PriorityQueue<PCB> otherProcesses; // All new readyProcesses go here
 
     public Dispatcher(CPU cpu, MainMemory memory) {
-        this.cpu = cpu;
         this.memory = memory;
         this.readyProcesses = new PriorityQueue<PCB>();
+        this.scheduler = new Scheduler(memory);
     }
 
     public void addProcess(PCB process) {
@@ -62,9 +62,11 @@ public class Dispatcher {
         }
     }
 
-    public void start (){
-        for (PCB item: readyProcesses) {
-            cpu.startProcess(item);
-        }
+    public void start (int n){
+          scheduler.start(this.readyProcesses,n);
+    }
+
+    public int getAmount(){
+       return readyProcesses.size();
     }
 }

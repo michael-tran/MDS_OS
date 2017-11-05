@@ -37,8 +37,9 @@ public class Computer {
         return "Program " + name + " successfully loaded.";
     }
 
-    public void exe(int n) {
-        dispatcher.start();
+    public String exe(int n) {
+        dispatcher.start(n);
+        return "Done";
     }
 
     public String mem() {
@@ -47,6 +48,10 @@ public class Computer {
 
     public String proc() {
         return dispatcher.displayProcesses();
+    }
+
+    public int getAmount(){
+        return dispatcher.getAmount();
     }
 
 }

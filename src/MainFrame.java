@@ -140,7 +140,15 @@ public class MainFrame extends JFrame {
         switch (args[0]) {
             case "exe":
                 if (args.length > 1) {
-                    addText(mainDisplay, mddoc, "Implement exe function");
+                    int n = 0;
+                    try{
+                        n = Integer.parseInt(args[1]);
+                    }catch (Exception e){
+                        addText(mainDisplay, mddoc, "Not a number");
+                        return 0;
+                    }
+                    int amount = computer.getAmount();
+                        addText(mainDisplay, mddoc, computer.exe(n));
                     return 1;
                 } else {
                     addText(mainDisplay, mddoc, "No arguments");
@@ -155,6 +163,7 @@ public class MainFrame extends JFrame {
             case "load":
                 if (args.length > 1) {
                     addText(mainDisplay, mddoc, computer.load(args[1]));
+                    monitorDisplay.setText(computer.mem() + "\n" + computer.proc());
                     return 1;
                 } else {
                     addText(mainDisplay, mddoc, "No arguments");
@@ -164,6 +173,7 @@ public class MainFrame extends JFrame {
                 mainDisplay.setText("System resetting...\n");
                 computer = new Computer();
                 on = true;
+                monitorDisplay.setText(computer.mem() + "\n" + computer.proc());
                 return 0;
             case "exit":
                 System.exit(0);
@@ -174,7 +184,8 @@ public class MainFrame extends JFrame {
                         switch (args[1]) {
                             case "exe":
                                 addText(mainDisplay, mddoc, "\n\nLets the simulation run on its own\n" +
-                                        "load\n");
+                                        "exe #\n" +
+                                        "# \t The number of cycles to run before pausing\n");
                                 break;
                             case "proc":
                                 addText(mainDisplay, mddoc, "\n\nProc: Shows all unfinished Processes\n" +
