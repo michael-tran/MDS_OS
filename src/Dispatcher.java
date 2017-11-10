@@ -1,4 +1,5 @@
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.PriorityQueue;
 
 public class Dispatcher {
@@ -33,14 +34,17 @@ public class Dispatcher {
         switch (process.getState()) {
             // NEW
             case 0:
-                    if(memory.allocateMemory(process.getMemoryRequirement(), process.getPid())) {
+                LinkedList<MainMemory.Page> pagesUsed = memory.allocateMemory(process.getMemoryRequirement());
+                if (pagesUsed.size() > 0) {
                     process.setState(1);
+                    process.setPagesUsed(pagesUsed);
                     readyProcesses.add(process);
                 } else {
                     process.setPriority(process.getPriority() - 1);
                     otherProcesses.add(process);
                     // add to whatever queue
-                };
+                }
+                ;
                 break;
 
             // READY
@@ -62,13 +66,13 @@ public class Dispatcher {
         }
     }
 
-    public void start (int n){
+    public void start(int n) {
         for (PCB readyProcess : this.readyProcesses) {
-            scheduler.start(readyProcess,n);
+            scheduler.start(readyProcess, n);
         }
         int count = 0;
         for (PCB readyProcess : this.readyProcesses) {
-            if (count ==1){
+            if (count == 1) {
                 readyProcess.setState(4);
                 dispatch(readyProcess);
             }
@@ -76,7 +80,7 @@ public class Dispatcher {
         }
     }
 
-    public int getAmount(){
-       return readyProcesses.size();
+    public int getAmount() {
+        return readyProcesses.size();
     }
 }

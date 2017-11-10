@@ -1,3 +1,7 @@
+import sun.awt.image.ImageWatched;
+
+import java.util.LinkedList;
+
 public class PCB implements Comparable<PCB> {
     private String name;
     private int clockIn;
@@ -11,7 +15,7 @@ public class PCB implements Comparable<PCB> {
     private int totalCycleCount;
     private int burstCycle;
     private int memoryRequirement;
-
+    private LinkedList<MainMemory.Page> pagesUsed;
     /**
      * process state:
      * 0 NEW
@@ -143,6 +147,14 @@ public class PCB implements Comparable<PCB> {
 
     public void setMemoryRequirement(int memoryRequirement) {
         this.memoryRequirement = memoryRequirement;
+    }
+
+    public LinkedList<MainMemory.Page> getPagesUsed() {
+        return pagesUsed;
+    }
+
+    public void setPagesUsed(LinkedList<MainMemory.Page> pagesUsed) {
+        this.pagesUsed = pagesUsed;
     }
 
     public String getStateName() {

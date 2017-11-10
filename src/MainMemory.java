@@ -1,37 +1,40 @@
+import sun.awt.image.ImageWatched;
+
 import java.util.LinkedList;
 
 public class MainMemory {
 
-    private final LinkedList<BitAndBytes> MEMORY = new LinkedList<>();
+    private final LinkedList<Page> MEMORY = new LinkedList<>();
 
     public MainMemory() {
         for (int i = 0; i < 4096; i++) {
-            MEMORY.add(new BitAndBytes());
+            MEMORY.add(new Page(i));
         }
     }
 
-    public boolean allocateMemory(int mem, int pid) {
+    public LinkedList<Page> allocateMemory(int mem) {
+        LinkedList<Page> pagesUsed = new LinkedList<>();
         if (remainingMemory() > mem) {
             int count = 0;
-            for (BitAndBytes bitAndBytes : MEMORY) {
+            for (Page page : MEMORY) {
                 if (count == mem) break;
-                if(!bitAndBytes.isUsed() && !(count > mem)){
-                    bitAndBytes.toggleUsed();
-                    bitAndBytes.setPid(pid);
+                if (!page.isUsed() && !(count > mem)) {
+                    page.toggleUsed();
+                    pagesUsed.add(page);
                     count++;
                 }
             }
-            return true;
-        } else return false;
+        }
+        return pagesUsed;
     }
 
     public void deallocateMemory(int mem, int pid) {
         int count = 0;
-        for (BitAndBytes bitAndBytes : MEMORY) {
+        for (Page page : MEMORY) {
             if (count == mem) break;
-            if(bitAndBytes.isUsed() && (pid == bitAndBytes.getPid()) && !(count > mem)){
-                bitAndBytes.toggleUsed();
-                bitAndBytes.setPid(Integer.MIN_VALUE);
+            if (page.isUsed() && (pid == page.getPageid()) && !(count > mem)) {
+                page.toggleUsed();
+                page.setPageid(Integer.MIN_VALUE);
                 count++;
             }
         }
@@ -39,8 +42,8 @@ public class MainMemory {
 
     public int getUsedCurrentMemory() {
         int count = 0;
-        for (BitAndBytes bit : MEMORY) {
-            if (bit.isUsed()) {
+        for (Page page : MEMORY) {
+            if (page.isUsed()) {
                 count++;
             }
         }
@@ -57,13 +60,14 @@ public class MainMemory {
                 "idk fucking virtual memory something";
     }
 
-    public class BitAndBytes {
+    public class Page {
         private boolean used;
-        private int pid;
 
-        public BitAndBytes() {
+        private int pageid;
+
+        public Page(int i) {
             used = false;
-            pid = Integer.MIN_VALUE;
+            pageid = i;
         }
 
         public boolean isUsed() {
@@ -78,15 +82,22 @@ public class MainMemory {
             }
         }
 
-        public int getPid() {
-            return pid;
+        public int getPageid() {
+            return pageid;
         }
 
-        public void setPid(int pid) {
-            this.pid = pid;
+        public void setPageid(int pageid) {
+            this.pageid = pageid;
+        }
+    }
+
+    private class PageTable {
+        private final LinkedList<Page> PAGETABLE = new LinkedList<>();
+
+        public PageTable() {
+            for (int i = 0; i < 4096; i++) {
+                PAGETABLE.add(MEMORY.get(i));
+            }
         }
     }
 }
-
-
-//Counter for PCB and make process currentMemory usage never goes above MAX
