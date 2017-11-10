@@ -19,11 +19,12 @@ public class CPU {
         this.crunch(QUANTUM);
     }
 
-    private PCB crunch(int QUANTUM){
+    private PCB crunch(int QUANTUM) {
 //Increment the clock for each part I/O etc...
+        System.out.println(process);
+        process.setClockIn(ticktock.getClockCycle());
 
-
-     return this.process;
+        return this.process;
     }
 
     public void setPauseCycles(int pauseCycles) {

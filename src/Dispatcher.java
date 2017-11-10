@@ -33,7 +33,7 @@ public class Dispatcher {
         switch (process.getState()) {
             // NEW
             case 0:
-                if(memory.allocateMemory(process.getMemoryRequirement())) {
+                    if(memory.allocateMemory(process.getMemoryRequirement(), process.getPid())) {
                     process.setState(1);
                     readyProcesses.add(process);
                 } else {
@@ -57,13 +57,23 @@ public class Dispatcher {
 
             // TERMINATING
             case 4:
-                memory.deallocateMemory(process.getMemoryRequirement());
+                memory.deallocateMemory(process.getMemoryRequirement(), process.getPid());
                 break;
         }
     }
 
     public void start (int n){
-          scheduler.start(this.readyProcesses,n);
+        for (PCB readyProcess : this.readyProcesses) {
+            scheduler.start(readyProcess,n);
+        }
+        int count = 0;
+        for (PCB readyProcess : this.readyProcesses) {
+            if (count ==1){
+                readyProcess.setState(4);
+                dispatch(readyProcess);
+            }
+            count++;
+        }
     }
 
     public int getAmount(){

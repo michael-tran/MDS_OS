@@ -141,14 +141,15 @@ public class MainFrame extends JFrame {
             case "exe":
                 if (args.length > 1) {
                     int n = 0;
-                    try{
+                    try {
                         n = Integer.parseInt(args[1]);
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         addText(mainDisplay, mddoc, "Not a number");
                         return 0;
                     }
                     int amount = computer.getAmount();
-                        addText(mainDisplay, mddoc, computer.exe(n));
+                    System.out.println(amount);
+                    addText(mainDisplay, mddoc, computer.exe(n));
                     return 1;
                 } else {
                     addText(mainDisplay, mddoc, "No arguments");

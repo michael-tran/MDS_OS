@@ -18,12 +18,10 @@ public class Scheduler {
         return PCBs;
     }
 
-    public void start(PriorityQueue<PCB> pcbs, int n){
+    public void start(PCB pcb, int n) {
         Stack<PCB> pancake = new Stack<PCB>();
         cpu.setPauseCycles(n);
-        for (PCB pcb: pcbs) {
-            cpu.startProcess(pcb, QUANTUM);
-        }
+        cpu.startProcess(pcb, QUANTUM);
     }
 
     @Override
