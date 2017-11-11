@@ -2,15 +2,11 @@ import java.util.LinkedList;
 
 public class PCB implements Comparable<PCB> {
     private String name;
-    private int clockIn;
-    private int clockOut;
-    private int breakTime;
     private int pid;
     private int state;
     private int ioCycle;
     private int yieldCycle;
     private int priority;
-    private int totalCycleCount;
     private int burstCycle;
     private int memoryRequirement;
     private LinkedList<MainMemory.Page> pagesUsed;
@@ -33,15 +29,13 @@ public class PCB implements Comparable<PCB> {
      * line 5 - ioCycle
      * line 6 - yieldCycle
      */
-    public PCB(String name, int processid, int memoryRequirement, int burstCycle, int priority, int totalCycleCount,
-               int ioCycle, int yieldCycle) {
+    public PCB(String name, int processid, int memoryRequirement, int burstCycle, int priority, int ioCycle, int yieldCycle) {
         this.name = name;
         this.pid = processid;
         this.memoryRequirement = memoryRequirement;
         this.burstCycle = burstCycle;
         this.priority = priority;
         this.state = 0;
-        this.totalCycleCount = totalCycleCount;
         this.ioCycle = ioCycle;
         this.yieldCycle = yieldCycle;
     }
@@ -57,30 +51,6 @@ public class PCB implements Comparable<PCB> {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public int getClockIn() {
-        return clockIn;
-    }
-
-    public void setClockIn(int clockIn) {
-        this.clockIn = clockIn;
-    }
-
-    public int getClockOut() {
-        return clockOut;
-    }
-
-    public void setClockOut(int clockOut) {
-        this.clockOut = clockOut;
-    }
-
-    public int getBreakTime() {
-        return breakTime;
-    }
-
-    public void setBreakTime(int breakTime) {
-        this.breakTime = breakTime;
     }
 
     public int getPid() {
@@ -121,14 +91,6 @@ public class PCB implements Comparable<PCB> {
 
     public void setPriority(int priority) {
         this.priority = priority;
-    }
-
-    public int getTotalCycleCount() {
-        return totalCycleCount;
-    }
-
-    public void setTotalCycleCount(int totalCycleCount) {
-        this.totalCycleCount = totalCycleCount;
     }
 
     public int getBurstCycle() {

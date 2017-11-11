@@ -88,8 +88,7 @@ public class Computer {
 
         private void dispatch(String name, int memoryRequirement, int burstCycle, int priority,
                               int totalCycleCount, int ioCycle, int yieldCycle) {
-            PCB newProcess = new PCB(name, processid, memoryRequirement, burstCycle, priority, totalCycleCount,
-                    ioCycle, yieldCycle);
+            PCB newProcess = new PCB(name, processid, memoryRequirement, burstCycle, priority, ioCycle, yieldCycle);
             dispatcher.dispatch(newProcess);
             processid++;
         }

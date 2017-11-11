@@ -22,7 +22,6 @@ public class CPU {
     private PCB crunch(int QUANTUM) {
 //Increment the clock for each part I/O etc...
         System.out.println(process);
-        process.setClockIn(ticktock.getClockCycle());
 
         return this.process;
     }
