@@ -23,11 +23,13 @@ public class PCB implements Comparable<PCB> {
      * Program file format:
      * line 0 - name
      * line 1 - memory requirements
-     * line 2 - burstCycle
-     * line 3 - priority
+     * line 2 - priority
+     * line 3 - burstCycle
      * line 4 - totalCycle
-     * line 5 - ioCycle
-     * line 6 - yieldCycle
+     * calculation, 0
+     * ioCycle, 1
+     * yieldCycle, 2
+     * output, 3
      */
     public PCB(String name, int processid, int memoryRequirement, int burstCycle, int priority, int ioCycle, int yieldCycle) {
         this.name = name;

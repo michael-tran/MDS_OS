@@ -176,6 +176,9 @@ public class MainFrame extends JFrame {
                 on = true;
                 monitorDisplay.setText(computer.mem() + "\n" + computer.proc());
                 return 0;
+            case "gen":
+                addText(mainDisplay, mddoc, computer.gen(1));
+                return 0;
             case "exit":
                 System.exit(0);
                 return 0;
