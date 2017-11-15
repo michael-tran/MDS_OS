@@ -28,16 +28,15 @@ public class Computer {
         try {
             Scanner in = new Scanner(file);
             name = in.nextLine();
-            memoryRequirement = in.nextInt();
-            burstCycle = in.nextInt();
-            priority = in.nextInt();
-
+            memoryRequirement = Integer.parseInt(in.nextLine());
+            burstCycle = Integer.parseInt(in.nextLine());
+            priority = Integer.parseInt(in.nextLine());
             while (in.hasNextLine()) {
                 int inner[] = new int[2];
                 String line = in.nextLine();
                 String command[] = line.split(",");
-                inner[0] = Integer.parseInt(command[0]);
-                inner[1] = Integer.parseInt(command[1]);
+                inner[0] = Integer.parseInt(command[0].toString());
+                inner[1] = Integer.parseInt(command[1].toString());
                 commands.add(inner);
             }
 
@@ -84,6 +83,7 @@ public class Computer {
     private class ProcessGenerator {
 
         private ArrayList<String> files = new ArrayList<>();
+        int fileID = 0;
 
         public ProcessGenerator() {
         }
@@ -97,7 +97,7 @@ public class Computer {
         }
 
         private void wordProcessor() {
-            String name = "word" + processid;
+            String name = "word" + fileID;
             Random random = new Random();
             int memoryRequirement = random.nextInt(100);
             int burstCycle = random.nextInt(19);
@@ -108,16 +108,16 @@ public class Computer {
                 writer.println(memoryRequirement);
                 writer.println(burstCycle);
                 writer.println(priority);
-                writer.println("1 ," + (20 + random.nextInt(30))); //Type , cycle (IO)
-                writer.println("0 ," + random.nextInt(20)); //Type , cycle
-                writer.println("1 ," + (20 + random.nextInt(30))); //Type , cycle (IO)
-                writer.println("0 ," + random.nextInt(20)); //Type , cycle
-                writer.println("1 ," + (20 + random.nextInt(30))); //Type , cycle (IO)
-                writer.println("0 ," + random.nextInt(20)); //Type , cycle
-                writer.println("1 ," + (20 + random.nextInt(30))); //Type , cycle (IO)
-                writer.println("0 ," + random.nextInt(20)); //Type , cycle
-                writer.println("1 ," + (20 + random.nextInt(30))); //Type , cycle (IO)
-                writer.println("0 ," + random.nextInt(20)); //Type , cycle
+                writer.println("1," + (20 + random.nextInt(30))); //Type , cycle (IO)
+                writer.println("0," + random.nextInt(20)); //Type , cycle
+                writer.println("1," + (20 + random.nextInt(30))); //Type , cycle (IO)
+                writer.println("0," + random.nextInt(20)); //Type , cycle
+                writer.println("1," + (20 + random.nextInt(30))); //Type , cycle (IO)
+                writer.println("0," + random.nextInt(20)); //Type , cycle
+                writer.println("1," + (20 + random.nextInt(30))); //Type , cycle (IO)
+                writer.println("0," + random.nextInt(20)); //Type , cycle
+                writer.println("1," + (20 + random.nextInt(30))); //Type , cycle (IO)
+                writer.println("0," + random.nextInt(20)); //Type , cycle
                 writer.println("3,0");
                 writer.close();
             } catch (FileNotFoundException e) {
@@ -126,6 +126,7 @@ public class Computer {
                 e.printStackTrace();
             }
             files.add(name);
+            fileID++;
         }
 
         private void gen() {

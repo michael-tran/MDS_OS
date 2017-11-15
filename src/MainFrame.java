@@ -8,6 +8,7 @@ public class MainFrame extends JFrame {
     private Computer computer = new Computer();
     private int count;
     private boolean on = true;
+    private boolean generated = false;
     private JButton exitButton;
     private JButton procButton;
     private JButton cleanButton;
@@ -66,6 +67,8 @@ public class MainFrame extends JFrame {
             mainDisplay.setText("System resetting...\n");
             computer = new Computer();
             on = true;
+            generated = false;
+            monitorDisplay.setText(computer.mem() + "\n" + computer.proc());
         });
 
         //action for exit button
@@ -149,11 +152,15 @@ public class MainFrame extends JFrame {
                     }
                     addText(mainDisplay, mddoc, computer.exe(n));
                     return 1;
-                } else {
-                    addText(mainDisplay, mddoc, computer.gen(1));
+                } else if(!generated){
+                    addText(mainDisplay, mddoc, "Generating 5 processes");
+                    addText(mainDisplay, mddoc, computer.gen(5));
                     addText(mainDisplay, mddoc, computer.genLoad());
+                    monitorDisplay.setText(computer.mem() + "\n" + computer.proc());
+                    generated = true;
                     return 1;
                 }
+                return 0;
             case "proc":
                 addText(mainDisplay, mddoc, computer.proc());
                 return 1;
@@ -177,6 +184,7 @@ public class MainFrame extends JFrame {
                 mainDisplay.setText("System resetting...\n");
                 computer = new Computer();
                 on = true;
+                generated = false;
                 monitorDisplay.setText(computer.mem() + "\n" + computer.proc());
                 return 0;
             case "exit":
