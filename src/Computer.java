@@ -32,7 +32,7 @@ public class Computer {
             burstCycle = in.nextInt();
             priority = in.nextInt();
 
-            while(in.hasNextLine()){
+            while (in.hasNextLine()) {
                 int inner[] = new int[2];
                 String line = in.nextLine();
                 String command[] = line.split(",");
@@ -44,7 +44,7 @@ public class Computer {
         } catch (FileNotFoundException e) {
             return "File not found";
         }
-        PCB newProcess = new PCB(name, processid, memoryRequirement, burstCycle, priority);
+        PCB newProcess = new PCB(name, processid, memoryRequirement, burstCycle, priority, commands);
         dispatcher.dispatch(newProcess);
         processid++;
         return "Program " + name + " successfully loaded.";
@@ -71,7 +71,7 @@ public class Computer {
     }
 
     public String genLoad() {
-        for (String file: progen.getFiles()) {
+        for (String file : progen.getFiles()) {
             this.load(file);
         }
         return progen.toString();
@@ -103,20 +103,20 @@ public class Computer {
             int burstCycle = random.nextInt(19);
             int priority = random.nextInt(4);
             try {
-                PrintWriter writer = new PrintWriter(name +".txt", "UTF-8");
+                PrintWriter writer = new PrintWriter(name + ".txt", "UTF-8");
                 writer.println(name);
                 writer.println(memoryRequirement);
                 writer.println(burstCycle);
                 writer.println(priority);
-                writer.println("1 ," + (20+ random.nextInt(30))); //Type , cycle (IO)
+                writer.println("1 ," + (20 + random.nextInt(30))); //Type , cycle (IO)
                 writer.println("0 ," + random.nextInt(20)); //Type , cycle
-                writer.println("1 ," + (20+ random.nextInt(30))); //Type , cycle (IO)
+                writer.println("1 ," + (20 + random.nextInt(30))); //Type , cycle (IO)
                 writer.println("0 ," + random.nextInt(20)); //Type , cycle
-                writer.println("1 ," + (20+ random.nextInt(30))); //Type , cycle (IO)
+                writer.println("1 ," + (20 + random.nextInt(30))); //Type , cycle (IO)
                 writer.println("0 ," + random.nextInt(20)); //Type , cycle
-                writer.println("1 ," + (20+ random.nextInt(30))); //Type , cycle (IO)
+                writer.println("1 ," + (20 + random.nextInt(30))); //Type , cycle (IO)
                 writer.println("0 ," + random.nextInt(20)); //Type , cycle
-                writer.println("1 ," + (20+ random.nextInt(30))); //Type , cycle (IO)
+                writer.println("1 ," + (20 + random.nextInt(30))); //Type , cycle (IO)
                 writer.println("0 ," + random.nextInt(20)); //Type , cycle
                 writer.println("3,0");
                 writer.close();

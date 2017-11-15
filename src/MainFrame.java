@@ -24,7 +24,7 @@ public class MainFrame extends JFrame {
     //The main constructor for the JFrame
     public MainFrame() {
         //Adds initial Text
-        addText(mainDisplay, mddoc, "Welcome to Michael Doesn't Do Shit OS");
+        addText(mainDisplay, mddoc, "MDS OS");
         addText(monitorDisplay, mtdoc, "System Resource Monitor \nTO-DO: Figure out multithreading so we can " +
                 "update system info in real time \n" +
                 "https://www.tutorialspoint.com/java/java_multithreading.htm \n" +
@@ -169,6 +169,10 @@ public class MainFrame extends JFrame {
                     addText(mainDisplay, mddoc, "No arguments");
                     return 0;
                 }
+            case "gen":
+                addText(mainDisplay, mddoc, "Generating 5 processes");
+                computer.gen(5);
+                return 1;
             case "reset":
                 mainDisplay.setText("System resetting...\n");
                 computer = new Computer();

@@ -1,31 +1,57 @@
-import javax.swing.*;
-import java.io.PrintStream;
+import static java.lang.Math.min;
 
 public class CPU {
-    private Clock ticktock;
+    private Clock clock;
     private int pauseCycles;
     private PCB process;
 
     public CPU() {
-        this.ticktock = new Clock();
+        this.clock = new Clock();
     }
 
-    public Clock getTicktock() {
-        return ticktock;
+    public Clock getClock() {
+        return clock;
     }
 
     public boolean startProcess(PCB pcb, int QUANTUM) {
         process = pcb;
         this.crunch(QUANTUM);
-
         return true;
     }
 
-    private PCB crunch(int QUANTUM) {
-//Increment the clock for each part I/O etc...
-        System.out.println(process);
+    private int crunch(int QUANTUM) {
+        int burstCycle;
+        if (process.getRemainingBurstCycle() > 0) {
+            burstCycle = process.getRemainingBurstCycle();
+        } else burstCycle = process.getBurstCycle();
 
-        return this.process;
+        for (int i = min(QUANTUM, burstCycle); i > 0; i--) {
+            switch (process.getCommands().get(process.getCommandsIndex())[0]) {
+                case 0:
+                    // calculate
+                    process.getCommands().get(process.getCommandsIndex())[1]--;
+                    clock.tick();
+                    break;
+                case 1:
+                    // I/O
+                    process.getCommands().get(process.getCommandsIndex())[1]--;
+                    clock.tick();
+                    break;
+                case 2:
+                    // Yield
+                    clock.tick();
+                    process.setRemainingBurstCycle(i);
+                    return 2;
+                case 3:
+                    clock.tick();
+                    return 3;
+            }
+
+            if (process.getCommands().get(process.getCommandsIndex())[1] == 0) {
+                process.setCommandsIndex(process.getCommandsIndex()+1);
+            }
+        }
+        return 0;
     }
 
     public void setPauseCycles(int pauseCycles) {

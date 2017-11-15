@@ -23,20 +23,19 @@ public class Scheduler {
 
     public void start(PCB pcb) {
         boolean done = cpu.startProcess(pcb, QUANTUM);
-        if (done){
+        if (done) {
             pancake.add(pcb);
         }
     }
 
     public void finish() {
-        while(!pancake.isEmpty()){
-           boolean done = cpu.startProcess(pancake.peek(), QUANTUM);
-            if (done){
+        while (!pancake.isEmpty()) {
+            boolean done = cpu.startProcess(pancake.peek(), QUANTUM);
+            if (done) {
                 pancake.add(pancake.remove());
             }
         }
     }
-
 
     @Override
     public String toString() {
@@ -44,6 +43,4 @@ public class Scheduler {
                 "PCBs=" + PCBs +
                 '}';
     }
-
-
 }

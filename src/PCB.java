@@ -1,14 +1,16 @@
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class PCB implements Comparable<PCB> {
     private String name;
     private int pid;
     private int state;
-    private int ioCycle;
-    private int yieldCycle;
     private int priority;
     private int burstCycle;
+    private int remainingBurstCycle;
     private int memoryRequirement;
+    private int commandsIndex;
+    private ArrayList<int[]> commands;
     private LinkedList<MainMemory.Page> pagesUsed;
     /**
      * process state:
@@ -27,19 +29,18 @@ public class PCB implements Comparable<PCB> {
      * line 3 - burstCycle
      * line 4 - totalCycle
      * calculation, 0
-     * ioCycle, 1
-     * yieldCycle, 2
      * output, 3
      */
-    public PCB(String name, int processid, int memoryRequirement, int burstCycle, int priority) {
+    public PCB(String name, int processid, int memoryRequirement, int burstCycle, int priority, ArrayList<int[]> commands) {
         this.name = name;
         this.pid = processid;
         this.memoryRequirement = memoryRequirement;
         this.burstCycle = burstCycle;
+        this.remainingBurstCycle = 0;
         this.priority = priority;
+        this.commands = commands;
+        commandsIndex = 0;
         this.state = 0;
-        this.ioCycle = ioCycle;
-        this.yieldCycle = yieldCycle;
     }
 
     @Override
@@ -47,40 +48,12 @@ public class PCB implements Comparable<PCB> {
         return priority - process.priority;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public int getPid() {
         return pid;
     }
 
-    public void setPid(int pid) {
-        this.pid = pid;
-    }
-
     public int getState() {
         return state;
-    }
-
-    public int getIoCycle() {
-        return ioCycle;
-    }
-
-    public void setIoCycle(int ioCycle) {
-        this.ioCycle = ioCycle;
-    }
-
-    public int getYieldCycle() {
-        return yieldCycle;
-    }
-
-    public void setYieldCycle(int yieldCycle) {
-        this.yieldCycle = yieldCycle;
     }
 
     public void setState(int state) {
@@ -99,24 +72,36 @@ public class PCB implements Comparable<PCB> {
         return burstCycle;
     }
 
-    public void setBurstCycle(int burstCycle) {
-        this.burstCycle = burstCycle;
-    }
-
     public int getMemoryRequirement() {
         return memoryRequirement;
-    }
-
-    public void setMemoryRequirement(int memoryRequirement) {
-        this.memoryRequirement = memoryRequirement;
     }
 
     public LinkedList<MainMemory.Page> getPagesUsed() {
         return pagesUsed;
     }
 
+    public ArrayList<int[]> getCommands() {
+        return commands;
+    }
+
     public void setPagesUsed(LinkedList<MainMemory.Page> pagesUsed) {
         this.pagesUsed = pagesUsed;
+    }
+
+    public int getRemainingBurstCycle() {
+        return remainingBurstCycle;
+    }
+
+    public void setRemainingBurstCycle(int remainingBurstCycle) {
+        this.remainingBurstCycle = remainingBurstCycle;
+    }
+
+    public int getCommandsIndex() {
+        return commandsIndex;
+    }
+
+    public void setCommandsIndex(int commandsIndex) {
+        this.commandsIndex = commandsIndex;
     }
 
     public String getStateName() {
