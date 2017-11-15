@@ -1,12 +1,11 @@
-import java.util.Iterator;
-import java.util.PriorityQueue;
-import java.util.Stack;
+import java.util.*;
 
 public class Scheduler {
     private CPU cpu;
     private final int QUANTUM = 15;
     private PriorityQueue<PCB> PCBs;
     private MainMemory memory;
+    private Queue<PCB> pancake = new LinkedList<PCB>();
 
     public Scheduler(MainMemory memory) {
         cpu = new CPU();
@@ -14,15 +13,30 @@ public class Scheduler {
         this.memory = memory;
     }
 
+    public void setPauseCycle(int pauseCycle) {
+        cpu.setPauseCycles(pauseCycle);
+    }
+
     public PriorityQueue<PCB> getPCBs() {
         return PCBs;
     }
 
-    public void start(PCB pcb, int n) {
-        Stack<PCB> pancake = new Stack<PCB>();
-        cpu.setPauseCycles(n);
-        cpu.startProcess(pcb, QUANTUM);
+    public void start(PCB pcb) {
+        boolean done = cpu.startProcess(pcb, QUANTUM);
+        if (done){
+            pancake.add(pcb);
+        }
     }
+
+    public void finish() {
+        while(!pancake.isEmpty()){
+           boolean done = cpu.startProcess(pancake.peek(), QUANTUM);
+            if (done){
+                pancake.add(pancake.remove());
+            }
+        }
+    }
+
 
     @Override
     public String toString() {

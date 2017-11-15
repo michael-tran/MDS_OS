@@ -14,9 +14,11 @@ public class CPU {
         return ticktock;
     }
 
-    public void startProcess(PCB pcb, int QUANTUM) {
+    public boolean startProcess(PCB pcb, int QUANTUM) {
         process = pcb;
         this.crunch(QUANTUM);
+
+        return true;
     }
 
     private PCB crunch(int QUANTUM) {

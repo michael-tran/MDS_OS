@@ -67,17 +67,11 @@ public class Dispatcher {
     }
 
     public void start(int n) {
+        scheduler.setPauseCycle(n);
         for (PCB readyProcess : this.readyProcesses) {
-            scheduler.start(readyProcess, n);
+            scheduler.start(readyProcess);
         }
-        int count = 0;
-        for (PCB readyProcess : this.readyProcesses) {
-            if (count == 1) {
-                readyProcess.setState(4);
-                dispatch(readyProcess);
-            }
-            count++;
-        }
+        scheduler.finish();
     }
 
     public int getAmount() {
