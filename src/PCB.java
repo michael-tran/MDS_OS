@@ -31,7 +31,7 @@ public class PCB implements Comparable<PCB> {
      * yieldCycle, 2
      * output, 3
      */
-    public PCB(String name, int processid, int memoryRequirement, int burstCycle, int priority, int ioCycle, int yieldCycle) {
+    public PCB(String name, int processid, int memoryRequirement, int burstCycle, int priority) {
         this.name = name;
         this.pid = processid;
         this.memoryRequirement = memoryRequirement;

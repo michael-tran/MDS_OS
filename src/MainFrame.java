@@ -147,13 +147,12 @@ public class MainFrame extends JFrame {
                         addText(mainDisplay, mddoc, "Not a number");
                         return 0;
                     }
-                    int amount = computer.getAmount();
-                    System.out.println(amount);
                     addText(mainDisplay, mddoc, computer.exe(n));
                     return 1;
                 } else {
-                    addText(mainDisplay, mddoc, "No arguments");
-                    return 0;
+                    addText(mainDisplay, mddoc, computer.gen(1));
+                    addText(mainDisplay, mddoc, computer.genLoad());
+                    return 1;
                 }
             case "proc":
                 addText(mainDisplay, mddoc, computer.proc());
@@ -175,9 +174,6 @@ public class MainFrame extends JFrame {
                 computer = new Computer();
                 on = true;
                 monitorDisplay.setText(computer.mem() + "\n" + computer.proc());
-                return 0;
-            case "gen":
-                addText(mainDisplay, mddoc, computer.gen(1));
                 return 0;
             case "exit":
                 System.exit(0);
