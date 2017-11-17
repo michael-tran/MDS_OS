@@ -115,7 +115,7 @@ public class Computer {
                 writer.println("1," + (20 + random.nextInt(30))); //Type , cycle (IO)
                 writer.println("0," + random.nextInt(20)); //Type , cycle
                 writer.println("1," + (20 + random.nextInt(30))); //Type , cycle (IO)
-                wriKter.println("0," + random.nextInt(20)); //Type , cycle
+                writer.println("0," + random.nextInt(20)); //Type , cycle
                 writer.println("1," + (20 + random.nextInt(30))); //Type , cycle (IO)
                 writer.println("0," + random.nextInt(20)); //Type , cycle
                 writer.println("3,0");
