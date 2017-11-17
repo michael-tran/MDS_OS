@@ -115,7 +115,7 @@ public class Computer {
                 writer.println("1," + (20 + random.nextInt(30))); //Type , cycle (IO)
                 writer.println("0," + random.nextInt(20)); //Type , cycle
                 writer.println("1," + (20 + random.nextInt(30))); //Type , cycle (IO)
-                writer.println("0," + random.nextInt(20)); //Type , cycle
+                wriKter.println("0," + random.nextInt(20)); //Type , cycle
                 writer.println("1," + (20 + random.nextInt(30))); //Type , cycle (IO)
                 writer.println("0," + random.nextInt(20)); //Type , cycle
                 writer.println("3,0");
@@ -127,6 +127,102 @@ public class Computer {
             }
             files.add(name);
             fileID++;
+        }
+
+        private void game() {
+            String name = "word" + processid;
+            Random random = new Random();
+            int memoryRequirement = random.nextInt(100);
+            int burstCycle = random.nextInt(19);
+            int priority = random.nextInt(4);
+            try {
+                PrintWriter writer = new PrintWriter(name +".txt", "UTF-8");
+                writer.println(name);
+                writer.println(memoryRequirement);
+                writer.println(burstCycle);
+                writer.println(priority);
+                for (int i = 0; i < 10; i++) {
+                    writer.println((1 + random.nextInt(2)) + "," + random.nextInt(20)); //Type , cycle
+                }
+                writer.println("3,0");
+                writer.close();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+        }
+
+        private void videoEditor() {
+            String name = "word" + processid;
+            Random random = new Random();
+            int memoryRequirement = random.nextInt(100);
+            int burstCycle = random.nextInt(19);
+            int priority = random.nextInt(4);
+            try {
+                PrintWriter writer = new PrintWriter(name +".txt", "UTF-8");
+                writer.println(name);
+                writer.println(memoryRequirement);
+                writer.println(burstCycle);
+                writer.println(priority);
+                for (int i = 0; i < 10; i++) {
+                    writer.println((1 + random.nextInt(2)) + "," + random.nextInt(20)); //Type , cycle
+                }
+                writer.println("3,0");
+                writer.close();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+        }
+
+        private void musicPlayer() {
+            String name = "word" + processid;
+            Random random = new Random();
+            int memoryRequirement = random.nextInt(100);
+            int burstCycle = random.nextInt(19);
+            int priority = random.nextInt(4);
+            try {
+                PrintWriter writer = new PrintWriter(name +".txt", "UTF-8");
+                writer.println(name);
+                writer.println(memoryRequirement);
+                writer.println(burstCycle);
+                writer.println(priority);
+                for (int i = 0; i < 10; i++) {
+                    writer.println((1 + random.nextInt(2)) + "," + random.nextInt(20)); //Type , cycle
+                }
+                writer.println("3,0");
+                writer.close();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+        }
+
+        private void physicEngine() {
+            String name = "word" + processid;
+            Random random = new Random();
+            int memoryRequirement = random.nextInt(100);
+            int burstCycle = random.nextInt(19);
+            int priority = random.nextInt(4);
+            try {
+                PrintWriter writer = new PrintWriter(name +".txt", "UTF-8");
+                writer.println(name);
+                writer.println(memoryRequirement);
+                writer.println(burstCycle);
+                writer.println(priority);
+                for (int i = 0; i < 10; i++) {
+                    writer.println((1 + random.nextInt(2)) + "," + random.nextInt(20)); //Type , cycle
+                }
+                writer.println("3,0");
+                writer.close();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
         }
 
         private void gen() {
