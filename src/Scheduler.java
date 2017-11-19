@@ -1,16 +1,34 @@
 import java.util.*;
 
-public class Scheduler {
+public class Scheduler extends Thread{
     private CPU cpu;
     private final int QUANTUM = 15;
     private PriorityQueue<PCB> PCBs;
     private MainMemory memory;
     private Queue<PCB> pancake = new LinkedList<PCB>();
+    private Thread thread;
+    private String threadName;
 
-    public Scheduler(MainMemory memory) {
+    public Scheduler(MainMemory memory, String threadName) {
         cpu = new CPU();
         this.PCBs = new PriorityQueue<PCB>();
         this.memory = memory;
+        this.threadName = threadName;
+    }
+
+    public void run() {
+        System.out.println("Thread " + threadName + " running");
+        try {
+
+
+            thread.sleep(100);
+        } catch (InterruptedException e) {
+            System.out.println("Thread interrupted");
+        }
+    }
+
+    public void start() {
+        thread.start();
     }
 
     public void setPauseCycle(int pauseCycle) {

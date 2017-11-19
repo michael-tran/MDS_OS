@@ -11,7 +11,7 @@ public class Dispatcher {
     public Dispatcher(CPU cpu, MainMemory memory) {
         this.memory = memory;
         this.readyProcesses = new PriorityQueue<PCB>();
-        this.scheduler = new Scheduler(memory);
+        this.scheduler = new Scheduler(memory, "Scheduler 1");
     }
 
     public void addProcess(PCB process) {

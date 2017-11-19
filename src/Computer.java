@@ -3,14 +3,12 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.Random;
 import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Computer {
     CPU cpu = new CPU();
     MainMemory memory = new MainMemory();
-    Scheduler rrScheduler = new Scheduler(memory);
     Dispatcher dispatcher = new Dispatcher(cpu, memory);
     ProcessGenerator progen = new ProcessGenerator();
     private int processid = 0;
@@ -80,6 +78,8 @@ public class Computer {
         return dispatcher.getAmount();
     }
 
+
+    // Inner class to generate processes
     private class ProcessGenerator {
 
         private ArrayList<String> files = new ArrayList<>();
@@ -98,26 +98,25 @@ public class Computer {
 
         private void wordProcessor() {
             String name = "word" + fileID;
-            Random random = new Random();
-            int memoryRequirement = random.nextInt(100);
-            int burstCycle = random.nextInt(19);
-            int priority = random.nextInt(4);
+            int memoryRequirement = ThreadLocalRandom.current().nextInt(100);
+            int burstCycle = ThreadLocalRandom.current().nextInt(19);
+            int priority = ThreadLocalRandom.current().nextInt(4);
             try {
                 PrintWriter writer = new PrintWriter(name + ".txt", "UTF-8");
                 writer.println(name);
                 writer.println(memoryRequirement);
                 writer.println(burstCycle);
                 writer.println(priority);
-                writer.println("1," + (20 + random.nextInt(30))); //Type , cycle (IO)
-                writer.println("0," + random.nextInt(20)); //Type , cycle
-                writer.println("1," + (20 + random.nextInt(30))); //Type , cycle (IO)
-                writer.println("0," + random.nextInt(20)); //Type , cycle
-                writer.println("1," + (20 + random.nextInt(30))); //Type , cycle (IO)
-                writer.println("0," + random.nextInt(20)); //Type , cycle
-                writer.println("1," + (20 + random.nextInt(30))); //Type , cycle (IO)
-                writer.println("0," + random.nextInt(20)); //Type , cycle
-                writer.println("1," + (20 + random.nextInt(30))); //Type , cycle (IO)
-                writer.println("0," + random.nextInt(20)); //Type , cycle
+                writer.println("1," + (20 + ThreadLocalRandom.current().nextInt(30))); //Type , cycle (IO)
+                writer.println("0," + ThreadLocalRandom.current().nextInt(20)); //Type , cycle
+                writer.println("1," + (20 + ThreadLocalRandom.current().nextInt(30))); //Type , cycle (IO)
+                writer.println("0," + ThreadLocalRandom.current().nextInt(20)); //Type , cycle
+                writer.println("1," + (20 + ThreadLocalRandom.current().nextInt(30))); //Type , cycle (IO)
+                writer.println("0," + ThreadLocalRandom.current().nextInt(20)); //Type , cycle
+                writer.println("1," + (20 + ThreadLocalRandom.current().nextInt(30))); //Type , cycle (IO)
+                writer.println("0," + ThreadLocalRandom.current().nextInt(20)); //Type , cycle
+                writer.println("1," + (20 + ThreadLocalRandom.current().nextInt(30))); //Type , cycle (IO)
+                writer.println("0," + ThreadLocalRandom.current().nextInt(20)); //Type , cycle
                 writer.println("3,0");
                 writer.close();
             } catch (FileNotFoundException e) {
@@ -131,10 +130,9 @@ public class Computer {
 
         private void game() {
             String name = "word" + processid;
-            Random random = new Random();
-            int memoryRequirement = random.nextInt(100);
-            int burstCycle = random.nextInt(19);
-            int priority = random.nextInt(4);
+            int memoryRequirement = ThreadLocalRandom.current().nextInt(1000, 2000);
+            int burstCycle = ThreadLocalRandom.current().nextInt(20);
+            int priority = 1;
             try {
                 PrintWriter writer = new PrintWriter(name +".txt", "UTF-8");
                 writer.println(name);
@@ -142,7 +140,7 @@ public class Computer {
                 writer.println(burstCycle);
                 writer.println(priority);
                 for (int i = 0; i < 10; i++) {
-                    writer.println((1 + random.nextInt(2)) + "," + random.nextInt(20)); //Type , cycle
+                    writer.println((1 + ThreadLocalRandom.current().nextInt(2)) + "," + ThreadLocalRandom.current().nextInt(20)); //Type , cycle
                 }
                 writer.println("3,0");
                 writer.close();
@@ -154,75 +152,15 @@ public class Computer {
         }
 
         private void videoEditor() {
-            String name = "word" + processid;
-            Random random = new Random();
-            int memoryRequirement = random.nextInt(100);
-            int burstCycle = random.nextInt(19);
-            int priority = random.nextInt(4);
-            try {
-                PrintWriter writer = new PrintWriter(name +".txt", "UTF-8");
-                writer.println(name);
-                writer.println(memoryRequirement);
-                writer.println(burstCycle);
-                writer.println(priority);
-                for (int i = 0; i < 10; i++) {
-                    writer.println((1 + random.nextInt(2)) + "," + random.nextInt(20)); //Type , cycle
-                }
-                writer.println("3,0");
-                writer.close();
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            }
+
         }
 
         private void musicPlayer() {
-            String name = "word" + processid;
-            Random random = new Random();
-            int memoryRequirement = random.nextInt(100);
-            int burstCycle = random.nextInt(19);
-            int priority = random.nextInt(4);
-            try {
-                PrintWriter writer = new PrintWriter(name +".txt", "UTF-8");
-                writer.println(name);
-                writer.println(memoryRequirement);
-                writer.println(burstCycle);
-                writer.println(priority);
-                for (int i = 0; i < 10; i++) {
-                    writer.println((1 + random.nextInt(2)) + "," + random.nextInt(20)); //Type , cycle
-                }
-                writer.println("3,0");
-                writer.close();
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            }
+
         }
 
         private void physicEngine() {
-            String name = "word" + processid;
-            Random random = new Random();
-            int memoryRequirement = random.nextInt(100);
-            int burstCycle = random.nextInt(19);
-            int priority = random.nextInt(4);
-            try {
-                PrintWriter writer = new PrintWriter(name +".txt", "UTF-8");
-                writer.println(name);
-                writer.println(memoryRequirement);
-                writer.println(burstCycle);
-                writer.println(priority);
-                for (int i = 0; i < 10; i++) {
-                    writer.println((1 + random.nextInt(2)) + "," + random.nextInt(20)); //Type , cycle
-                }
-                writer.println("3,0");
-                writer.close();
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            }
+
         }
 
         private void gen() {
