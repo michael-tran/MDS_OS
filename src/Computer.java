@@ -51,7 +51,7 @@ public class Computer {
 
     public String exe(int n) {
         dispatcher.start(n);
-        return "Done";
+        return  "Done";
     }
 
     public String mem() {
@@ -136,7 +136,7 @@ public class Computer {
             int burstCycle = random.nextInt(19);
             int priority = random.nextInt(4);
             try {
-                PrintWriter writer = new PrintWriter(name +".txt", "UTF-8");
+                PrintWriter writer = new PrintWriter(name + ".txt", "UTF-8");
                 writer.println(name);
                 writer.println(memoryRequirement);
                 writer.println(burstCycle);
@@ -160,7 +160,7 @@ public class Computer {
             int burstCycle = random.nextInt(19);
             int priority = random.nextInt(4);
             try {
-                PrintWriter writer = new PrintWriter(name +".txt", "UTF-8");
+                PrintWriter writer = new PrintWriter(name + ".txt", "UTF-8");
                 writer.println(name);
                 writer.println(memoryRequirement);
                 writer.println(burstCycle);
@@ -184,7 +184,7 @@ public class Computer {
             int burstCycle = random.nextInt(19);
             int priority = random.nextInt(4);
             try {
-                PrintWriter writer = new PrintWriter(name +".txt", "UTF-8");
+                PrintWriter writer = new PrintWriter(name + ".txt", "UTF-8");
                 writer.println(name);
                 writer.println(memoryRequirement);
                 writer.println(burstCycle);
@@ -208,7 +208,7 @@ public class Computer {
             int burstCycle = random.nextInt(19);
             int priority = random.nextInt(4);
             try {
-                PrintWriter writer = new PrintWriter(name +".txt", "UTF-8");
+                PrintWriter writer = new PrintWriter(name + ".txt", "UTF-8");
                 writer.println(name);
                 writer.println(memoryRequirement);
                 writer.println(burstCycle);

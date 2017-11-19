@@ -2,11 +2,17 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.PriorityQueue;
 
-public class Dispatcher {
+public class Dispatcher implements Runnable{
     private MainMemory memory;
     private Scheduler scheduler;
     private PriorityQueue<PCB> readyProcesses; // All new readyProcesses go here
     private PriorityQueue<PCB> otherProcesses; // All new readyProcesses go here
+    private int pause = 0;
+
+    @Override
+    public void run() {
+        this.start();
+    }
 
     public Dispatcher(CPU cpu, MainMemory memory) {
         this.memory = memory;
@@ -66,15 +72,26 @@ public class Dispatcher {
         }
     }
 
-    public void start(int n) {
+    public String start(int n) {
         scheduler.setPauseCycle(n);
         for (PCB readyProcess : this.readyProcesses) {
             scheduler.start(readyProcess);
         }
         scheduler.finish();
+        return "Done";
+    }
+
+    public String start() {
+        for (PCB readyProcess : this.readyProcesses) {
+            scheduler.start(readyProcess);
+        }
+        scheduler.finish();
+        return "Done";
     }
 
     public int getAmount() {
         return readyProcesses.size();
     }
+
+
 }

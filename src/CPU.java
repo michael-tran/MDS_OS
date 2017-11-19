@@ -15,7 +15,13 @@ public class CPU {
 
     public boolean startProcess(PCB pcb, int QUANTUM) {
         process = pcb;
-        this.crunch(QUANTUM);
+        int state = this.crunch(QUANTUM);
+        switch (state) {
+            case -1:
+                return false; //pause
+            case 0:
+                return true; //true
+        }
         return true;
     }
 
@@ -48,13 +54,21 @@ public class CPU {
             }
 
             if (process.getCommands().get(process.getCommandsIndex())[1] == 0) {
-                process.setCommandsIndex(process.getCommandsIndex()+1);
+                process.setCommandsIndex(process.getCommandsIndex() + 1);
+            }
+
+            if ((clock.getClockCycle() != 0) &&(clock.getClockCycle() % this.pauseCycles) == 0) {
+                return -1;
             }
         }
         return 0;
     }
 
     public void setPauseCycles(int pauseCycles) {
-        this.pauseCycles = pauseCycles;
+        if (pauseCycles == 0) {
+            this.pauseCycles = Integer.MAX_VALUE;
+        } else {
+            this.pauseCycles = pauseCycles;
+        }
     }
 }
