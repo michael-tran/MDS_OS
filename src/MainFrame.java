@@ -2,16 +2,13 @@ import javax.swing.*;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyledDocument;
 import java.awt.*;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 public class MainFrame extends JFrame {
     private JPanel os_display;
-    private Computer computer = new Computer();
-    private Thread threadObject;
+    private final Computer computer;
     private int count;
     private boolean on = true;
     private boolean generated = false;
-    private AtomicBoolean paused;
     private JButton exitButton;
     private JButton procButton;
     private JButton cleanButton;
@@ -27,7 +24,9 @@ public class MainFrame extends JFrame {
     private SimpleAttributeSet keyWord = new SimpleAttributeSet();
 
     //The main constructor for the JFrame
-    public MainFrame() {
+    public MainFrame(Computer computer) {
+        this.computer = computer;
+
         //Adds initial Text
         addText(mainDisplay, mddoc, "MDS OS");
         addText(monitorDisplay, mtdoc, "System Resource Monitor \nTO-DO: Figure out multithreading so we can " +
@@ -56,25 +55,6 @@ public class MainFrame extends JFrame {
 
         });
 
-        pauseButton.addActionListener(e -> {
-            if(!paused.get())
-            {
-                pauseButton.setText("Start");
-                paused.set(true);
-            }
-            else
-            {
-                pauseButton.setText("Pause");
-                paused.set(false);
-
-                // Resume
-                synchronized(threadObject)
-                {
-                    threadObject.notify();
-                }
-            }
-        });
-
         //action for Proc button
         procButton.addActionListener((e) -> {
             addText(mainDisplay, mddoc, computer.proc());
@@ -87,8 +67,8 @@ public class MainFrame extends JFrame {
 
         //action for reset button
         resetButton.addActionListener((e) -> {
-            mainDisplay.setText("System resetting...\n");
-            computer = new Computer();
+            mainDisplay.setText("TO DO: Implement computer.reset()\n");
+            computer.reset();
             on = true;
             generated = false;
             monitorDisplay.setText(computer.mem() + "\n" + computer.proc());
@@ -101,7 +81,7 @@ public class MainFrame extends JFrame {
 
         //action for clean button
         cleanButton.addActionListener((e) -> {
-            mainDisplay.setText("Welcome to Michael Doesn't Do Shit OS \n");
+            mainDisplay.setText("Welcome to MDS OS \n");
         });
 
         //input text box
@@ -138,7 +118,7 @@ public class MainFrame extends JFrame {
 
         // UI Initialize
         JFrame frame = new JFrame("MDS OS");
-        frame.setContentPane(new MainFrame().os_display);
+        frame.setContentPane(new MainFrame(computer).os_display);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
@@ -173,11 +153,9 @@ public class MainFrame extends JFrame {
                         addText(mainDisplay, mddoc, "Not a number");
                         return 0;
                     }
-                    threadObject = new Thread(computer);
-                    threadObject.start();
-                    addText(mainDisplay, mddoc, "Done");
+                    addText(mainDisplay, mddoc, computer.exe(n));
                     return 1;
-                } else if(!generated){
+                } else if (!generated) {
                     addText(mainDisplay, mddoc, "Generating 5 processes");
                     addText(mainDisplay, mddoc, computer.gen(5));
                     monitorDisplay.setText(computer.mem() + "\n" + computer.proc());
@@ -205,8 +183,7 @@ public class MainFrame extends JFrame {
                 computer.gen(5);
                 return 1;
             case "reset":
-                mainDisplay.setText("System resetting...\n");
-                computer = new Computer();
+                mainDisplay.setText("TO DO: Implement computer.reset()\n");
                 on = true;
                 generated = false;
                 monitorDisplay.setText(computer.mem() + "\n" + computer.proc());

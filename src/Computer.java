@@ -1,24 +1,30 @@
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class Computer implements Runnable{
-    CPU cpu = new CPU();
-    MainMemory memory = new MainMemory();
-    Dispatcher dispatcher = new Dispatcher(cpu, memory);
-    ProcessGenerator progen = new ProcessGenerator();
+public class Computer extends Thread {
+    private Dispatcher dispatcher;
+    private MainMemory mainMemory;
+    private ProcessGenerator progen = new ProcessGenerator();
     private int processid = 0;
+    private Thread computerThread;
 
-    @Override
-    public void run() {
-        dispatcher.start();
+    public Computer(Dispatcher dispatcher, MainMemory mainMemory) {
+        this.dispatcher = dispatcher;
+        this.mainMemory = mainMemory;
     }
 
-    public Computer() {
+    public void run() {
+
+    }
+
+    public void start() {
+        if (computerThread == null) {
+            computerThread = new Thread(this, "Computer Thread");
+            computerThread.start();
+        }
     }
 
     // List of OS Commands below: load, exe, mem, proc
@@ -58,7 +64,7 @@ public class Computer implements Runnable{
     }
 
     public String mem() {
-        return memory.toString();
+        return mainMemory.toString();
     }
 
     public String proc() {
@@ -76,8 +82,9 @@ public class Computer implements Runnable{
         return dispatcher.getAmount();
     }
 
+    public void reset() {
 
-
+    }
 
     // Inner class to generate processes
     private class ProcessGenerator {
@@ -89,9 +96,9 @@ public class Computer implements Runnable{
 
         private void wordProcessor() {
             String name = "word" + fileID;
-            int memoryRequirement = ThreadLocalRandom.current().nextInt(100);
-            int burstCycle = ThreadLocalRandom.current().nextInt(19);
-            int priority = ThreadLocalRandom.current().nextInt(4);
+            int memoryRequirement = ThreadLocalRandom.current().nextInt(200, 400);
+            int burstCycle = ThreadLocalRandom.current().nextInt(10, 25);
+            int priority = ThreadLocalRandom.current().nextInt(3, 4);
             fileID++;
             ArrayList<int[]> commands = new ArrayList<>();
             int[] tempCommands = new int[2];
@@ -110,8 +117,14 @@ public class Computer implements Runnable{
             tempCommands[0] = 1;
             tempCommands[1] = 25 + ThreadLocalRandom.current().nextInt(25);
             commands.add(tempCommands);
+            tempCommands[0] = 2;
+            tempCommands[1] = 0;
+            commands.add(tempCommands);
             tempCommands[0] = 0;
             tempCommands[1] = 20 + ThreadLocalRandom.current().nextInt(30);
+            commands.add(tempCommands);
+            tempCommands[0] = 3;
+            tempCommands[1] = 0;
             commands.add(tempCommands);
 
             PCB tempPCB = new PCB(name, processid, memoryRequirement, burstCycle, priority, commands);

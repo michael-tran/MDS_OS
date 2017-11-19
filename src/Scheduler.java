@@ -1,18 +1,18 @@
-import java.util.*;
+import java.util.LinkedList;
+import java.util.PriorityQueue;
+import java.util.Queue;
 
-public class Scheduler extends Thread{
+public class Scheduler extends Thread {
     private CPU cpu;
     private final int QUANTUM = 15;
     private PriorityQueue<PCB> PCBs;
-    private MainMemory memory;
     private Queue<PCB> pancake = new LinkedList<PCB>();
     private Thread thread;
     private String threadName;
 
-    public Scheduler(MainMemory memory, String threadName) {
-        cpu = new CPU();
+    public Scheduler(CPU cpu, String threadName) {
+        this.cpu = cpu;
         this.PCBs = new PriorityQueue<PCB>();
-        this.memory = memory;
         this.threadName = threadName;
     }
 
@@ -20,15 +20,17 @@ public class Scheduler extends Thread{
         System.out.println("Thread " + threadName + " running");
         try {
 
-
-            thread.sleep(100);
+            thread.sleep(1000);
         } catch (InterruptedException e) {
             System.out.println("Thread interrupted");
         }
     }
 
     public void start() {
-        thread.start();
+        if (thread == null) {
+            thread = new Thread(this, threadName);
+            thread.start();
+        }
     }
 
     public void setPauseCycle(int pauseCycle) {

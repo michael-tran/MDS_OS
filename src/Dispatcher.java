@@ -1,23 +1,21 @@
+import sun.jvm.hotspot.runtime.Thread;
+
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.PriorityQueue;
 
-public class Dispatcher implements Runnable{
+public class Dispatcher {
     private MainMemory memory;
     private Scheduler scheduler;
     private PriorityQueue<PCB> readyProcesses; // All new readyProcesses go here
     private PriorityQueue<PCB> otherProcesses; // All new readyProcesses go here
     private int pause = 0;
+    private Thread thread;
 
-    @Override
-    public void run() {
-        this.start();
-    }
-
-    public Dispatcher(CPU cpu, MainMemory memory) {
+    public Dispatcher(MainMemory memory, Scheduler scheduler) {
         this.memory = memory;
         this.readyProcesses = new PriorityQueue<PCB>();
-        this.scheduler = new Scheduler(memory, "Scheduler 1");
+        this.scheduler = scheduler;
     }
 
     public void addProcess(PCB process) {
