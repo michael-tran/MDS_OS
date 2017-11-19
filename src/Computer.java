@@ -16,6 +16,7 @@ public class Computer extends Thread {
         this.mainMemory = mainMemory;
     }
 
+
     public void run() {
 
     }
