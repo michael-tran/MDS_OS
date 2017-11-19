@@ -20,13 +20,13 @@ public class CPU {
         setOccupied(true);
         process = pcb;
         int state = this.crunch(QUANTUM);
+        setOccupied(false);
         switch (state) {
             case -1:
                 return false; //pause
             case 0:
-                return true; //true
+                return false; //true
         }
-        setOccupied(false);
         return true;
     }
 

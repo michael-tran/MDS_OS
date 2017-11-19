@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 public class PCB implements Comparable<PCB> {
     private String name;
@@ -10,7 +11,7 @@ public class PCB implements Comparable<PCB> {
     private int remainingBurstCycle;
     private int memoryRequirement;
     private int commandsIndex;
-    private ArrayList<int[]> commands;
+    private List<int[]> commands;
     private LinkedList<MainMemory.Page> pagesUsed;
     /**
      * process state:
@@ -31,7 +32,7 @@ public class PCB implements Comparable<PCB> {
      * calculation, 0
      * output, 3
      */
-    public PCB(String name, int processid, int memoryRequirement, int burstCycle, int priority, ArrayList<int[]> commands) {
+    public PCB(String name, int processid, int memoryRequirement, int burstCycle, int priority, List<int[]> commands) {
         this.name = name;
         this.pid = processid;
         this.memoryRequirement = memoryRequirement;
@@ -84,7 +85,7 @@ public class PCB implements Comparable<PCB> {
         return pagesUsed;
     }
 
-    public ArrayList<int[]> getCommands() {
+    public List<int[]> getCommands() {
         return commands;
     }
 

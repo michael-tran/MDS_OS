@@ -30,7 +30,7 @@ public class Scheduler extends Thread {
                     System.out.println(cpu.getClock().getClockCycle());
                     System.out.println("Waiting for processes");
                 }
-                thread.sleep(1000);
+                thread.sleep(1);
             }
         } catch (InterruptedException e) {
             System.out.println("Thread interrupted");

@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -99,36 +100,23 @@ public class Computer extends Thread {
             String name = "word" + fileID;
             int memoryRequirement = ThreadLocalRandom.current().nextInt(200, 400);
             int burstCycle = ThreadLocalRandom.current().nextInt(10, 25);
-            int priority = ThreadLocalRandom.current().nextInt(3, 4);
+            int priority = ThreadLocalRandom.current().nextInt(3, 5);
             fileID++;
-            ArrayList<int[]> commands = new ArrayList<>();
-            int[] tempCommands = new int[2];
-            tempCommands[0] = 0;
-            tempCommands[1] = 20 + ThreadLocalRandom.current().nextInt(30);
-            commands.add(tempCommands);
-            tempCommands[0] = 1; // I/O
-            tempCommands[1] = 25 + ThreadLocalRandom.current().nextInt(25);
-            commands.add(tempCommands);
-            tempCommands[0] = 0;
-            tempCommands[1] = 20 + ThreadLocalRandom.current().nextInt(30);
-            commands.add(tempCommands);
-            tempCommands[0] = 0;
-            tempCommands[1] = 20 + ThreadLocalRandom.current().nextInt(30);
-            commands.add(tempCommands);
-            tempCommands[0] = 1;
-            tempCommands[1] = 25 + ThreadLocalRandom.current().nextInt(25);
-            commands.add(tempCommands);
-            tempCommands[0] = 2;
-            tempCommands[1] = 0;
-            commands.add(tempCommands);
-            tempCommands[0] = 0;
-            tempCommands[1] = 20 + ThreadLocalRandom.current().nextInt(30);
-            commands.add(tempCommands);
-            tempCommands[0] = 3;
-            tempCommands[1] = 0;
-            commands.add(tempCommands);
+            List<int[]> commands = new ArrayList<>();
+            commands.add(new int[]{0, 20 + ThreadLocalRandom.current().nextInt(30)});
+            commands.add(new int[]{1, 25 + ThreadLocalRandom.current().nextInt(25)});
+            commands.add(new int[]{0, 20 + ThreadLocalRandom.current().nextInt(30)});
+            commands.add(new int[]{1, 25 + ThreadLocalRandom.current().nextInt(25)});
+            commands.add(new int[]{0, 20 + ThreadLocalRandom.current().nextInt(30)});
+            commands.add(new int[]{1, 25 + ThreadLocalRandom.current().nextInt(25)});
+            commands.add(new int[]{0, 20 + ThreadLocalRandom.current().nextInt(30)});
+            commands.add(new int[]{1, 25 + ThreadLocalRandom.current().nextInt(25)});
+            commands.add(new int[]{0, 20 + ThreadLocalRandom.current().nextInt(30)});
+            commands.add(new int[]{1, 25 + ThreadLocalRandom.current().nextInt(25)});
+            commands.add(new int[]{3, 0});
 
             PCB tempPCB = new PCB(name, processid, memoryRequirement, burstCycle, priority, commands);
+            processid++;
             dispatcher.dispatch(tempPCB);
         }
 
