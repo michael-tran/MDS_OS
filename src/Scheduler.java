@@ -49,10 +49,12 @@ public class Scheduler extends Thread {
         cpu.setPauseCycles(pauseCycle);
     }
 
-    public void start(PCB pcb) {
+    public void start(PCB pcb) throws InterruptedException {
         int done = cpu.startProcess(pcb, QUANTUM);
         switch (done){
             case -1:
+                System.out.println("PAUSED");
+                Thread.sleep(100);
                 break;
             case 0:
             case 1:
