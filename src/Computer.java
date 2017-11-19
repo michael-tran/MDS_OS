@@ -69,6 +69,7 @@ public class Computer {
 
     public String genLoad() {
         for (String file : progen.getFiles()) {
+
             this.load(file);
         }
         return progen.toString();
