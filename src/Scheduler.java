@@ -41,17 +41,13 @@ public class Scheduler extends Thread{
 
     public void start(PCB pcb) {
         boolean done = cpu.startProcess(pcb, QUANTUM);
-        if (done) {
-            pancake.add(pcb);
-        }
+        if (!done) pancake.add(pcb);
     }
 
     public void finish() {
         while (!pancake.isEmpty()) {
             boolean done = cpu.startProcess(pancake.peek(), QUANTUM);
-            if (done) {
-                pancake.add(pancake.remove());
-            }
+            if (!done) pancake.add(pancake.remove());
         }
     }
 

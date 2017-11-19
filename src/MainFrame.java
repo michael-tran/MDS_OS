@@ -18,6 +18,7 @@ public class MainFrame extends JFrame {
     private JTextPane mainDisplay;
     private JTextField inputField;
     private JTextPane monitorDisplay;
+    private JButton pauseButton;
     private StyledDocument mddoc = mainDisplay.getStyledDocument();
     private StyledDocument mtdoc = monitorDisplay.getStyledDocument();
     private SimpleAttributeSet keyWord = new SimpleAttributeSet();
