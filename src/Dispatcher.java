@@ -71,7 +71,6 @@ public class Dispatcher extends Thread{
         for (PCB readyProcess : this.readyProcesses) {
             scheduler.addPCB(readyProcess);
         }
-
         scheduler.run();
         //scheduler.finish();
         return "Done";

@@ -50,16 +50,34 @@ public class Scheduler extends Thread {
     }
 
     public void start(PCB pcb) {
-        boolean done = cpu.startProcess(pcb, QUANTUM);
-        if (!done) pancake.add(pcb);
-    }
-
-    public void finish() {
-        while (!pancake.isEmpty()) {
-            boolean done = cpu.startProcess(pancake.peek(), QUANTUM);
-            if (!done) pancake.add(pancake.remove());
+        int done = cpu.startProcess(pcb, QUANTUM);
+        switch (done){
+            case -1:
+                break;
+            case 0:
+            case 1:
+            case 2:
+                pancake.add(pcb);
+                break;
+            case 3:
+                break;
         }
     }
+
+//    public void finish() {
+//        while (!pancake.isEmpty()) {
+//            int done = cpu.startProcess(pancake.peek(), QUANTUM);
+//            switch (done){
+//                case -1:
+//                    break;
+//                case 0:
+//                    break;
+//                case 1:
+//                    pancake.add(pancake.remove());
+//                    break;
+//            }
+//        }
+//    }
 
     public void reset() {
         pancake.clear();
