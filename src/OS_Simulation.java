@@ -8,6 +8,6 @@ public class OS_Simulation {
         MainFrame mf = new MainFrame(computer);
         mf.runGUI();
 
-        scheduler.run();
+
     }
 }

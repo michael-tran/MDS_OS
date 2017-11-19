@@ -16,20 +16,20 @@ public class CPU {
         return clock;
     }
 
-    public boolean startProcess(PCB pcb, int QUANTUM) {
+    public int startProcess(PCB pcb, int QUANTUM) {
         setOccupied(true);
         process = pcb;
         int state = this.crunch(QUANTUM);
         setOccupied(false);
         switch (state) {
             case -1:
-                return false; //pause
+                return -1; //pause
             case 0:
-                return false; //true
-            case 3:
-                return true;
+                return 0; //true
+            case 1:
+                return 1; //false
         }
-        return true;
+        return 0;
     }
 
     private int crunch(int QUANTUM) {

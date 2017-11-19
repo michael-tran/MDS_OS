@@ -2,11 +2,10 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.PriorityQueue;
 
-public class Dispatcher extends Thread{
+public class Dispatcher extends Thread {
     private MainMemory memory;
     private Scheduler scheduler;
     private PriorityQueue<PCB> readyProcesses; // All new readyProcesses go here
-    private PriorityQueue<PCB> otherProcesses; // All new readyProcesses go here
     private int pause = 0;
     private Thread thread;
 
@@ -15,7 +14,6 @@ public class Dispatcher extends Thread{
         this.readyProcesses = new PriorityQueue<PCB>();
         this.scheduler = scheduler;
     }
-
 
 
     public String displayProcesses() {
@@ -42,7 +40,6 @@ public class Dispatcher extends Thread{
                     readyProcesses.add(process);
                 } else {
                     process.setPriority(process.getPriority() - 1);
-                    otherProcesses.add(process);
                     // add to whatever queue
                 }
                 ;
@@ -70,9 +67,9 @@ public class Dispatcher extends Thread{
 
     public String start(int n) {
         scheduler.setPauseCycle(n);
-        for (PCB readyProcess : this.readyProcesses) {
-            scheduler.addPCB(readyProcess);
-        }
+        scheduler.setReadyProcesses(this.readyProcesses);
+        scheduler.start();
+        scheduler.run();
         //scheduler.finish();
         return "Done";
     }

@@ -80,10 +80,6 @@ public class Computer extends Thread {
         return "Process generation complete.";
     }
 
-    public int getAmount() {
-        return dispatcher.getAmount();
-    }
-
     public void reset() {
 
     }

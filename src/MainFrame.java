@@ -180,6 +180,7 @@ public class MainFrame extends JFrame {
                 }
             case "gen":
                 addText(mainDisplay, mddoc, "Generating 5 processes");
+                monitorDisplay.setText(computer.mem() + "\n" + computer.proc());
                 computer.gen(5);
                 return 1;
             case "reset":
