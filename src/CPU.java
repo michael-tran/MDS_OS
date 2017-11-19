@@ -26,6 +26,8 @@ public class CPU {
                 return false; //pause
             case 0:
                 return false; //true
+            case 3:
+                return true;
         }
         return true;
     }
@@ -57,6 +59,8 @@ public class CPU {
                     process.setRemainingBurstCycle(i);
                     return 2;
                 case 3:
+                    System.out.println("Terminating");
+                    process.setState(4);
                     clock.tick();
                     return 3;
             }

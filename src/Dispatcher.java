@@ -16,8 +16,7 @@ public class Dispatcher extends Thread{
         this.scheduler = scheduler;
     }
 
-    public void addProcess(PCB process) {
-    }
+
 
     public String displayProcesses() {
         Iterator it = readyProcesses.iterator();
