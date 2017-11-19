@@ -6,6 +6,7 @@ public class CPU {
     private PCB process;
 
     public CPU() {
+        pauseCycles = Integer.MAX_VALUE;
         this.clock = new Clock();
     }
 

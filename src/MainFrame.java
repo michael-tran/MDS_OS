@@ -2,13 +2,16 @@ import javax.swing.*;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyledDocument;
 import java.awt.*;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class MainFrame extends JFrame {
     private JPanel os_display;
     private Computer computer = new Computer();
+    private Thread threadObject;
     private int count;
     private boolean on = true;
     private boolean generated = false;
+    private AtomicBoolean paused;
     private JButton exitButton;
     private JButton procButton;
     private JButton cleanButton;
@@ -51,6 +54,25 @@ public class MainFrame extends JFrame {
                 count++;
             }
 
+        });
+
+        pauseButton.addActionListener(e -> {
+            if(!paused.get())
+            {
+                pauseButton.setText("Start");
+                paused.set(true);
+            }
+            else
+            {
+                pauseButton.setText("Pause");
+                paused.set(false);
+
+                // Resume
+                synchronized(threadObject)
+                {
+                    threadObject.notify();
+                }
+            }
         });
 
         //action for Proc button
@@ -151,12 +173,13 @@ public class MainFrame extends JFrame {
                         addText(mainDisplay, mddoc, "Not a number");
                         return 0;
                     }
-                    addText(mainDisplay, mddoc, computer.exe(n));
+                    threadObject = new Thread(computer);
+                    threadObject.start();
+                    addText(mainDisplay, mddoc, "Done");
                     return 1;
                 } else if(!generated){
                     addText(mainDisplay, mddoc, "Generating 5 processes");
                     addText(mainDisplay, mddoc, computer.gen(5));
-                    addText(mainDisplay, mddoc, computer.genLoad());
                     monitorDisplay.setText(computer.mem() + "\n" + computer.proc());
                     generated = true;
                     return 1;

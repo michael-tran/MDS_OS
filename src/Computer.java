@@ -6,12 +6,17 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class Computer {
+public class Computer implements Runnable{
     CPU cpu = new CPU();
     MainMemory memory = new MainMemory();
     Dispatcher dispatcher = new Dispatcher(cpu, memory);
     ProcessGenerator progen = new ProcessGenerator();
     private int processid = 0;
+
+    @Override
+    public void run() {
+        dispatcher.start();
+    }
 
     public Computer() {
     }
@@ -67,17 +72,11 @@ public class Computer {
         return "Process generation complete.";
     }
 
-    public String genLoad() {
-        for (String file : progen.getFiles()) {
-
-            this.load(file);
-        }
-        return progen.toString();
-    }
-
     public int getAmount() {
         return dispatcher.getAmount();
     }
+
+
 
 
     // Inner class to generate processes
@@ -154,13 +153,6 @@ public class Computer {
                     wordProcessor();
                     break;
             }
-        }
-
-        @Override
-        public String toString() {
-            return "ProcessGenerator{" +
-                    "files=" + files +
-                    '}';
         }
     }
 }
