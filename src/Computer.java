@@ -22,7 +22,7 @@ public class Computer {
         File file = new File(input + ".txt");
         String name;
         int memoryRequirement, burstCycle, priority;
-        ArrayList<int[]> commands = new ArrayList<int[]>();
+        ArrayList<int[]> commands = new ArrayList<>();
         try {
             Scanner in = new Scanner(file);
             name = in.nextLine();
@@ -83,18 +83,9 @@ public class Computer {
     // Inner class to generate processes
     private class ProcessGenerator {
 
-        private ArrayList<String> files = new ArrayList<>();
         int fileID = 0;
 
         public ProcessGenerator() {
-        }
-
-        public ArrayList<String> getFiles() {
-            return files;
-        }
-
-        public void setFiles(ArrayList<String> files) {
-            this.files = files;
         }
 
         private void wordProcessor() {
@@ -102,54 +93,34 @@ public class Computer {
             int memoryRequirement = ThreadLocalRandom.current().nextInt(100);
             int burstCycle = ThreadLocalRandom.current().nextInt(19);
             int priority = ThreadLocalRandom.current().nextInt(4);
-            try {
-                PrintWriter writer = new PrintWriter(name + ".txt", "UTF-8");
-                writer.println(name);
-                writer.println(memoryRequirement);
-                writer.println(burstCycle);
-                writer.println(priority);
-                writer.println("1," + (20 + ThreadLocalRandom.current().nextInt(30))); //Type , cycle (IO)
-                writer.println("0," + ThreadLocalRandom.current().nextInt(20)); //Type , cycle
-                writer.println("1," + (20 + ThreadLocalRandom.current().nextInt(30))); //Type , cycle (IO)
-                writer.println("0," + ThreadLocalRandom.current().nextInt(20)); //Type , cycle
-                writer.println("1," + (20 + ThreadLocalRandom.current().nextInt(30))); //Type , cycle (IO)
-                writer.println("0," + ThreadLocalRandom.current().nextInt(20)); //Type , cycle
-                writer.println("1," + (20 + ThreadLocalRandom.current().nextInt(30))); //Type , cycle (IO)
-                writer.println("0," + ThreadLocalRandom.current().nextInt(20)); //Type , cycle
-                writer.println("1," + (20 + ThreadLocalRandom.current().nextInt(30))); //Type , cycle (IO)
-                writer.println("0," + ThreadLocalRandom.current().nextInt(20)); //Type , cycle
-                writer.println("3,0");
-                writer.close();
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            }
-            files.add(name);
             fileID++;
+            ArrayList<int[]> commands = new ArrayList<>();
+            int[] tempCommands = new int[2];
+            tempCommands[0] = 0;
+            tempCommands[1] = 20 + ThreadLocalRandom.current().nextInt(30);
+            commands.add(tempCommands);
+            tempCommands[0] = 1; // I/O
+            tempCommands[1] = 25 + ThreadLocalRandom.current().nextInt(25);
+            commands.add(tempCommands);
+            tempCommands[0] = 0;
+            tempCommands[1] = 20 + ThreadLocalRandom.current().nextInt(30);
+            commands.add(tempCommands);
+            tempCommands[0] = 0;
+            tempCommands[1] = 20 + ThreadLocalRandom.current().nextInt(30);
+            commands.add(tempCommands);
+            tempCommands[0] = 1;
+            tempCommands[1] = 25 + ThreadLocalRandom.current().nextInt(25);
+            commands.add(tempCommands);
+            tempCommands[0] = 0;
+            tempCommands[1] = 20 + ThreadLocalRandom.current().nextInt(30);
+            commands.add(tempCommands);
+
+            PCB tempPCB = new PCB(name, processid, memoryRequirement, burstCycle, priority, commands);
+            dispatcher.dispatch(tempPCB);
         }
 
         private void game() {
-            String name = "word" + processid;
-            int memoryRequirement = ThreadLocalRandom.current().nextInt(1000, 2000);
-            int burstCycle = ThreadLocalRandom.current().nextInt(20);
-            int priority = 1;
-            try {
-                PrintWriter writer = new PrintWriter(name +".txt", "UTF-8");
-                writer.println(name);
-                writer.println(memoryRequirement);
-                writer.println(burstCycle);
-                writer.println(priority);
-                for (int i = 0; i < 10; i++) {
-                    writer.println((1 + ThreadLocalRandom.current().nextInt(2)) + "," + ThreadLocalRandom.current().nextInt(20)); //Type , cycle
-                }
-                writer.println("3,0");
-                writer.close();
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            }
+
         }
 
         private void videoEditor() {
