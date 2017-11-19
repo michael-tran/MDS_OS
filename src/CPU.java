@@ -41,11 +41,13 @@ public class CPU {
             switch (process.getCommands().get(process.getCommandsIndex())[0]) {
                 case 0:
                     // calculate
+                    System.out.println("Calculating");
                     process.getCommands().get(process.getCommandsIndex())[1]--;
                     clock.tick();
                     break;
                 case 1:
                     // I/O
+                    System.out.println("IO");
                     process.getCommands().get(process.getCommandsIndex())[1]--;
                     clock.tick();
                     break;

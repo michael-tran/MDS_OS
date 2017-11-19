@@ -27,6 +27,7 @@ public class Scheduler extends Thread {
                     System.out.println("Scheduling " + temp.getName());
                     start(temp);
                 } else {
+                    System.out.println(cpu.getClock().getClockCycle());
                     System.out.println("Waiting for processes");
                 }
                 thread.sleep(1000);
