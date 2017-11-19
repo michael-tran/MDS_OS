@@ -16,25 +16,32 @@ public class CPU {
         return clock;
     }
 
-    public int startProcess(PCB pcb, int QUANTUM) {
+    public int startProcess(PCB pcb, int QUANTUM, int option) {
         setOccupied(true);
         process = pcb;
-        int state = this.crunch(QUANTUM);
+        process.setState(2);
+        int state = this.crunch(QUANTUM, option);
         setOccupied(false);
         switch (state) {
             case -1:
                 return -1; //pause
             case 0:
+                process.setState(1);
+                return 0; //not finished with Calc
             case 1:
+                process.setState(3);
+                return 1;//not finished with I/O
             case 2:
-                return 0; //true
+                process.setState(1);
+                return 2;//not finished with Yield
             case 3:
-                return 3;
+                process.setState(4);
+                return 3;//Finished
         }
         return 0;
     }
 
-    private int crunch(int QUANTUM) {
+    private int crunch(int QUANTUM, int option) {
         int burstCycle;
         System.out.println("Crunching " + process.getName());
         if (process.getRemainingBurstCycle() > 0) {
@@ -50,11 +57,15 @@ public class CPU {
                     clock.tick();
                     break;
                 case 1:
-                    // I/O
-                    System.out.println("IO");
-                    process.getCommands().get(process.getCommandsIndex())[1]--;
-                    clock.tick();
-                    break;
+                    if(option == 0){
+                        return 1;
+                    }else {
+                        // I/O
+                        System.out.println("IO");
+                        process.getCommands().get(process.getCommandsIndex())[1]--;
+                        clock.tick();
+                        break;
+                    }
                 case 2:
                     // Yield
                     clock.tick();

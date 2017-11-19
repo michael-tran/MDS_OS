@@ -2,10 +2,13 @@ import java.util.LinkedList;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
+//https://stackoverflow.com/questions/2622804/how-to-indefinitely-pause-a-thread-in-java-and-later-resume-it
+
 public class Scheduler extends Thread {
     private CPU cpu;
     private final int QUANTUM = 15;
     private Queue<PCB> pancake = new LinkedList<>();
+    private Queue<PCB> waffle = new LinkedList<>();
     private Thread thread;
     private String threadName;
 
@@ -25,11 +28,17 @@ public class Scheduler extends Thread {
                 if (pancake.size() > 0 && !cpu.isOccupied()) {
                     PCB temp = pancake.poll();
                     System.out.println("Scheduling " + temp.getName());
-                    start(temp);
+                    start(temp, 0);
                 } else {
-                    System.out.println(cpu.getClock().getClockCycle());
-                    System.out.println("Waiting for processes");
-                    break;
+                    if (waffle.size() > 0 && !cpu.isOccupied()) {
+                        PCB temp = waffle.poll();
+                        System.out.println("I/O Scheduling " + temp.getName());
+                        start(temp, 1);
+                    }else {
+                        System.out.println(cpu.getClock().getClockCycle());
+                        System.out.println("Waiting for processes");
+                        break;
+                    }
                 }
                 thread.sleep(1);
             }
@@ -49,19 +58,23 @@ public class Scheduler extends Thread {
         cpu.setPauseCycles(pauseCycle);
     }
 
-    public void start(PCB pcb) throws InterruptedException {
-        int done = cpu.startProcess(pcb, QUANTUM);
+    public void start(PCB pcb, int option) throws InterruptedException {
+        int done = cpu.startProcess(pcb, QUANTUM, option);
         switch (done){
             case -1:
                 System.out.println("PAUSED");
                 Thread.sleep(100);
                 break;
             case 0:
-            case 1:
-            case 2:
-                pancake.add(pcb);
+                pancake.add(pcb);//calc
                 break;
-            case 3:
+            case 1:
+                waffle.add(pcb);//i/o
+                break;
+            case 2:
+                pancake.add(pcb);//yield
+                break;
+            case 3: //terminate
                 break;
         }
     }
