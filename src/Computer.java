@@ -61,7 +61,7 @@ public class Computer extends Thread {
 
     public String exe(int n) {
         dispatcher.start(n);
-        return "Done";
+        return "Starting Simulation";
     }
 
     public String mem() {

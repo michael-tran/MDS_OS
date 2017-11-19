@@ -52,6 +52,10 @@ public class PCB implements Comparable<PCB> {
         return pid;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public int getState() {
         return state;
     }

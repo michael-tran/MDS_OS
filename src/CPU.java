@@ -4,10 +4,12 @@ public class CPU {
     private Clock clock;
     private int pauseCycles;
     private PCB process;
+    private boolean occupied;
 
     public CPU() {
         pauseCycles = Integer.MAX_VALUE;
         this.clock = new Clock();
+        occupied = false;
     }
 
     public Clock getClock() {
@@ -15,6 +17,7 @@ public class CPU {
     }
 
     public boolean startProcess(PCB pcb, int QUANTUM) {
+        setOccupied(true);
         process = pcb;
         int state = this.crunch(QUANTUM);
         switch (state) {
@@ -23,11 +26,13 @@ public class CPU {
             case 0:
                 return true; //true
         }
+        setOccupied(false);
         return true;
     }
 
     private int crunch(int QUANTUM) {
         int burstCycle;
+        System.out.println("Crunching " + process.getName());
         if (process.getRemainingBurstCycle() > 0) {
             burstCycle = process.getRemainingBurstCycle();
         } else burstCycle = process.getBurstCycle();
@@ -58,7 +63,7 @@ public class CPU {
                 process.setCommandsIndex(process.getCommandsIndex() + 1);
             }
 
-            if ((clock.getClockCycle() != 0) &&(clock.getClockCycle() % this.pauseCycles) == 0) {
+            if ((clock.getClockCycle() != 0) && (clock.getClockCycle() % this.pauseCycles) == 0) {
                 return -1;
             }
         }
@@ -71,5 +76,13 @@ public class CPU {
         } else {
             this.pauseCycles = pauseCycles;
         }
+    }
+
+    public boolean isOccupied() {
+        return occupied;
+    }
+
+    public void setOccupied(boolean occupied) {
+        this.occupied = occupied;
     }
 }

@@ -5,22 +5,32 @@ import java.util.Queue;
 public class Scheduler extends Thread {
     private CPU cpu;
     private final int QUANTUM = 15;
-    private PriorityQueue<PCB> PCBs;
-    private Queue<PCB> pancake = new LinkedList<PCB>();
+    private Queue<PCB> pancake = new LinkedList<>();
     private Thread thread;
     private String threadName;
 
     public Scheduler(CPU cpu, String threadName) {
         this.cpu = cpu;
-        this.PCBs = new PriorityQueue<PCB>();
         this.threadName = threadName;
+    }
+
+    public void addPCB(PCB pcb) {
+        pancake.add(pcb);
     }
 
     public void run() {
         System.out.println("Thread " + threadName + " running");
         try {
-
-            thread.sleep(1000);
+            while(true) {
+                if (pancake.size() > 0 && !cpu.isOccupied()) {
+                    PCB temp = pancake.poll();
+                    System.out.println("Scheduling " + temp.getName());
+                    start(temp);
+                } else {
+                    System.out.println("Waiting for processes");
+                }
+                thread.sleep(1000);
+            }
         } catch (InterruptedException e) {
             System.out.println("Thread interrupted");
         }
@@ -37,10 +47,6 @@ public class Scheduler extends Thread {
         cpu.setPauseCycles(pauseCycle);
     }
 
-    public PriorityQueue<PCB> getPCBs() {
-        return PCBs;
-    }
-
     public void start(PCB pcb) {
         boolean done = cpu.startProcess(pcb, QUANTUM);
         if (!done) pancake.add(pcb);
@@ -53,10 +59,7 @@ public class Scheduler extends Thread {
         }
     }
 
-    @Override
-    public String toString() {
-        return "Scheduler{" +
-                "PCBs=" + PCBs +
-                '}';
+    public void reset() {
+        pancake.clear();
     }
 }

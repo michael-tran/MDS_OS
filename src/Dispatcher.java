@@ -1,10 +1,8 @@
-import sun.jvm.hotspot.runtime.Thread;
-
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.PriorityQueue;
 
-public class Dispatcher {
+public class Dispatcher extends Thread{
     private MainMemory memory;
     private Scheduler scheduler;
     private PriorityQueue<PCB> readyProcesses; // All new readyProcesses go here
@@ -53,6 +51,7 @@ public class Dispatcher {
 
             // READY
             case 1:
+                scheduler.addPCB(process);
                 break;
 
             // RUNNING
@@ -73,17 +72,9 @@ public class Dispatcher {
     public String start(int n) {
         scheduler.setPauseCycle(n);
         for (PCB readyProcess : this.readyProcesses) {
-            scheduler.start(readyProcess);
+            scheduler.addPCB(readyProcess);
         }
-        scheduler.finish();
-        return "Done";
-    }
-
-    public String start() {
-        for (PCB readyProcess : this.readyProcesses) {
-            scheduler.start(readyProcess);
-        }
-        scheduler.finish();
+        //scheduler.finish();
         return "Done";
     }
 

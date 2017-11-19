@@ -54,8 +54,7 @@ public class MainMemory {
 
     @Override
     public String toString() {
-        return "Current memory usage: " + this.getUsedCurrentMemory() + "/4096 MB\n" +
-                "idk fucking virtual memory something";
+        return "Current memory usage: " + this.getUsedCurrentMemory() + "/4096 MB";
     }
 
     public class Page {
