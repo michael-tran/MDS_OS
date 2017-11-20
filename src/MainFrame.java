@@ -241,6 +241,14 @@ public class MainFrame extends JPanel {
                 computer.exe(n);
                 return null;
             }
+
+            @Override
+            protected void done() {
+                addText(mainDisplay, mddoc, "----------------------\n" + "Simulation Complete\n" +
+                        "----------------------\n");
+                running = false;
+            }
+
         };
 
         worker.execute();
