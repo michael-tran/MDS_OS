@@ -1,4 +1,3 @@
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.PriorityQueue;
 
@@ -6,12 +5,14 @@ public class Dispatcher implements Runnable {
     private MainMemory memory;
     private Scheduler scheduler;
     private PriorityQueue<PCB> readyProcesses; // All new readyProcesses go here
+    private PriorityQueue<PCB> newProcesses; // All unallocated processes go here
     private int pause = 0;
     private Thread thread;
 
     public Dispatcher(MainMemory memory, Scheduler scheduler) {
         this.memory = memory;
-        this.readyProcesses = new PriorityQueue<PCB>();
+        this.readyProcesses = new PriorityQueue<>();
+        this.newProcesses = new PriorityQueue<>();
         this.scheduler = scheduler;
     }
 
@@ -25,14 +26,21 @@ public class Dispatcher implements Runnable {
 
     public String displayProcesses() {
         String output = "";
-        if (readyProcesses.isEmpty()) {
-            return "No process loaded";
-        } else {
+
+        if (!readyProcesses.isEmpty()) {
+            output = output + "Displaying ready process(es): \n";
             for (PCB readyProcess : this.readyProcesses) {
                 output = output + readyProcess.toString();
             }
-            return "Displaying all readyProcesses:\n" + output;
         }
+        if (!newProcesses.isEmpty()) {
+            output = output + "Displaying new process(es): \n";
+            for (PCB newProcess : this.newProcesses) {
+                output = output + newProcess.toString();
+            }
+        }
+
+        return output.isEmpty() ? "No process loaded" : output;
     }
 
     public synchronized void dispatch(PCB process) {
@@ -46,7 +54,7 @@ public class Dispatcher implements Runnable {
                     readyProcesses.add(process);
                 } else {
                     process.setPriority(process.getPriority() - 1);
-                    // add to whatever queue
+                    newProcesses.add(process);
                 }
                 ;
                 break;
@@ -86,6 +94,7 @@ public class Dispatcher implements Runnable {
 
     public void reset() {
         readyProcesses.clear();
+        newProcesses.clear();
         scheduler.reset();
     }
 
