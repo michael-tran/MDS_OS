@@ -64,16 +64,9 @@ public class Dispatcher implements Runnable {
                 scheduler.addPCB(process);
                 break;
 
-            // RUNNING
-            case 2:
-                break;
-
-            // WAITING/BLOCKED
-            case 3:
-                break;
-
             // TERMINATING
             case 4:
+                // How should the scheduler terminate process and deallocate memory?
                 memory.deallocateMemory(process.getPagesUsed());
                 break;
         }

@@ -1,6 +1,8 @@
 import javax.swing.*;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyledDocument;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class MainFrame extends JPanel {
     private JPanel os_display;
@@ -8,7 +10,6 @@ public class MainFrame extends JPanel {
     private int count;
     private boolean on = true;
     private boolean generated = false;
-    private boolean running = true;
     private JButton exitButton;
     private JButton procButton;
     private JButton cleanButton;
@@ -34,7 +35,9 @@ public class MainFrame extends JPanel {
 
         //Adds initial Text
         addText(mainDisplay, mddoc, "Welcome to MDS OS");
-        addText(monitorDisplay, mtdoc, "System Resource Monitor\n" + computer.proc());
+
+        // Start updating system resource in real time
+        updateResourceMonitor();
 
         // List of buttons
         // action for help button
@@ -75,7 +78,6 @@ public class MainFrame extends JPanel {
         //action for reset button
         resetButton.addActionListener((e) -> {
             mainDisplay.setText("Welcome to MDS OS\n");
-            worker.cancel(true);
             computer.reset();
             on = true;
             generated = false;
@@ -132,7 +134,7 @@ public class MainFrame extends JPanel {
         frame.setSize(1200, 768);
         frame.setResizable(false);
 
-        updateResourceMonitor();
+
     }
 
     // Appends text to specified JTextPane
@@ -267,17 +269,9 @@ public class MainFrame extends JPanel {
     }
 
     private void updateResourceMonitor() {
-        worker = new SwingWorker<>() {
-            @Override
-            protected Void doInBackground() throws Exception {
-                while (running) {
-                    monitorDisplay.setText(computer.proc() + computer.mem());
-                    Thread.sleep(100);
-                }
-                return null;
-            }
-        };
-
-        worker.execute();
+        Timer timer = new Timer(10, (e) -> {
+            monitorDisplay.setText("System resource monitor\n" + computer.mem() + "\n" + computer.proc());
+        });
+        timer.start();
     }
 }

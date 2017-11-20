@@ -39,7 +39,6 @@ public class Scheduler implements Runnable {
                         break;
                     }
                 }
-                thread.sleep(100);
             }
         } catch (InterruptedException e) {
             System.out.println("Thread interrupted");
