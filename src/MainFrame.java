@@ -264,7 +264,6 @@ public class MainFrame extends JPanel{
                 return null;
             }
         };
-
         worker.execute();
     }
 
