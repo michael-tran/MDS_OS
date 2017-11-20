@@ -164,12 +164,6 @@ public class MainFrame extends JPanel{
                             "----------------------\n");
                     computer.exe(n);
                     return 1;
-                } else if (!generated) {
-                    addText(mainDisplay, mddoc, "Generating 5 processes");
-                    addText(mainDisplay, mddoc, computer.gen(5));
-                    monitorDisplay.setText(computer.mem() + "\n" + computer.proc());
-                    generated = true;
-                    return 1;
                 }
                 return 0;
             case "proc":
