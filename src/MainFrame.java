@@ -3,7 +3,7 @@ import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyledDocument;
 import java.awt.*;
 
-public class MainFrame extends JFrame {
+public class MainFrame extends JPanel{
     private JPanel os_display;
     private final Computer computer;
     private int count;
@@ -19,6 +19,8 @@ public class MainFrame extends JFrame {
     private JTextField inputField;
     private JTextPane monitorDisplay;
     private JButton pauseButton;
+    private JButton genButton;
+    private JLabel imageLabel;
     private StyledDocument mddoc = mainDisplay.getStyledDocument();
     private StyledDocument mtdoc = monitorDisplay.getStyledDocument();
     private SimpleAttributeSet keyWord = new SimpleAttributeSet();
@@ -28,12 +30,8 @@ public class MainFrame extends JFrame {
         this.computer = computer;
 
         //Adds initial Text
-        addText(mainDisplay, mddoc, "MDS OS");
-        addText(monitorDisplay, mtdoc, "System Resource Monitor \nTO-DO: Figure out multithreading so we can " +
-                "update system info in real time \n" +
-                "https://www.tutorialspoint.com/java/java_multithreading.htm \n" +
-                "We may not need to do this in literal real time. The description made it sound like we can just " +
-                "update this screen when the CPU processes one cycle");
+        addText(mainDisplay, mddoc, "Welcome to MDS OS");
+        addText(monitorDisplay, mtdoc, "System Resource Monitor\n" + computer.proc());
 
         // List of buttons
         // action for help button
@@ -58,6 +56,13 @@ public class MainFrame extends JFrame {
         //action for Proc button
         procButton.addActionListener((e) -> {
             addText(mainDisplay, mddoc, computer.proc());
+        });
+
+        //action for Gen button
+        genButton.addActionListener((e) -> {
+            addText(mainDisplay, mddoc, "Generating 5 processes");
+            computer.gen(5);
+            monitorDisplay.setText(computer.mem() + "\n" + computer.proc());
         });
 
         //action for mem button
@@ -109,13 +114,6 @@ public class MainFrame extends JFrame {
             // handle exception
         }
 
-        // get the screen size as a java dimension
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-
-        // get 2/3 of the height, and 2/3 of the width
-        int height = screenSize.height * 1 / 2;
-        int width = screenSize.width * 1 / 2;
-
         // UI Initialize
         JFrame frame = new JFrame("MDS OS");
         frame.setContentPane(new MainFrame(computer).os_display);
@@ -123,8 +121,8 @@ public class MainFrame extends JFrame {
         frame.pack();
         frame.setVisible(true);
         frame.setTitle("MDS OS");
-        frame.setSize(width, height);
-        frame.setResizable(true);
+        frame.setSize(1200, 768);
+        frame.setResizable(false);
     }
 
     // Appends text to specified JTextPane
@@ -180,8 +178,8 @@ public class MainFrame extends JFrame {
                 }
             case "gen":
                 addText(mainDisplay, mddoc, "Generating 5 processes");
-                monitorDisplay.setText(computer.mem() + "\n" + computer.proc());
                 computer.gen(5);
+                monitorDisplay.setText(computer.mem() + "\n" + computer.proc());
                 return 1;
             case "reset":
                 mainDisplay.setText("TO DO: Implement computer.reset()\n");
@@ -244,5 +242,9 @@ public class MainFrame extends JFrame {
                 addText(mainDisplay, mddoc, "Please enter a valid command.");
                 return 0;
         }
+    }
+
+    private void createUIComponents() {
+        imageLabel = new JLabel(new ImageIcon("aaa.jpg"));
     }
 }

@@ -40,7 +40,7 @@ public class Scheduler extends Thread {
                         break;
                     }
                 }
-                thread.sleep(1);
+                thread.sleep(100);
             }
         } catch (InterruptedException e) {
             System.out.println("Thread interrupted");

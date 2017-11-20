@@ -1,96 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="MainFrame">
-  <grid id="27dc6" binding="os_display" layout-manager="GridLayoutManager" row-count="3" column-count="7" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+  <grid id="27dc6" binding="os_display" layout-manager="GridLayoutManager" row-count="13" column-count="4" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
-      <xy x="28" y="14" width="882" height="561"/>
+      <xy x="28" y="14" width="1202" height="561"/>
     </constraints>
     <properties/>
     <border type="none"/>
     <children>
-      <component id="efe7a" class="javax.swing.JButton" binding="exitButton">
-        <constraints>
-          <grid row="2" column="6" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
-            <minimum-size width="120" height="-1"/>
-            <preferred-size width="120" height="-1"/>
-            <maximum-size width="120" height="-1"/>
-          </grid>
-        </constraints>
-        <properties>
-          <text value="Exit"/>
-        </properties>
-      </component>
-      <component id="3e14c" class="javax.swing.JButton" binding="procButton">
-        <constraints>
-          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
-            <minimum-size width="120" height="-1"/>
-            <preferred-size width="120" height="-1"/>
-            <maximum-size width="120" height="-1"/>
-          </grid>
-        </constraints>
-        <properties>
-          <text value="Proc"/>
-        </properties>
-      </component>
-      <component id="424c0" class="javax.swing.JButton" binding="resetButton">
-        <constraints>
-          <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
-            <minimum-size width="120" height="-1"/>
-            <preferred-size width="123" height="22"/>
-            <maximum-size width="120" height="-1"/>
-          </grid>
-        </constraints>
-        <properties>
-          <text value="Reset"/>
-        </properties>
-      </component>
-      <component id="971c4" class="javax.swing.JButton" binding="cleanButton" default-binding="true">
-        <constraints>
-          <grid row="2" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
-            <minimum-size width="120" height="-1"/>
-            <preferred-size width="120" height="-1"/>
-            <maximum-size width="120" height="-1"/>
-          </grid>
-        </constraints>
-        <properties>
-          <text value="Clean"/>
-        </properties>
-      </component>
-      <component id="6ebf1" class="javax.swing.JButton" binding="memButton">
-        <constraints>
-          <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
-            <minimum-size width="120" height="-1"/>
-            <preferred-size width="120" height="-1"/>
-            <maximum-size width="120" height="-1"/>
-          </grid>
-        </constraints>
-        <properties>
-          <text value="Mem"/>
-        </properties>
-      </component>
-      <component id="3f179" class="javax.swing.JTextField" binding="inputField">
-        <constraints>
-          <grid row="1" column="0" row-span="1" col-span="7" vsize-policy="1" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-            <preferred-size width="150" height="50"/>
-          </grid>
-        </constraints>
-        <properties/>
-      </component>
-      <component id="17185" class="javax.swing.JButton" binding="helpButton" default-binding="true">
-        <constraints>
-          <grid row="2" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
-            <minimum-size width="120" height="-1"/>
-            <preferred-size width="120" height="-1"/>
-            <maximum-size width="120" height="-1"/>
-          </grid>
-        </constraints>
-        <properties>
-          <text value="Help"/>
-        </properties>
-      </component>
       <scrollpane id="5ec5e">
         <constraints>
-          <grid row="0" column="0" row-span="1" col-span="3" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+          <grid row="0" column="0" row-span="12" col-span="1" vsize-policy="3" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false">
+            <minimum-size width="500" height="-1"/>
+            <preferred-size width="500" height="500"/>
+          </grid>
         </constraints>
         <properties/>
         <border type="none"/>
@@ -103,7 +26,10 @@
       </scrollpane>
       <scrollpane id="13547">
         <constraints>
-          <grid row="0" column="3" row-span="1" col-span="4" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+          <grid row="0" column="1" row-span="12" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false">
+            <minimum-size width="500" height="-1"/>
+            <preferred-size width="500" height="500"/>
+          </grid>
         </constraints>
         <properties/>
         <border type="none"/>
@@ -114,14 +40,158 @@
           </component>
         </children>
       </scrollpane>
+      <component id="6ebf1" class="javax.swing.JButton" binding="memButton">
+        <constraints>
+          <grid row="7" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="1" indent="0" use-parent-layout="false">
+            <minimum-size width="100" height="20"/>
+            <preferred-size width="80" height="30"/>
+            <maximum-size width="120" height="-1"/>
+          </grid>
+        </constraints>
+        <properties>
+          <text value="Mem"/>
+        </properties>
+      </component>
+      <component id="424c0" class="javax.swing.JButton" binding="resetButton">
+        <constraints>
+          <grid row="8" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="1" indent="0" use-parent-layout="false">
+            <minimum-size width="100" height="20"/>
+            <preferred-size width="80" height="30"/>
+            <maximum-size width="120" height="-1"/>
+          </grid>
+        </constraints>
+        <properties>
+          <text value="Reset"/>
+        </properties>
+      </component>
+      <component id="17185" class="javax.swing.JButton" binding="helpButton" default-binding="true">
+        <constraints>
+          <grid row="10" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="1" indent="0" use-parent-layout="false">
+            <minimum-size width="100" height="20"/>
+            <preferred-size width="80" height="30"/>
+            <maximum-size width="120" height="-1"/>
+          </grid>
+        </constraints>
+        <properties>
+          <text value="Help"/>
+        </properties>
+      </component>
       <component id="10b45" class="javax.swing.JButton" binding="pauseButton" default-binding="true">
         <constraints>
-          <grid row="2" column="5" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="11" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="1" indent="0" use-parent-layout="false">
+            <minimum-size width="100" height="20"/>
+            <preferred-size width="80" height="30"/>
+            <maximum-size width="120" height="-1"/>
+          </grid>
         </constraints>
         <properties>
           <text value="Pause"/>
         </properties>
       </component>
+      <component id="efe7a" class="javax.swing.JButton" binding="exitButton">
+        <constraints>
+          <grid row="12" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="1" indent="0" use-parent-layout="false">
+            <minimum-size width="100" height="20"/>
+            <preferred-size width="80" height="30"/>
+            <maximum-size width="120" height="-1"/>
+          </grid>
+        </constraints>
+        <properties>
+          <text value="Exit"/>
+        </properties>
+      </component>
+      <component id="3f179" class="javax.swing.JTextField" binding="inputField">
+        <constraints>
+          <grid row="12" column="0" row-span="1" col-span="2" vsize-policy="1" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+            <preferred-size width="150" height="50"/>
+          </grid>
+        </constraints>
+        <properties/>
+      </component>
+      <component id="971c4" class="javax.swing.JButton" binding="cleanButton" default-binding="true">
+        <constraints>
+          <grid row="9" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="1" indent="0" use-parent-layout="false">
+            <minimum-size width="100" height="20"/>
+            <preferred-size width="80" height="30"/>
+            <maximum-size width="120" height="-1"/>
+          </grid>
+        </constraints>
+        <properties>
+          <text value="Clean"/>
+        </properties>
+      </component>
+      <hspacer id="decd6">
+        <constraints>
+          <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="1" hsize-policy="0" anchor="0" fill="1" indent="0" use-parent-layout="false">
+            <minimum-size width="5" height="-1"/>
+            <preferred-size width="8" height="-1"/>
+          </grid>
+        </constraints>
+      </hspacer>
+      <component id="500ff" class="javax.swing.JButton" binding="genButton">
+        <constraints>
+          <grid row="6" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="1" indent="0" use-parent-layout="false">
+            <minimum-size width="100" height="20"/>
+            <preferred-size width="80" height="30"/>
+            <maximum-size width="120" height="-1"/>
+          </grid>
+        </constraints>
+        <properties>
+          <text value="Gen"/>
+        </properties>
+      </component>
+      <component id="3e14c" class="javax.swing.JButton" binding="procButton">
+        <constraints>
+          <grid row="5" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="1" indent="0" use-parent-layout="false">
+            <minimum-size width="100" height="20"/>
+            <preferred-size width="80" height="30"/>
+            <maximum-size width="120" height="-1"/>
+          </grid>
+        </constraints>
+        <properties>
+          <text value="Proc"/>
+        </properties>
+      </component>
+      <component id="fdbbd" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="3" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Michael Tran"/>
+        </properties>
+      </component>
+      <component id="155dd" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Yuchen Tian"/>
+        </properties>
+      </component>
+      <grid id="73a26" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="0" bottom="0" right="0"/>
+        <constraints>
+          <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="dfb17" class="javax.swing.JLabel" binding="imageLabel" custom-create="true">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false">
+                <minimum-size width="100" height="100"/>
+                <preferred-size width="100" height="100"/>
+                <maximum-size width="100" height="100"/>
+              </grid>
+            </constraints>
+            <properties>
+              <background color="-984321"/>
+              <enabled value="true"/>
+              <text value=""/>
+            </properties>
+          </component>
+        </children>
+      </grid>
     </children>
   </grid>
 </form>

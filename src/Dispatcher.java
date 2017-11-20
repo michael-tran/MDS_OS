@@ -15,13 +15,11 @@ public class Dispatcher extends Thread{
         this.scheduler = scheduler;
     }
 
-
-
     public String displayProcesses() {
         Iterator it = readyProcesses.iterator();
         String output = "";
         if (readyProcesses.isEmpty()) {
-            return "No readyProcesses loaded";
+            return "No process loaded";
         } else {
             while (it.hasNext()) {
                 output = output + it.next().toString();
