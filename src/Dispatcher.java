@@ -70,10 +70,14 @@ public class Dispatcher extends Thread{
             scheduler.addPCB(readyProcess);
         }
         scheduler.run();
+        System.out.println(this.readyProcesses);
         for (PCB readyProcess : this.readyProcesses) {
             this.dispatch(readyProcess);
+            if(readyProcess.getState() == 4){
+                this.readyProcesses.remove(readyProcess);
+            }
         }
-        this.readyProcesses.clear();
+        System.out.println(this.readyProcesses);
         //scheduler.finish();
         return "Done";
     }
