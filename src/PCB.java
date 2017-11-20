@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -13,6 +12,7 @@ public class PCB implements Comparable<PCB> {
     private int commandsIndex;
     private List<int[]> commands;
     private LinkedList<MainMemory.Page> pagesUsed;
+
     /**
      * process state:
      * 0 NEW
@@ -20,9 +20,7 @@ public class PCB implements Comparable<PCB> {
      * 2 RUN
      * 3 WAIT/BLOCKED
      * 4 EXIT
-     */
-
-    /**
+     *
      * Program file format:
      * line 0 - name
      * line 1 - memory requirements
@@ -32,7 +30,7 @@ public class PCB implements Comparable<PCB> {
      * calculation, 0
      * output, 3
      */
-    public PCB(String name, int processid, int memoryRequirement, int burstCycle, int priority, List<int[]> commands) {
+    PCB(String name, int processid, int memoryRequirement, int burstCycle, int priority, List<int[]> commands) {
         this.name = name;
         this.pid = processid;
         this.memoryRequirement = memoryRequirement;
@@ -49,67 +47,63 @@ public class PCB implements Comparable<PCB> {
         return priority - process.priority;
     }
 
-    public int getPid() {
-        return pid;
-    }
-
-    public String getName() {
+    String getName() {
         return name;
     }
 
-    public int getState() {
+    int getState() {
         return state;
     }
 
-    public void setState(int state) {
+    void setState(int state) {
         this.state = state;
     }
 
-    public int getPriority() {
+    int getPriority() {
         return priority;
     }
 
-    public void setPriority(int priority) {
+    void setPriority(int priority) {
         this.priority = priority;
     }
 
-    public int getBurstCycle() {
+    int getBurstCycle() {
         return burstCycle;
     }
 
-    public int getMemoryRequirement() {
+    int getMemoryRequirement() {
         return memoryRequirement;
     }
 
-    public LinkedList<MainMemory.Page> getPagesUsed() {
+    LinkedList<MainMemory.Page> getPagesUsed() {
         return pagesUsed;
     }
 
-    public List<int[]> getCommands() {
+    List<int[]> getCommands() {
         return commands;
     }
 
-    public void setPagesUsed(LinkedList<MainMemory.Page> pagesUsed) {
+    void setPagesUsed(LinkedList<MainMemory.Page> pagesUsed) {
         this.pagesUsed = pagesUsed;
     }
 
-    public int getRemainingBurstCycle() {
+    int getRemainingBurstCycle() {
         return remainingBurstCycle;
     }
 
-    public void setRemainingBurstCycle(int remainingBurstCycle) {
+    void setRemainingBurstCycle(int remainingBurstCycle) {
         this.remainingBurstCycle = remainingBurstCycle;
     }
 
-    public int getCommandsIndex() {
+    int getCommandsIndex() {
         return commandsIndex;
     }
 
-    public void setCommandsIndex(int commandsIndex) {
+    void setCommandsIndex(int commandsIndex) {
         this.commandsIndex = commandsIndex;
     }
 
-    public String getStateName() {
+    private String getStateName() {
         switch (state) {
             case 0:
                 return "NEW";

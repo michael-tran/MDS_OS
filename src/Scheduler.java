@@ -8,20 +8,19 @@ public class Scheduler implements Runnable {
     private final int QUANTUM = 15;
     private Queue<PCB> pancake = new LinkedList<>();
     private Queue<PCB> waffle = new LinkedList<>();
-    private Thread thread;
     private String threadName;
 
-    public Scheduler(CPU cpu, String threadName) {
+    Scheduler(CPU cpu, String threadName) {
         this.cpu = cpu;
         this.threadName = threadName;
     }
 
-    public synchronized void addPCB(PCB pcb) {
+    synchronized void addPCB(PCB pcb) {
         pancake.add(pcb);
     }
 
     public synchronized void run() {
-        System.out.println("Thread " + threadName + " running");
+        System.out.println(threadName + " running");
         try {
             while (true) {
                 if (pancake.size() > 0 && !cpu.isOccupied()) {
@@ -45,18 +44,11 @@ public class Scheduler implements Runnable {
         }
     }
 
-    public void start() {
-        if (thread == null) {
-            thread = new Thread(this, threadName);
-            thread.start();
-        }
-    }
-
-    public void setPauseCycle(int pauseCycle) {
+    void setPauseCycle(int pauseCycle) {
         cpu.setPauseCycles(pauseCycle);
     }
 
-    public void start(PCB pcb, int option) throws InterruptedException {
+    private void start(PCB pcb, int option) throws InterruptedException {
         int done = cpu.startProcess(pcb, QUANTUM, option);
         switch (done) {
             case -1:
@@ -77,10 +69,9 @@ public class Scheduler implements Runnable {
         }
     }
 
-    public void reset() {
+    void reset() {
         pancake.clear();
         waffle.clear();
         cpu.getClock().reset();
-        thread = null;
     }
 }

@@ -1,24 +1,20 @@
-public class Clock {
+class Clock {
 
     private int clockCycle;
 
-    public Clock() {
+    Clock() {
         clockCycle = 0;
     }
 
-    public void tick() {
+    synchronized void tick() {
         clockCycle++;
     }
 
-    public void tock(int cycles) {
-        clockCycle = +cycles;
-    }
-
-    public int getClockCycle() {
+    int getClockCycle() {
         return clockCycle;
     }
 
-    public void reset() {
+    void reset() {
         clockCycle = 0;
     }
 

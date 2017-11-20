@@ -4,13 +4,13 @@ public class MainMemory {
 
     private final LinkedList<Page> MEMORY = new LinkedList<>();
 
-    public MainMemory() {
+    MainMemory() {
         for (int i = 0; i < 4096; i++) {
-            MEMORY.add(new Page(i));
+            MEMORY.add(new Page());
         }
     }
 
-    public LinkedList<Page> allocateMemory(int mem) {
+    LinkedList<Page> allocateMemory(int mem) {
         LinkedList<Page> pagesUsed = new LinkedList<>();
         if (remainingMemory() > mem) {
             int count = 0;
@@ -26,13 +26,13 @@ public class MainMemory {
         return pagesUsed;
     }
 
-    public void deallocateMemory(LinkedList<Page> usedPage) {
+    void deallocateMemory(LinkedList<Page> usedPage) {
         for (Page page : usedPage) {
             page.toggleUsed();
         }
     }
 
-    public int getUsedCurrentMemory() {
+    private int getUsedCurrentMemory() {
         int count = 0;
         for (Page page : MEMORY) {
             if (page.isUsed()) {
@@ -42,7 +42,7 @@ public class MainMemory {
         return count;
     }
 
-    public int remainingMemory() {
+    private int remainingMemory() {
         return MEMORY.size() - getUsedCurrentMemory();
     }
 
@@ -51,47 +51,23 @@ public class MainMemory {
         return "Current memory usage: " + this.getUsedCurrentMemory() + "/4096 MB";
     }
 
-    public class Page {
+    class Page {
         private boolean used;
-        private int pageid;
 
-        public Page(int i) {
+        Page() {
             used = false;
-            pageid = i;
         }
 
-        public boolean isUsed() {
+        boolean isUsed() {
             return used;
         }
 
-        public void toggleUsed() {
-            if (this.used) {
-                this.used = false;
-            } else {
-                this.used = true;
-            }
-        }
-
-        public int getPageid() {
-            return pageid;
-        }
-
-        public void setPageid(int pageid) {
-            this.pageid = pageid;
+        void toggleUsed() {
+            this.used = !this.used;
         }
     }
 
-    private class PageTable {
-        private final LinkedList<Page> PAGETABLE = new LinkedList<>();
-
-        public PageTable() {
-            for (int i = 0; i < 4096; i++) {
-                PAGETABLE.add(MEMORY.get(i));
-            }
-        }
-    }
-
-    public void reset() {
+    void reset() {
         for (Page page : MEMORY) {
             if (page.isUsed()) {
                 page.toggleUsed();

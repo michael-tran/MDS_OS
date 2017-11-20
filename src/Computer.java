@@ -12,7 +12,7 @@ public class Computer implements Runnable {
     private int processid = 0;
     private Thread computerThread;
 
-    public Computer(Dispatcher dispatcher, MainMemory mainMemory) {
+    Computer(Dispatcher dispatcher, MainMemory mainMemory) {
         this.dispatcher = dispatcher;
         this.mainMemory = mainMemory;
     }
@@ -30,7 +30,7 @@ public class Computer implements Runnable {
 
     // List of OS Commands below: load, exe, mem, proc
 
-    public String load(String input) {
+    String load(String input) {
         File file = new File(input + ".txt");
         String name;
         int memoryRequirement, burstCycle, priority;
@@ -45,8 +45,8 @@ public class Computer implements Runnable {
                 int inner[] = new int[2];
                 String line = in.nextLine();
                 String command[] = line.split(",");
-                inner[0] = Integer.parseInt(command[0].toString());
-                inner[1] = Integer.parseInt(command[1].toString());
+                inner[0] = Integer.parseInt(command[0]);
+                inner[1] = Integer.parseInt(command[1]);
                 commands.add(inner);
             }
 
@@ -59,28 +59,32 @@ public class Computer implements Runnable {
         return "Program " + name + " successfully loaded.";
     }
 
-    public void exe(int n) {
+    void exe(int n) {
+        if (dispatcher.displayProcesses().equals("No process loaded")) {
+            gen(5);
+        }
         dispatcher.start(n);
     }
 
-    public String mem() {
+    String mem() {
         return mainMemory.toString();
     }
 
-    public String proc() {
+    String proc() {
         return dispatcher.displayProcesses();
     }
 
-    public String gen(int numberOfProcesses) {
+    String gen(int numberOfProcesses) {
         for (int i = 0; i < numberOfProcesses; i++) {
             progen.gen();
         }
-        return "Process generation complete.";
+        return "Generated " + numberOfProcesses + " process(es).";
     }
 
-    public void reset() {
+    String reset() {
         dispatcher.reset();
         mainMemory.reset();
+        return "Welcome to MDS OS\n";
     }
 
     // Inner class to generate processes
@@ -88,7 +92,7 @@ public class Computer implements Runnable {
 
         int fileID = 0;
 
-        public ProcessGenerator() {
+        ProcessGenerator() {
         }
 
         private void wordProcessor() {
@@ -127,7 +131,7 @@ public class Computer implements Runnable {
 
         }
 
-        private void physicEngine() {
+        private void anti_virus() {
 
         }
 
@@ -138,16 +142,16 @@ public class Computer implements Runnable {
                     wordProcessor();
                     break;
                 case 1:
-                    wordProcessor();
+                    game();
                     break;
                 case 2:
-                    wordProcessor();
+                    videoEditor();
                     break;
                 case 3:
-                    wordProcessor();
+                    musicPlayer();
                     break;
                 case 4:
-                    wordProcessor();
+                    anti_virus();
                     break;
             }
         }

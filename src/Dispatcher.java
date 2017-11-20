@@ -6,10 +6,9 @@ public class Dispatcher implements Runnable {
     private Scheduler scheduler;
     private PriorityQueue<PCB> readyProcesses; // All new readyProcesses go here
     private PriorityQueue<PCB> newProcesses; // All unallocated processes go here
-    private int pause = 0;
     private Thread thread;
 
-    public Dispatcher(MainMemory memory, Scheduler scheduler) {
+    Dispatcher(MainMemory memory, Scheduler scheduler) {
         this.memory = memory;
         this.readyProcesses = new PriorityQueue<>();
         this.newProcesses = new PriorityQueue<>();
@@ -24,26 +23,26 @@ public class Dispatcher implements Runnable {
 
     }
 
-    public String displayProcesses() {
-        String output = "";
+    String displayProcesses() {
+        StringBuilder output = new StringBuilder();
 
         if (!readyProcesses.isEmpty()) {
-            output = output + "Displaying ready process(es): \n";
+            output.append("Displaying ready process(es): \n");
             for (PCB readyProcess : this.readyProcesses) {
-                output = output + readyProcess.toString();
+                output.append(readyProcess.toString());
             }
         }
         if (!newProcesses.isEmpty()) {
-            output = output + "Displaying new process(es): \n";
+            output.append("Displaying new process(es): \n");
             for (PCB newProcess : this.newProcesses) {
-                output = output + newProcess.toString();
+                output.append(newProcess.toString());
             }
         }
 
-        return output.isEmpty() ? "No process loaded" : output;
+        return (output.length() == 0) ? "No process loaded" : output.toString();
     }
 
-    public synchronized void dispatch(PCB process) {
+    void dispatch(PCB process) {
         switch (process.getState()) {
             // NEW
             case 0:
@@ -56,7 +55,6 @@ public class Dispatcher implements Runnable {
                     process.setPriority(process.getPriority() - 1);
                     newProcesses.add(process);
                 }
-                ;
                 break;
 
             // READY
@@ -72,7 +70,7 @@ public class Dispatcher implements Runnable {
         }
     }
 
-    public String start(int n) {
+    void start(int n) {
         scheduler.setPauseCycle(n);
         for (PCB readyProcess : this.readyProcesses) {
             scheduler.addPCB(readyProcess);
@@ -82,10 +80,9 @@ public class Dispatcher implements Runnable {
             this.dispatch(readyProcess);
         }
         this.readyProcesses.removeIf(i -> (i.getState() == 4));
-        return "Done";
     }
 
-    public void reset() {
+    void reset() {
         readyProcesses.clear();
         newProcesses.clear();
         scheduler.reset();
