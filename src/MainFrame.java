@@ -97,6 +97,7 @@ public class MainFrame extends JPanel{
             addText(mainDisplay, mddoc, "----------------------\n"+ "Starting Simulation\n" +
                     "----------------------\n");
             callExe(0);
+            monitorDisplay.setText(computer.mem() + "\n" + computer.proc());
         });
 
         //input text box
@@ -166,6 +167,7 @@ public class MainFrame extends JPanel{
                     addText(mainDisplay, mddoc, "----------------------\n"+ "Starting Simulation\n" +
                             "----------------------\n");
                     callExe(n);
+                    monitorDisplay.setText(computer.mem() + "\n" + computer.proc());
                     return 1;
                 }
                 return 0;
