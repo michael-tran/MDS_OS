@@ -67,7 +67,6 @@ public class MainFrame extends JPanel{
         genButton.addActionListener((e) -> {
             addText(mainDisplay, mddoc, "Generating 5 processes");
             computer.gen(5);
-            monitorDisplay.setText(computer.mem() + "\n" + computer.proc());
         });
 
         //action for mem button
@@ -81,7 +80,6 @@ public class MainFrame extends JPanel{
             computer.reset();
             on = true;
             generated = false;
-            monitorDisplay.setText(computer.mem() + "\n" + computer.proc());
         });
 
         //action for exit button
@@ -98,7 +96,6 @@ public class MainFrame extends JPanel{
             addText(mainDisplay, mddoc, "----------------------\n"+ "Starting Simulation\n" +
                     "----------------------\n");
             callExe(0);
-            monitorDisplay.setText(computer.mem() + "\n" + computer.proc());
         });
 
         //input text box
@@ -168,7 +165,6 @@ public class MainFrame extends JPanel{
                     addText(mainDisplay, mddoc, "----------------------\n"+ "Starting Simulation\n" +
                             "----------------------\n");
                     callExe(n);
-                    monitorDisplay.setText(computer.mem() + "\n" + computer.proc());
                     return 1;
                 }
                 return 0;
@@ -181,7 +177,6 @@ public class MainFrame extends JPanel{
             case "load":
                 if (args.length > 1) {
                     addText(mainDisplay, mddoc, computer.load(args[1]));
-                    monitorDisplay.setText(computer.mem() + "\n" + computer.proc());
                     return 1;
                 } else {
                     addText(mainDisplay, mddoc, "No arguments");
@@ -190,13 +185,11 @@ public class MainFrame extends JPanel{
             case "gen":
                 addText(mainDisplay, mddoc, "Generating 5 processes");
                 computer.gen(5);
-                monitorDisplay.setText(computer.mem() + "\n" + computer.proc());
                 return 1;
             case "reset":
                 mainDisplay.setText("TO DO: Implement computer.reset()\n");
                 on = true;
                 generated = false;
-                monitorDisplay.setText(computer.mem() + "\n" + computer.proc());
                 return 0;
             case "exit":
                 System.exit(0);
