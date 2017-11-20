@@ -25,6 +25,7 @@ public class MainFrame extends JPanel{
     private JButton genButton;
     private JLabel imageLabel;
     private JButton exeButton;
+    private JLabel imageLabel2;
     private StyledDocument mddoc = mainDisplay.getStyledDocument();
     private StyledDocument mtdoc = monitorDisplay.getStyledDocument();
     private SimpleAttributeSet keyWord = new SimpleAttributeSet();
@@ -256,6 +257,7 @@ public class MainFrame extends JPanel{
 
     private void createUIComponents() {
         imageLabel = new JLabel(new ImageIcon("aaa.jpg"));
+        imageLabel2 = new JLabel(new ImageIcon("bbb.jpg"));
     }
 
     private void callExe(int n) {
