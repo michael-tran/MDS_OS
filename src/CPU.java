@@ -16,10 +16,11 @@ public class CPU {
         return clock;
     }
 
-    public int startProcess(PCB pcb, int QUANTUM, int option) {
+    public int startProcess(PCB pcb, int QUANTUM, int option) throws InterruptedException {
         setOccupied(true);
         process = pcb;
         process.setState(2);
+       // Thread.sleep(10000);
         int state = this.crunch(QUANTUM, option);
         setOccupied(false);
         switch (state) {

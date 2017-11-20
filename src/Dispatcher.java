@@ -16,13 +16,12 @@ public class Dispatcher extends Thread {
     }
 
     public String displayProcesses() {
-        Iterator it = readyProcesses.iterator();
         String output = "";
         if (readyProcesses.isEmpty()) {
             return "No process loaded";
         } else {
-            while (it.hasNext()) {
-                output = output + it.next().toString();
+            for (PCB readyProcess : this.readyProcesses) {
+                output = output + readyProcess.toString();
             }
             return "Displaying all readyProcesses:\n" + output;
         }
@@ -74,13 +73,7 @@ public class Dispatcher extends Thread {
             this.dispatch(readyProcess);
         }
         this.readyProcesses.removeIf(i -> (i.getState() == 4));
-        //scheduler.finish();
         return "Done";
     }
-
-    public int getAmount() {
-        return readyProcesses.size();
-    }
-
 
 }
