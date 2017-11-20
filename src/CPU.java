@@ -20,7 +20,7 @@ class CPU {
         setOccupied(true);
         process = pcb;
         process.setState(2);
-        Thread.sleep(100);
+        Thread.sleep(10);
         int state = this.crunch(QUANTUM, option);
         setOccupied(false);
         switch (state) {

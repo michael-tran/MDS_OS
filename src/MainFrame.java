@@ -62,6 +62,7 @@ public class MainFrame extends JPanel {
 
         exeButton.addActionListener((e) -> {
             if (!running) {
+                running = true;
                 callExe(0);
             } else {
                 addText(mainDisplay, mddoc, "Simulation is already underway");
@@ -124,6 +125,10 @@ public class MainFrame extends JPanel {
                     addText(mainDisplay, mddoc, "Simulation is already underway");
                     break;
                 }
+                if (args.length == 0) {
+                    addText(mainDisplay, mddoc, "Argument must be an integer");
+                    break;
+                }
                 if (args.length > 1) {
                     int n;
                     try {
@@ -132,6 +137,7 @@ public class MainFrame extends JPanel {
                         addText(mainDisplay, mddoc, "Argument must be an integer");
                         break;
                     }
+                    running = true;
                     callExe(n);
                     break;
                 }

@@ -20,7 +20,7 @@ public class PCB implements Comparable<PCB> {
      * 2 RUN
      * 3 WAIT/BLOCKED
      * 4 EXIT
-     *
+     * <p>
      * Program file format:
      * line 0 - name
      * line 1 - memory requirements
