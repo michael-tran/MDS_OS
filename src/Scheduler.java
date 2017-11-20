@@ -17,11 +17,11 @@ public class Scheduler extends Thread {
         this.threadName = threadName;
     }
 
-    public void addPCB(PCB pcb) {
+    public synchronized void addPCB(PCB pcb) {
         pancake.add(pcb);
     }
 
-    public void run() {
+    public synchronized void run() {
         System.out.println("Thread " + threadName + " running");
         try {
             while (true) {

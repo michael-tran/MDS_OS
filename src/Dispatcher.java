@@ -28,7 +28,7 @@ public class Dispatcher extends Thread{
         }
     }
 
-    public void dispatch(PCB process) {
+    public synchronized void dispatch(PCB process) {
         switch (process.getState()) {
             // NEW
             case 0:
