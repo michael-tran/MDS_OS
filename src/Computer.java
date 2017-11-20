@@ -60,9 +60,8 @@ public class Computer extends Thread {
         return "Program " + name + " successfully loaded.";
     }
 
-    public String exe(int n) {
+    public void exe(int n) {
         dispatcher.start(n);
-        return "Starting Simulation";
     }
 
     public String mem() {

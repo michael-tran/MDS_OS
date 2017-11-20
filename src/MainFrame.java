@@ -2,6 +2,8 @@ import javax.swing.*;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyledDocument;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class MainFrame extends JPanel{
     private JPanel os_display;
@@ -21,6 +23,7 @@ public class MainFrame extends JPanel{
     private JButton pauseButton;
     private JButton genButton;
     private JLabel imageLabel;
+    private JButton exeButton;
     private StyledDocument mddoc = mainDisplay.getStyledDocument();
     private StyledDocument mtdoc = monitorDisplay.getStyledDocument();
     private SimpleAttributeSet keyWord = new SimpleAttributeSet();
@@ -89,6 +92,12 @@ public class MainFrame extends JPanel{
             mainDisplay.setText("Welcome to MDS OS \n");
         });
 
+        exeButton.addActionListener((e) -> {
+            addText(mainDisplay, mddoc, "----------------------\n"+ "Starting Simulation\n" +
+                    "----------------------\n");
+            computer.exe(0);
+        });
+
         //input text box
         inputField.addActionListener((e) -> {
             String input = e.getActionCommand();
@@ -151,7 +160,9 @@ public class MainFrame extends JPanel{
                         addText(mainDisplay, mddoc, "Not a number");
                         return 0;
                     }
-                    addText(mainDisplay, mddoc, computer.exe(n));
+                    addText(mainDisplay, mddoc, "----------------------\n"+ "Starting Simulation\n" +
+                            "----------------------\n");
+                    computer.exe(n);
                     return 1;
                 } else if (!generated) {
                     addText(mainDisplay, mddoc, "Generating 5 processes");
