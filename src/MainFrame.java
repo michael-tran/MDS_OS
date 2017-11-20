@@ -78,7 +78,7 @@ public class MainFrame extends JPanel {
             String input = e.getActionCommand();
             inputField.setText("");
             addText(mainDisplay, mddoc, input);
-            parseCommand(input.toLowerCase());
+            parseCommand(input.trim().toLowerCase());
         });
     }
 
@@ -121,12 +121,9 @@ public class MainFrame extends JPanel {
 
         switch (args[0]) {
             case "exe":
+                if (input.equals("exe")) addText(mainDisplay, mddoc, "Argument must be an integer");
                 if (running) {
                     addText(mainDisplay, mddoc, "Simulation is already underway");
-                    break;
-                }
-                if (args.length == 0) {
-                    addText(mainDisplay, mddoc, "Argument must be an integer");
                     break;
                 }
                 if (args.length > 1) {
@@ -244,8 +241,8 @@ public class MainFrame extends JPanel {
 
             @Override
             protected void done() {
-                addText(mainDisplay, mddoc, "----------------------\n" + "Simulation Complete\n" +
-                        "----------------------\n");
+                addText(mainDisplay, mddoc, "--------------==--------\n" + "Simulation Complete\n" +
+                        "--------==--------------\n");
                 running = false;
             }
 
