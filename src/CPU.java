@@ -20,7 +20,7 @@ public class CPU {
         setOccupied(true);
         process = pcb;
         process.setState(2);
-       // Thread.sleep(10000);
+        //Thread.sleep(10000);
         int state = this.crunch(QUANTUM, option);
         setOccupied(false);
         switch (state) {
@@ -58,10 +58,10 @@ public class CPU {
                     clock.tick();
                     break;
                 case 1:
+                    // I/O
                     if(option == 0){
                         return 1;
                     }else {
-                        // I/O
                         System.out.println("IO");
                         process.getCommands().get(process.getCommandsIndex())[1]--;
                         clock.tick();
@@ -73,6 +73,7 @@ public class CPU {
                     process.setRemainingBurstCycle(i);
                     return 2;
                 case 3:
+                    // Terminate
                     System.out.println("Terminating");
                     process.setState(4);
                     clock.tick();

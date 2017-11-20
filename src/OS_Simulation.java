@@ -10,9 +10,8 @@ public class OS_Simulation {
         Computer computer = new Computer(dispatcher, mainMemory);
 
         SwingUtilities.invokeLater(() -> {
-                MainFrame mf = new MainFrame(computer);
-                mf.runGUI();
+            MainFrame mf = new MainFrame(computer);
+            mf.runGUI();
         });
     }
-
 }

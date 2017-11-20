@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class Computer extends Thread {
+public class Computer implements Runnable {
     private Dispatcher dispatcher;
     private MainMemory mainMemory;
     private ProcessGenerator progen = new ProcessGenerator();
@@ -16,7 +16,6 @@ public class Computer extends Thread {
         this.dispatcher = dispatcher;
         this.mainMemory = mainMemory;
     }
-
 
     public void run() {
 
@@ -80,7 +79,8 @@ public class Computer extends Thread {
     }
 
     public void reset() {
-
+        dispatcher.reset();
+        mainMemory.reset();
     }
 
     // Inner class to generate processes

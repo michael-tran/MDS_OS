@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class MainMemory {
@@ -88,6 +87,14 @@ public class MainMemory {
         public PageTable() {
             for (int i = 0; i < 4096; i++) {
                 PAGETABLE.add(MEMORY.get(i));
+            }
+        }
+    }
+
+    public void reset() {
+        for (Page page : MEMORY) {
+            if (page.isUsed()) {
+                page.toggleUsed();
             }
         }
     }

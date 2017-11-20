@@ -1,11 +1,8 @@
 import javax.swing.*;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyledDocument;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-public class MainFrame extends JPanel{
+public class MainFrame extends JPanel {
     private JPanel os_display;
     private final Computer computer;
     private int count;
@@ -29,6 +26,7 @@ public class MainFrame extends JPanel{
     private StyledDocument mddoc = mainDisplay.getStyledDocument();
     private StyledDocument mtdoc = monitorDisplay.getStyledDocument();
     private SimpleAttributeSet keyWord = new SimpleAttributeSet();
+    private SwingWorker<Void, Void> worker;
 
     //The main constructor for the JFrame
     public MainFrame(Computer computer) {
@@ -76,7 +74,8 @@ public class MainFrame extends JPanel{
 
         //action for reset button
         resetButton.addActionListener((e) -> {
-            mainDisplay.setText("TO DO: Implement computer.reset()\n");
+            mainDisplay.setText("Welcome to MDS OS\n");
+            worker.cancel(true);
             computer.reset();
             on = true;
             generated = false;
@@ -93,7 +92,7 @@ public class MainFrame extends JPanel{
         });
 
         exeButton.addActionListener((e) -> {
-            addText(mainDisplay, mddoc, "----------------------\n"+ "Starting Simulation\n" +
+            addText(mainDisplay, mddoc, "----------------------\n" + "Starting Simulation\n" +
                     "----------------------\n");
             callExe(0);
         });
@@ -162,7 +161,7 @@ public class MainFrame extends JPanel{
                         addText(mainDisplay, mddoc, "Not a number");
                         return 0;
                     }
-                    addText(mainDisplay, mddoc, "----------------------\n"+ "Starting Simulation\n" +
+                    addText(mainDisplay, mddoc, "----------------------\n" + "Starting Simulation\n" +
                             "----------------------\n");
                     callExe(n);
                     return 1;
@@ -187,7 +186,9 @@ public class MainFrame extends JPanel{
                 computer.gen(5);
                 return 1;
             case "reset":
-                mainDisplay.setText("TO DO: Implement computer.reset()\n");
+                mainDisplay.setText("Welcome to MDS OS\n");
+                worker.cancel(true);
+                computer.reset();
                 on = true;
                 generated = false;
                 return 0;
@@ -254,18 +255,19 @@ public class MainFrame extends JPanel{
     }
 
     private void callExe(int n) {
-        SwingWorker<Void, Void> worker = new SwingWorker<>() {
+        worker = new SwingWorker<>() {
             @Override
             protected Void doInBackground() throws Exception {
                 computer.exe(n);
                 return null;
             }
         };
+
         worker.execute();
     }
 
     private void updateResourceMonitor() {
-        SwingWorker<Void, Void> worker = new SwingWorker<>() {
+        worker = new SwingWorker<>() {
             @Override
             protected Void doInBackground() throws Exception {
                 while (running) {

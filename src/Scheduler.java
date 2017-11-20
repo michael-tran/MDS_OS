@@ -1,10 +1,9 @@
 import java.util.LinkedList;
-import java.util.PriorityQueue;
 import java.util.Queue;
 
 //https://stackoverflow.com/questions/2622804/how-to-indefinitely-pause-a-thread-in-java-and-later-resume-it
 
-public class Scheduler extends Thread {
+public class Scheduler implements Runnable {
     private CPU cpu;
     private final int QUANTUM = 15;
     private Queue<PCB> pancake = new LinkedList<>();
@@ -34,7 +33,7 @@ public class Scheduler extends Thread {
                         PCB temp = waffle.poll();
                         System.out.println("I/O Scheduling " + temp.getName());
                         start(temp, 1);
-                    }else {
+                    } else {
                         System.out.println(cpu.getClock().getClockCycle());
                         System.out.println("Waiting for processes");
                         break;
@@ -60,7 +59,7 @@ public class Scheduler extends Thread {
 
     public void start(PCB pcb, int option) throws InterruptedException {
         int done = cpu.startProcess(pcb, QUANTUM, option);
-        switch (done){
+        switch (done) {
             case -1:
                 System.out.println("PAUSED");
                 Thread.sleep(100);
@@ -79,22 +78,9 @@ public class Scheduler extends Thread {
         }
     }
 
-//    public void finish() {
-//        while (!pancake.isEmpty()) {
-//            int done = cpu.startProcess(pancake.peek(), QUANTUM);
-//            switch (done){
-//                case -1:
-//                    break;
-//                case 0:
-//                    break;
-//                case 1:
-//                    pancake.add(pancake.remove());
-//                    break;
-//            }
-//        }
-//    }
-
     public void reset() {
         pancake.clear();
+        waffle.clear();
+        thread = null;
     }
 }

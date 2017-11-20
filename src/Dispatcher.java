@@ -2,7 +2,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.PriorityQueue;
 
-public class Dispatcher extends Thread {
+public class Dispatcher implements Runnable {
     private MainMemory memory;
     private Scheduler scheduler;
     private PriorityQueue<PCB> readyProcesses; // All new readyProcesses go here
@@ -13,6 +13,14 @@ public class Dispatcher extends Thread {
         this.memory = memory;
         this.readyProcesses = new PriorityQueue<PCB>();
         this.scheduler = scheduler;
+    }
+
+    public void run() {
+
+    }
+
+    public void start() {
+
     }
 
     public String displayProcesses() {
@@ -74,6 +82,11 @@ public class Dispatcher extends Thread {
         }
         this.readyProcesses.removeIf(i -> (i.getState() == 4));
         return "Done";
+    }
+
+    public void reset() {
+        readyProcesses.clear();
+        scheduler.reset();
     }
 
 }
