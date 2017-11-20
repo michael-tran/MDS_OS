@@ -81,6 +81,7 @@ public class Scheduler implements Runnable {
     public void reset() {
         pancake.clear();
         waffle.clear();
+        cpu.getClock().reset();
         thread = null;
     }
 }
