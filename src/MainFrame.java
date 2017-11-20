@@ -264,6 +264,7 @@ public class MainFrame extends JPanel{
                 return null;
             }
         };
+
         worker.execute();
     }
 
@@ -278,6 +279,7 @@ public class MainFrame extends JPanel{
                 return null;
             }
         };
+
         worker.execute();
     }
 }

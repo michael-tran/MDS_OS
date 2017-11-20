@@ -4,7 +4,7 @@ import java.util.PriorityQueue;
 
 public class Dispatcher extends Thread{
     private MainMemory memory;
-    private Scheduler scheduler;
+        private Scheduler scheduler;
     private PriorityQueue<PCB> readyProcesses; // All new readyProcesses go here
     private int pause = 0;
     private Thread thread;
@@ -59,7 +59,7 @@ public class Dispatcher extends Thread{
 
             // TERMINATING
             case 4:
-                memory.deallocateMemory(process.getMemoryRequirement(), process.getPid());
+                memory.deallocateMemory(process.getPagesUsed());
                 break;
         }
     }
@@ -70,6 +70,10 @@ public class Dispatcher extends Thread{
             scheduler.addPCB(readyProcess);
         }
         scheduler.run();
+        for (PCB readyProcess : this.readyProcesses) {
+            this.dispatch(readyProcess);
+        }
+        this.readyProcesses.clear();
         //scheduler.finish();
         return "Done";
     }
