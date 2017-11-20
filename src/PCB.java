@@ -112,7 +112,7 @@ public class PCB implements Comparable<PCB> {
             case 2:
                 return "RUNNING";
             case 3:
-                return "WAITING/BLOCKED";
+                return "WAITING";
             case 4:
                 return "TERMINATED";
             default:
@@ -122,13 +122,7 @@ public class PCB implements Comparable<PCB> {
 
     @Override
     public String toString() {
-        return "PCB{" +
-                "name='" + name + '\'' +
-                ", pid=" + pid +
-                ", state=" + getStateName() +
-                ", priority=" + priority +
-                ", burstCycle=" + burstCycle +
-                ", memoryRequirement=" + memoryRequirement +
-                "}\n";
+        return name + "\t " + pid + "\t" + getStateName() + "\t     " + priority + "\t       " +
+                burstCycle + "\t    " + memoryRequirement + "\n";
     }
 }

@@ -27,19 +27,18 @@ public class Dispatcher implements Runnable {
         StringBuilder output = new StringBuilder();
 
         if (!readyProcesses.isEmpty()) {
-            output.append("Displaying ready process(es): \n");
             for (PCB readyProcess : this.readyProcesses) {
                 output.append(readyProcess.toString());
             }
         }
         if (!newProcesses.isEmpty()) {
-            output.append("Displaying new process(es): \n");
             for (PCB newProcess : this.newProcesses) {
                 output.append(newProcess.toString());
             }
         }
 
-        return (output.length() == 0) ? "No process loaded" : output.toString();
+        return (output.length() == 0) ? "No process loaded" : "Name \t pid \t state \t priority \t burstCycle " +
+                "\t memory \n" + output.toString();
     }
 
     void dispatch(PCB process) {

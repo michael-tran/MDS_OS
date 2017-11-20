@@ -34,6 +34,8 @@ public class MainFrame extends JPanel {
         keyWord = new SimpleAttributeSet();
         addText(mainDisplay, mddoc, "Welcome to MDS OS");
 
+        monitorDisplay.setEditable(false);
+
         // Start updating system resource in real time
         updateResourceMonitor();
 
@@ -52,7 +54,7 @@ public class MainFrame extends JPanel {
 
         memButton.addActionListener((e) -> addText(mainDisplay, mddoc, computer.mem()));
 
-        resetButton.addActionListener((e) -> addText(mainDisplay, mddoc, computer.reset()));
+        resetButton.addActionListener((e) -> mainDisplay.setText(computer.reset()));
 
         exitButton.addActionListener((e) -> System.exit(0));
 
@@ -162,7 +164,7 @@ public class MainFrame extends JPanel {
                 } else addText(mainDisplay, mddoc, computer.gen(5));
                 break;
             case "reset":
-                mainDisplay.setText("Welcome to MDS OS\n");
+                mainDisplay.setText(computer.reset());
                 worker.cancel(true);
                 computer.reset();
                 break;
@@ -239,8 +241,8 @@ public class MainFrame extends JPanel {
     }
 
     private void updateResourceMonitor() {
-        Timer timer = new Timer(10, (e) -> monitorDisplay.setText("System resource monitor\n" +
-                computer.mem() + "\n" + computer.proc()));
+        Timer timer = new Timer(10, (e) -> monitorDisplay.setText("System resource monitor\n\n" +
+                computer.mem() + "\n\n" + computer.proc()));
         timer.start();
     }
 }
