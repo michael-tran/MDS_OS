@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class MainMemory {
@@ -26,15 +27,9 @@ public class MainMemory {
         return pagesUsed;
     }
 
-    public void deallocateMemory(int mem, int pid) {
-        int count = 0;
-        for (Page page : MEMORY) {
-            if (count == mem) break;
-            if (page.isUsed() && (pid == page.getPageid()) && !(count > mem)) {
-                page.toggleUsed();
-                page.setPageid(Integer.MIN_VALUE);
-                count++;
-            }
+    public void deallocateMemory(LinkedList<Page> usedPage) {
+        for (Page page : usedPage) {
+            page.toggleUsed();
         }
     }
 
@@ -59,7 +54,6 @@ public class MainMemory {
 
     public class Page {
         private boolean used;
-
         private int pageid;
 
         public Page(int i) {

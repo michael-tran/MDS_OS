@@ -11,7 +11,6 @@ public class MainFrame extends JPanel{
     private int count;
     private boolean on = true;
     private boolean generated = false;
-    private boolean running = true;
     private JButton exitButton;
     private JButton procButton;
     private JButton cleanButton;
@@ -96,7 +95,8 @@ public class MainFrame extends JPanel{
         exeButton.addActionListener((e) -> {
             addText(mainDisplay, mddoc, "----------------------\n"+ "Starting Simulation\n" +
                     "----------------------\n");
-            callExe(0);
+            computer.exe(0);
+            monitorDisplay.setText(computer.mem() + "\n" + computer.proc());
         });
 
         //input text box
@@ -133,8 +133,6 @@ public class MainFrame extends JPanel{
         frame.setTitle("MDS OS");
         frame.setSize(1200, 768);
         frame.setResizable(false);
-
-        updateResourceMonitor();
     }
 
     // Appends text to specified JTextPane
@@ -165,7 +163,7 @@ public class MainFrame extends JPanel{
                     }
                     addText(mainDisplay, mddoc, "----------------------\n"+ "Starting Simulation\n" +
                             "----------------------\n");
-                    callExe(n);
+                    computer.exe(n);
                     return 1;
                 }
                 return 0;
@@ -254,32 +252,5 @@ public class MainFrame extends JPanel{
 
     private void createUIComponents() {
         imageLabel = new JLabel(new ImageIcon("aaa.jpg"));
-    }
-
-    private void callExe(int n) {
-        SwingWorker<Void, Void> worker = new SwingWorker<>() {
-            @Override
-            protected Void doInBackground() throws Exception {
-                computer.exe(n);
-                return null;
-            }
-        };
-
-        worker.execute();
-    }
-
-    private void updateResourceMonitor() {
-        SwingWorker<Void, Void> worker = new SwingWorker<>() {
-            @Override
-            protected Void doInBackground() throws Exception {
-                while (running) {
-                    monitorDisplay.setText(computer.proc() + computer.mem());
-                    Thread.sleep(100);
-                }
-                return null;
-            }
-        };
-
-        worker.execute();
     }
 }
