@@ -1,38 +1,29 @@
 import java.util.LinkedList;
 import java.util.PriorityQueue;
 
-public class Dispatcher implements Runnable {
+class Dispatcher {
     private MainMemory memory;
     private Scheduler scheduler;
-    private PriorityQueue<PCB> readyProcesses; // All new readyProcesses go here
-    private PriorityQueue<PCB> newProcesses; // All unallocated processes go here
-    private Thread thread;
+    private PriorityQueue<PCB> mainProcessQueue; // All new mainProcessQueue// go here
+    private PriorityQueue<PCB> unallocatedProcessQueue; // All unallocated processes go here
 
     Dispatcher(MainMemory memory, Scheduler scheduler) {
         this.memory = memory;
-        this.readyProcesses = new PriorityQueue<>();
-        this.newProcesses = new PriorityQueue<>();
+        this.mainProcessQueue = new PriorityQueue<>();
+        this.unallocatedProcessQueue = new PriorityQueue<>();
         this.scheduler = scheduler;
-    }
-
-    public void run() {
-
-    }
-
-    public void start() {
-
     }
 
     String displayProcesses() {
         StringBuilder output = new StringBuilder();
 
-        if (!readyProcesses.isEmpty()) {
-            for (PCB readyProcess : this.readyProcesses) {
+        if (!mainProcessQueue.isEmpty()) {
+            for (PCB readyProcess : this.mainProcessQueue) {
                 output.append(readyProcess.toString());
             }
         }
-        if (!newProcesses.isEmpty()) {
-            for (PCB newProcess : this.newProcesses) {
+        if (!unallocatedProcessQueue.isEmpty()) {
+            for (PCB newProcess : this.unallocatedProcessQueue) {
                 output.append(newProcess.toString());
             }
         }
@@ -49,10 +40,11 @@ public class Dispatcher implements Runnable {
                 if (pagesUsed.size() > 0) {
                     process.setState(1);
                     process.setPagesUsed(pagesUsed);
-                    readyProcesses.add(process);
+                    mainProcessQueue.add(process);
+                    unallocatedProcessQueue.remove(process);
                 } else {
                     process.setPriority(process.getPriority() - 1);
-                    newProcesses.add(process);
+                    unallocatedProcessQueue.add(process);
                 }
                 break;
 
@@ -63,28 +55,35 @@ public class Dispatcher implements Runnable {
 
             // TERMINATING
             case 4:
-                // How should the scheduler terminate process and deallocate memory?
                 memory.deallocateMemory(process.getPagesUsed());
+                mainProcessQueue.remove(process);
                 break;
         }
     }
 
     void start(int n) {
         scheduler.setPauseCycle(n);
-        for (PCB readyProcess : this.readyProcesses) {
-            scheduler.addPCB(readyProcess);
+        for (PCB process : this.mainProcessQueue) {
+            scheduler.addPCB(process);
         }
         scheduler.run();
-        for (PCB readyProcess : this.readyProcesses) {
-            this.dispatch(readyProcess);
+        for (PCB process : this.mainProcessQueue) {
+            this.dispatch(process);
         }
-        this.readyProcesses.removeIf(i -> (i.getState() == 4));
+        //this.mainProcessQueue
+        //.removeIf(i -> (i.getState() == 4));
     }
 
     void reset() {
-        readyProcesses.clear();
-        newProcesses.clear();
+        mainProcessQueue.clear();
+        unallocatedProcessQueue.clear();
         scheduler.reset();
     }
 
+    void additionalDispatch() {
+        // dispatches NEW processes whenever a process is terminated
+        for (PCB process : unallocatedProcessQueue) {
+            dispatch(process);
+        }
+    }
 }

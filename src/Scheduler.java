@@ -65,6 +65,8 @@ public class Scheduler implements Runnable {
                 pancake.add(pcb);//yield
                 break;
             case 3: //terminate
+                Comm.callDispatcherToDelete(pcb);
+                Comm.callDispatcherForMore();
                 break;
         }
     }

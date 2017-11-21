@@ -5,27 +5,15 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class Computer implements Runnable {
+class Computer {
     private Dispatcher dispatcher;
     private MainMemory mainMemory;
     private ProcessGenerator progen = new ProcessGenerator();
     private int processid = 0;
-    private Thread computerThread;
 
     Computer(Dispatcher dispatcher, MainMemory mainMemory) {
         this.dispatcher = dispatcher;
         this.mainMemory = mainMemory;
-    }
-
-    public void run() {
-
-    }
-
-    public void start() {
-        if (computerThread == null) {
-            computerThread = new Thread(this, "Computer Thread");
-            computerThread.start();
-        }
     }
 
     // List of OS Commands below: load, exe, mem, proc
@@ -53,7 +41,8 @@ public class Computer implements Runnable {
         } catch (FileNotFoundException e) {
             return "File not found";
         }
-        PCB newProcess = new PCB(name, processid, memoryRequirement, burstCycle, priority, commands);
+        PCB newProcess = new PCB(name, processid, memoryRequirement, burstCycle,
+                priority, commands, null);
         dispatcher.dispatch(newProcess);
         processid++;
         return "Program " + name + " successfully loaded.";
@@ -90,17 +79,14 @@ public class Computer implements Runnable {
     // Inner class to generate processes
     private class ProcessGenerator {
 
-        int fileID = 0;
-
         ProcessGenerator() {
         }
 
         private void wordProcessor() {
-            String name = "word" + fileID;
+            String name = "word" + processid;
             int memoryRequirement = ThreadLocalRandom.current().nextInt(200, 400);
             int burstCycle = ThreadLocalRandom.current().nextInt(10, 25);
             int priority = ThreadLocalRandom.current().nextInt(3, 5);
-            fileID++;
             List<int[]> commands = new ArrayList<>();
             commands.add(new int[]{0, 20 + ThreadLocalRandom.current().nextInt(30)});
             commands.add(new int[]{1, 25 + ThreadLocalRandom.current().nextInt(25)});
@@ -114,13 +100,32 @@ public class Computer implements Runnable {
             commands.add(new int[]{1, 25 + ThreadLocalRandom.current().nextInt(25)});
             commands.add(new int[]{3, 0});
 
-            PCB tempPCB = new PCB(name, processid, memoryRequirement, burstCycle, priority, commands);
+            PCB tempPCB = new PCB(name, processid, memoryRequirement, burstCycle, priority, commands, null);
             processid++;
             dispatcher.dispatch(tempPCB);
         }
 
         private void game() {
+            String name = "game" + processid;
+            int memoryRequirement = ThreadLocalRandom.current().nextInt(200, 800);
+            int burstCycle = ThreadLocalRandom.current().nextInt(10, 25);
+            int priority = ThreadLocalRandom.current().nextInt(3, 5);
+            List<int[]> commands = new ArrayList<>();
+            commands.add(new int[]{0, 20 + ThreadLocalRandom.current().nextInt(30)});
+            commands.add(new int[]{1, 25 + ThreadLocalRandom.current().nextInt(25)});
+            commands.add(new int[]{0, 20 + ThreadLocalRandom.current().nextInt(30)});
+            commands.add(new int[]{1, 25 + ThreadLocalRandom.current().nextInt(25)});
+            commands.add(new int[]{0, 20 + ThreadLocalRandom.current().nextInt(30)});
+            commands.add(new int[]{1, 25 + ThreadLocalRandom.current().nextInt(25)});
+            commands.add(new int[]{0, 20 + ThreadLocalRandom.current().nextInt(30)});
+            commands.add(new int[]{1, 25 + ThreadLocalRandom.current().nextInt(25)});
+            commands.add(new int[]{0, 20 + ThreadLocalRandom.current().nextInt(30)});
+            commands.add(new int[]{1, 25 + ThreadLocalRandom.current().nextInt(25)});
+            commands.add(new int[]{3, 0});
 
+            PCB tempPCB = new PCB(name, processid, memoryRequirement, burstCycle, priority, commands,null);
+            processid++;
+            dispatcher.dispatch(tempPCB);
         }
 
         private void videoEditor() {

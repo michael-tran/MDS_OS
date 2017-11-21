@@ -11,6 +11,8 @@ public class PCB implements Comparable<PCB> {
     private int memoryRequirement;
     private int commandsIndex;
     private List<int[]> commands;
+    private List<PCB> children;
+    private PCB parent;
     private LinkedList<MainMemory.Page> pagesUsed;
 
     /**
@@ -30,7 +32,8 @@ public class PCB implements Comparable<PCB> {
      * calculation, 0
      * output, 3
      */
-    PCB(String name, int processid, int memoryRequirement, int burstCycle, int priority, List<int[]> commands) {
+    PCB(String name, int processid, int memoryRequirement, int burstCycle, int priority,
+        List<int[]> commands, PCB parent) {
         this.name = name;
         this.pid = processid;
         this.memoryRequirement = memoryRequirement;
@@ -40,6 +43,7 @@ public class PCB implements Comparable<PCB> {
         this.commands = commands;
         commandsIndex = 0;
         this.state = 0;
+        this.parent = parent;
     }
 
     @Override

@@ -13,6 +13,8 @@ public class OS_Simulation {
         Dispatcher dispatcher = new Dispatcher(mainMemory, scheduler);
         Computer computer = new Computer(dispatcher, mainMemory);
 
+        Comm comm = new Comm(scheduler, dispatcher);
+
         SwingUtilities.invokeLater(() -> {
             MainFrame mf = new MainFrame(computer);
             mf.runGUI();
