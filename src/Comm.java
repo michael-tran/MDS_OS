@@ -15,4 +15,9 @@ public class Comm {
         dispatcher.additionalDispatch();
     }
 
+    static void reset() {
+        dispatcher.reset();
+        scheduler.reset();
+    }
+
 }

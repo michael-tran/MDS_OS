@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 import static java.lang.Math.min;
 
 class CPU {
@@ -59,9 +61,9 @@ class CPU {
                     break;
                 case 1:
                     // I/O
-                    if(option == 0){
+                    if (option == 0) {
                         return 1;
-                    }else {
+                    } else {
                         System.out.println("IO");
                         process.getCommands().get(process.getCommandsIndex())[1]--;
                         clock.tick();
@@ -84,7 +86,14 @@ class CPU {
             if (process.getCommands().get(process.getCommandsIndex())[1] == 0)
                 process.setCommandsIndex(process.getCommandsIndex() + 1);
 
-            if ((clock.getClockCycle() != 0) && (clock.getClockCycle() % this.pauseCycles) == 0) return -1;
+            if ((clock.getClockCycle() != 0) && (clock.getClockCycle() % this.pauseCycles) == 0) {
+                Scanner scan = new Scanner(System.in);
+                String input;
+                System.out.println("Continue(Y/N)");
+                input = scan.next();
+                input.toLowerCase();
+                if (input.equals("n")) return -1;
+            }
         }
         return 0;
     }

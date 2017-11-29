@@ -84,6 +84,7 @@ class Dispatcher {
         mainProcessQueue.clear();
         unallocatedProcessQueue.clear();
         scheduler.reset();
+        memory.reset();
     }
 
     void additionalDispatch() {

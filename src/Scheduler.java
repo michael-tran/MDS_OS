@@ -52,8 +52,7 @@ public class Scheduler implements Runnable {
         int done = cpu.startProcess(pcb, QUANTUM, option);
         switch (done) {
             case -1:
-                System.out.println("PAUSED");
-                Thread.sleep(100);
+                Comm.reset();
                 break;
             case 0:
                 pancake.add(pcb);//calc
