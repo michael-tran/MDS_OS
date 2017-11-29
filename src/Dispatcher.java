@@ -32,7 +32,7 @@ class Dispatcher {
                 "\t memory \n" + output.toString();
     }
 
-    void dispatch(PCB process) {
+    void dispatch(PCB process, int option) {
         switch (process.getState()) {
             // NEW
             case 0:
@@ -41,10 +41,14 @@ class Dispatcher {
                     process.setState(1);
                     process.setPagesUsed(pagesUsed);
                     mainProcessQueue.add(process);
-                    unallocatedProcessQueue.remove(process);
                 } else {
-                    process.setPriority(process.getPriority() - 1);
-                    unallocatedProcessQueue.add(process);
+                    if(option == 0){
+                        process.setPriority(process.getPriority() - 1);
+                        unallocatedProcessQueue.add(process);
+                    }
+                    else if(option == 1){
+                        process.setPriority(process.getPriority() - 1);
+                    }
                 }
                 break;
 
@@ -63,13 +67,15 @@ class Dispatcher {
 
     void start(int n) {
         scheduler.setPauseCycle(n);
-        for (PCB process : this.mainProcessQueue) {
-            scheduler.addPCB(process);
+        while(!this.mainProcessQueue.isEmpty()) {
+            for (PCB process : this.mainProcessQueue) {
+                scheduler.addPCB(process);
+            }
+            scheduler.run();
         }
-        scheduler.run();
-        for (PCB process : this.mainProcessQueue) {
-            this.dispatch(process);
-        }
+//        for (PCB process : this.mainProcessQueue) {
+//            this.dispatch(process, 0);
+//        }
         //this.mainProcessQueue
         //.removeIf(i -> (i.getState() == 4));
     }
@@ -83,7 +89,8 @@ class Dispatcher {
     void additionalDispatch() {
         // dispatches NEW processes whenever a process is terminated
         for (PCB process : unallocatedProcessQueue) {
-            dispatch(process);
+            dispatch(process, 1);
         }
+        this.unallocatedProcessQueue.removeIf(i -> (i.getState() == 1));
     }
 }

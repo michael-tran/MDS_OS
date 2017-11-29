@@ -8,7 +8,7 @@ public class Comm {
     }
 
     static void callDispatcherToDelete(PCB pcb) {
-        dispatcher.dispatch(pcb);
+        dispatcher.dispatch(pcb, 0);
     }
 
     static void callDispatcherForMore() {

@@ -43,7 +43,7 @@ class Computer {
         }
         PCB newProcess = new PCB(name, processid, memoryRequirement, burstCycle,
                 priority, commands, null);
-        dispatcher.dispatch(newProcess);
+        dispatcher.dispatch(newProcess, 0);
         processid++;
         return "Program " + name + " successfully loaded.";
     }
@@ -102,7 +102,7 @@ class Computer {
 
             PCB tempPCB = new PCB(name, processid, memoryRequirement, burstCycle, priority, commands, null);
             processid++;
-            dispatcher.dispatch(tempPCB);
+            dispatcher.dispatch(tempPCB, 0);
         }
 
         private void game() {
@@ -125,7 +125,7 @@ class Computer {
 
             PCB tempPCB = new PCB(name, processid, memoryRequirement, burstCycle, priority, commands,null);
             processid++;
-            dispatcher.dispatch(tempPCB);
+            dispatcher.dispatch(tempPCB, 0);
         }
 
         private void videoEditor() {
