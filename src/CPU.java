@@ -77,7 +77,7 @@ class CPU {
                     System.out.println("Yield");
                     clock.tick();
                     process.setRemainingBurstCycle(i);
-                    return 2;
+                    break;
                 case 3:
                     // Terminate
                     System.out.println("Terminating");
