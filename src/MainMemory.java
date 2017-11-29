@@ -30,9 +30,14 @@ public class MainMemory {
     }
 
     void deallocateMemory(PCB process, boolean remove) {
+        if(!(process.getPagesUsed() == null)) {
             for (Page page : process.getPagesUsed()) {
                 page.toggleUsed();
             }
+        } else {
+            System.out.println("WHAT?");
+            System.exit(1);
+        }
         if (remove) {
             this.removeMain(process);
         }
@@ -67,16 +72,26 @@ public class MainMemory {
         }
     }
 
+    public void map() {
+        for (PCB process: this.disk) {
+            LinkedList<Page> pagesUsed = this.allocateMemory(process.getMemoryRequirement());
+            if (pagesUsed.size() > 0) {
+                main.add(process);
+                process.setPagesUsed(pagesUsed);
+            }
+        }
+    }
+
     public PriorityQueue<PCB> getMain() {
         return main;
     }
 
-    public void addMain (PCB process){
-        process.setPriority(process.getState()-1);
+    public void addMain(PCB process) {
+        process.setPriority(process.getState() - 1);
         this.main.add(process);
     }
 
-    public void removeMain (PCB process){
+    public void removeMain(PCB process) {
         this.main.removeIf(x -> x.getPid() == process.getPid());
     }
 
@@ -84,30 +99,30 @@ public class MainMemory {
         return disk;
     }
 
-    public void addDisk (PCB process){
-        process.setPriority(process.getState()-1);
+    public void addDisk(PCB process) {
+        process.setPriority(process.getState() - 1);
         this.disk.add(process);
     }
 
-    public void removeDisk (PCB process){
+    public void removeDisk(PCB process) {
         this.disk.removeIf(x -> x.getPid() == process.getPid());
     }
 
-    public void diskToMain(PCB process){
+    public void diskToMain(PCB process) {
         this.removeDisk(process);
         LinkedList<MainMemory.Page> pagesUsed = this.allocateMemory(process.getMemoryRequirement());
         process.setPagesUsed(pagesUsed);
         this.addMain(process);
     }
 
-    public void mainToDisk(PCB process){
+    public void mainToDisk(PCB process) {
         this.deallocateMemory(process, false);
         process.setPagesUsed(null);
         this.removeMain(process);
         this.addDisk(process);
     }
 
-    public String getTable(){
+    public String getTable() {
         return "Disk: \n" + this.getDisk() + "\n\n Main: \n" + this.getMain();
     }
 

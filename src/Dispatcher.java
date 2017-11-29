@@ -64,6 +64,7 @@ class Dispatcher {
             case 4:
                 memory.deallocateMemory(process, true);
                 mainProcessQueue.remove(process);
+                memory.map();
                 break;
         }
     }

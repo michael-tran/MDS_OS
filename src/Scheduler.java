@@ -38,6 +38,8 @@ public class Scheduler implements Runnable {
                             }
                         }
                         if (!allocated) {
+                            System.out.println(Comm.getMemory().remainingMemory());
+                            System.out.println(waffle.peek().getMemoryRequirement());
                             System.out.println("WELL FUCK");
                         }
                     }
@@ -60,6 +62,8 @@ public class Scheduler implements Runnable {
                                 }
                             }
                             if (!allocated) {
+                                System.out.println(Comm.getMemory().remainingMemory());
+                                System.out.println(waffle.peek().getMemoryRequirement());
                                 System.out.println("WELL FUCK");
                             }
                         }
