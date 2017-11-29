@@ -98,8 +98,7 @@ class CPU {
                 Scanner scan = new Scanner(System.in);
                 String input;
                 System.out.println("Continue(Y/N)");
-                input = scan.next();
-                input.toLowerCase();
+                input = scan.next().toLowerCase();
                 if (input.equals("n")) return -1;
             }
         }
