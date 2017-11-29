@@ -253,7 +253,7 @@ public class MainFrame extends JPanel {
 
     private void updateResourceMonitor() {
         Timer timer = new Timer(10, (e) -> monitorDisplay.setText("System resource monitor\n\n" +
-                computer.mem() + "\n\n" + computer.proc()));
+                computer.mem() + "\n\n" + computer.proc() + "\n\n" + computer.table()));
         timer.start();
     }
 }

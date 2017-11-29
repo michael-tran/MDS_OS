@@ -21,6 +21,10 @@ public class Comm {
         computer.genChildProcess(parentProcess);
     }
 
+    static MainMemory getMemory(){
+       return dispatcher.getMemory();
+    }
+
     static void reset() {
         dispatcher.reset();
         scheduler.reset();

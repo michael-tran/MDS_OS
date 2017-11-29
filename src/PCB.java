@@ -113,6 +113,10 @@ public class PCB implements Comparable<PCB> {
         this.commandsIndex = commandsIndex;
     }
 
+    public int getPid() {
+        return pid;
+    }
+
     private String getStateName() {
         switch (state) {
             case 0:

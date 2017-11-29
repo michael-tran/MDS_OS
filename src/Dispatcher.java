@@ -36,6 +36,9 @@ class Dispatcher {
         switch (process.getState()) {
             // NEW
             case 0:
+//                memory.map(process);
+//                process.setState(1);
+//                mainProcessQueue.add(process);
                 LinkedList<MainMemory.Page> pagesUsed = memory.allocateMemory(process.getMemoryRequirement());
                 if (pagesUsed.size() > 0) {
                     process.setState(1);
@@ -59,7 +62,7 @@ class Dispatcher {
 
             // TERMINATING
             case 4:
-                memory.deallocateMemory(process.getPagesUsed());
+                memory.deallocateMemory(process, true);
                 mainProcessQueue.remove(process);
                 break;
         }
@@ -85,6 +88,10 @@ class Dispatcher {
         unallocatedProcessQueue.clear();
         scheduler.reset();
         memory.reset();
+    }
+
+    public MainMemory getMemory() {
+        return memory;
     }
 
     void additionalDispatch() {

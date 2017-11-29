@@ -60,6 +60,10 @@ class Computer {
         return mainMemory.toString();
     }
 
+    String table() {
+        return mainMemory.getTable().toString();
+    }
+
     String proc() {
         return dispatcher.displayProcesses();
     }

@@ -24,11 +24,45 @@ public class Scheduler implements Runnable {
         try {
             while (true) {
                 if (pancake.size() > 0 && !cpu.isOccupied()) {
+                    if (Comm.getMemory().getDisk().contains(pancake.peek())) {
+                        boolean allocated = false;
+                        for (PCB process : Comm.getMemory().getMain()) {
+                            if ((process.getMemoryRequirement() + Comm.getMemory().remainingMemory()) > pancake.peek().getMemoryRequirement()) {
+//                                System.out.println(Comm.getMemory().getTable());
+                                Comm.getMemory().mainToDisk(process);
+//                                System.out.println(Comm.getMemory().getTable());
+                                Comm.getMemory().diskToMain(pancake.peek());
+//                                System.out.println(Comm.getMemory().getTable());
+                                allocated = true;
+                                break;
+                            }
+                        }
+                        if (!allocated) {
+                            System.out.println("WELL FUCK");
+                        }
+                    }
                     PCB temp = pancake.poll();
                     System.out.println("Scheduling " + temp.getName());
                     start(temp, 0);
                 } else {
                     if (waffle.size() > 0 && !cpu.isOccupied()) {
+                        if (Comm.getMemory().getDisk().contains(waffle.peek())) {
+                            boolean allocated = false;
+                            for (PCB process : Comm.getMemory().getMain()) {
+                                if ((process.getMemoryRequirement() + Comm.getMemory().remainingMemory()) > waffle.peek().getMemoryRequirement()) {
+//                                    System.out.println(Comm.getMemory().getTable());
+                                    Comm.getMemory().mainToDisk(process);
+//                                    System.out.println(Comm.getMemory().getTable());
+                                    Comm.getMemory().diskToMain(waffle.peek());
+//                                    System.out.println(Comm.getMemory().getTable());
+                                    allocated = true;
+                                    break;
+                                }
+                            }
+                            if (!allocated) {
+                                System.out.println("WELL FUCK");
+                            }
+                        }
                         PCB temp = waffle.poll();
                         System.out.println("I/O Scheduling " + temp.getName());
                         start(temp, 1);
@@ -39,9 +73,13 @@ public class Scheduler implements Runnable {
                     }
                 }
             }
-        } catch (InterruptedException e) {
+        } catch (
+                InterruptedException e)
+
+        {
             System.out.println("Thread interrupted");
         }
+
     }
 
     void setPauseCycle(int pauseCycle) {
