@@ -1,10 +1,12 @@
 public class Comm {
     private static Scheduler scheduler;
     private static Dispatcher dispatcher;
+    private static Computer computer;
 
-    Comm(Scheduler scheduler, Dispatcher dispatcher) {
+    Comm(Scheduler scheduler, Dispatcher dispatcher, Computer computer) {
         this.scheduler = scheduler;
         this.dispatcher = dispatcher;
+        this.computer = computer;
     }
 
     static void callDispatcherToDelete(PCB pcb) {
@@ -13,6 +15,10 @@ public class Comm {
 
     static void callDispatcherForMore() {
         dispatcher.additionalDispatch();
+    }
+
+    static void genChildProcess(PCB parentProcess) {
+        computer.genChildProcess(parentProcess);
     }
 
     static void reset() {

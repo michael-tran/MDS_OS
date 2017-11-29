@@ -40,6 +40,9 @@ class CPU {
             case 3:
                 process.setState(4);
                 return 3;//Finished
+            case 4:
+                process.setState(1);
+                return 4;
         }
         return 0;
     }
@@ -81,6 +84,11 @@ class CPU {
                     process.setState(4);
                     clock.tick();
                     return 3;
+                case 4:
+                    // Generate child process
+                    System.out.println("Generating child process");
+                    clock.tick();
+                    return 4;
             }
 
             if (process.getCommands().get(process.getCommandsIndex())[1] == 0)

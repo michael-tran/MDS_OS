@@ -3,6 +3,7 @@ import java.util.List;
 
 public class PCB implements Comparable<PCB> {
     private String name;
+    private int processType;
     private int pid;
     private int state;
     private int priority;
@@ -32,10 +33,11 @@ public class PCB implements Comparable<PCB> {
      * calculation, 0
      * output, 3
      */
-    PCB(String name, int processid, int memoryRequirement, int burstCycle, int priority,
+    PCB(String name, int processid, int processType, int memoryRequirement, int burstCycle, int priority,
         List<int[]> commands, PCB parent) {
         this.name = name;
         this.pid = processid;
+        this.processType = processType;
         this.memoryRequirement = memoryRequirement;
         this.burstCycle = burstCycle;
         this.remainingBurstCycle = 0;
@@ -53,6 +55,10 @@ public class PCB implements Comparable<PCB> {
 
     String getName() {
         return name;
+    }
+
+    int getProcessType() {
+        return processType;
     }
 
     int getState() {
