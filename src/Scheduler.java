@@ -26,11 +26,15 @@ public class Scheduler implements Runnable {
                 if (pancake.size() > 0 && !cpu.isOccupied()) { //PANCAKE
                     if (Comm.getMemory().getDisk().contains(pancake.peek())) { //checks and sees if the peek is in the disk
                         boolean allocated = false;
-                        for (PCB process : Comm.getMemory().getMain()) { //if so then find a process in main and move it to disk
-                            if ((process.getMemoryRequirement() + Comm.getMemory().remainingMemory()) > pancake.peek().getMemoryRequirement()) {
-                                Comm.getMemory().mainToDisk(process);
-                                allocated = Comm.getMemory().diskToMain(pancake.peek());
-                                break;
+                        if (Comm.getMemory().remainingMemory() > pancake.peek().getMemoryRequirement()) {
+                            allocated = Comm.getMemory().diskToMain(pancake.peek());
+                        } else {
+                            for (PCB process : Comm.getMemory().getMain()) { //if so then find a process in main and move it to disk
+                                if ((process.getMemoryRequirement() + Comm.getMemory().remainingMemory()) > pancake.peek().getMemoryRequirement()) {
+                                    Comm.getMemory().mainToDisk(process);
+                                    allocated = Comm.getMemory().diskToMain(pancake.peek());
+                                    break;
+                                }
                             }
                         }
                         if (!allocated) {
@@ -46,15 +50,17 @@ public class Scheduler implements Runnable {
                     if (waffle.size() > 0 && !cpu.isOccupied()) {
                         if (Comm.getMemory().getDisk().contains(waffle.peek())) {
                             boolean allocated = false;
-                            System.out.println(Comm.getMemory().getTable());
-                            for (PCB process : Comm.getMemory().getMain()) {
-                                if ((process.getMemoryRequirement() + Comm.getMemory().remainingMemory()) > waffle.peek().getMemoryRequirement()) {
-                                    Comm.getMemory().mainToDisk(process);
-                                    allocated = Comm.getMemory().diskToMain(waffle.peek());
-                                    break;
+                            if (Comm.getMemory().remainingMemory() > waffle.peek().getMemoryRequirement()) {
+                                allocated = Comm.getMemory().diskToMain(waffle.peek());
+                            } else {
+                                for (PCB process : Comm.getMemory().getMain()) {
+                                    if ((process.getMemoryRequirement() + Comm.getMemory().remainingMemory()) > waffle.peek().getMemoryRequirement()) {
+                                        Comm.getMemory().mainToDisk(process);
+                                        allocated = Comm.getMemory().diskToMain(waffle.peek());
+                                        break;
+                                    }
                                 }
                             }
-                            System.out.println(Comm.getMemory().getTable());
                             if (!allocated) {
                                 Comm.getMemory().wipe();
                                 Comm.getMemory().diskToMain(waffle.peek());
