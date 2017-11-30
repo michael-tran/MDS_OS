@@ -32,7 +32,7 @@ public class MainFrame extends JPanel {
         // Initializes text pane-related variables
         mddoc = mainDisplay.getStyledDocument();
         keyWord = new SimpleAttributeSet();
-        addText(mainDisplay, mddoc, "Welcome to MDS OS");
+        addText(mainDisplay, mddoc, "Welcome to MDDS OS");
 
         monitorDisplay.setEditable(false);
 
@@ -58,7 +58,7 @@ public class MainFrame extends JPanel {
 
         exitButton.addActionListener((e) -> System.exit(0));
 
-        cleanButton.addActionListener((e) -> mainDisplay.setText("Welcome to MDS OS \n"));
+        cleanButton.addActionListener((e) -> mainDisplay.setText("Welcome to MDDS OS \n"));
 
         exeButton.addActionListener((e) -> {
             if (!running) {
@@ -93,12 +93,12 @@ public class MainFrame extends JPanel {
         }
 
         // UI Initialize
-        JFrame frame = new JFrame("MDS OS");
+        JFrame frame = new JFrame("MDDS OS");
         frame.setContentPane(new MainFrame(computer).os_display);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
-        frame.setTitle("MDS OS");
+        frame.setTitle("MDDS OS");
         frame.setSize(1200, 768);
         frame.setResizable(false);
     }
