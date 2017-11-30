@@ -45,7 +45,6 @@ public class MainMemory {
 
     public int mainMemoryUsage() {
         int count = 0;
-        //Comment
         for (PCB pcb : this.main) {
             count += pcb.getMemoryRequirement();
         }
