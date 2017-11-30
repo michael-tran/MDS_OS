@@ -93,8 +93,8 @@ class Computer {
 
         private void wordProcessor(PCB parentProcess) {
             String name = "Word " + processid;
-//            int memoryRequirement = ThreadLocalRandom.current().nextInt(200, 400);
-            int memoryRequirement = 700 + ThreadLocalRandom.current().nextInt(200, 400);
+            int memoryRequirement = ThreadLocalRandom.current().nextInt(200, 400);
+//            int memoryRequirement = 700 + ThreadLocalRandom.current().nextInt(200, 400);
             int burstCycle = ThreadLocalRandom.current().nextInt(10, 25);
             int priority = ThreadLocalRandom.current().nextInt(3, 5);
             List<int[]> commands = new ArrayList<>();
@@ -226,20 +226,16 @@ class Computer {
                     wordProcessor(null);
                     break;
                 case 1:
-                    //game(null);
-                    wordProcessor(null);
+                    game(null);
                     break;
                 case 2:
-                    //videoPlayer(null);
-                    wordProcessor(null);
+                    videoPlayer(null);
                     break;
                 case 3:
-                    //browser(null);
-                    wordProcessor(null);
+                    browser(null);
                     break;
                 case 4:
-                   // antivirus(null);
-                    wordProcessor(null);
+                    antivirus(null);
                     break;
             }
         }

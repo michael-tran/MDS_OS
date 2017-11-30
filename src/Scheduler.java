@@ -30,33 +30,14 @@ public class Scheduler implements Runnable {
                             if ((process.getMemoryRequirement() + Comm.getMemory().remainingMemory()) > pancake.peek().getMemoryRequirement()) {
                                 Comm.getMemory().mainToDisk(process);
                                 allocated = Comm.getMemory().diskToMain(pancake.peek());
-                                if (Comm.getMemory().mainMemoryUsage() != Comm.getMemory().getUsedCurrentMemory()) {
-                                    System.out.println(Comm.getMemory().getTable());
-                                    System.out.println(Comm.getMemory().mainMemoryUsage());
-                                    System.out.println(Comm.getMemory().getUsedCurrentMemory());
-                                    System.out.println("FOUND YOU");
-                                }
                                 break;
                             }
                         }
                         if (!allocated) {
-                            System.out.println(Comm.getMemory().getTable());
-                            System.out.println(Comm.getMemory().remainingMemory());
-                            System.out.println(waffle.peek().getMemoryRequirement());
-                            System.out.println(Comm.getMemory());
-                            System.out.println("WELL FUCK");
-                            for (PCB process : Comm.getMemory().getMain()) {
-                                Comm.getMemory().mainToDisk(process);
-                            }
-                            Comm.getMemory().diskToMain(waffle.peek());
-                            System.out.println(Comm.getMemory().getTable());
-                            System.out.println(Comm.getMemory().remainingMemory());
-                            System.out.println(waffle.peek().getMemoryRequirement());
-                            System.out.println(Comm.getMemory());
-                            System.out.println("WELL OK");
+                            Comm.getMemory().wipe();
+                            Comm.getMemory().diskToMain(pancake.peek());
                         }
                     }
-
 
                     PCB temp = pancake.poll();
                     System.out.println("Scheduling " + temp.getName());
@@ -70,32 +51,13 @@ public class Scheduler implements Runnable {
                                 if ((process.getMemoryRequirement() + Comm.getMemory().remainingMemory()) > waffle.peek().getMemoryRequirement()) {
                                     Comm.getMemory().mainToDisk(process);
                                     allocated = Comm.getMemory().diskToMain(waffle.peek());
-                                    if (Comm.getMemory().mainMemoryUsage() != Comm.getMemory().getUsedCurrentMemory()) {
-                                        System.out.println(Comm.getMemory().getTable());
-                                        System.out.println(Comm.getMemory().mainMemoryUsage());
-                                        System.out.println(Comm.getMemory().getUsedCurrentMemory());
-                                        System.out.println("FOUND YOU");
-                                        allocated = Comm.getMemory().diskToMain(waffle.peek());
-                                    }
                                     break;
                                 }
                             }
                             System.out.println(Comm.getMemory().getTable());
                             if (!allocated) {
-                                System.out.println(Comm.getMemory().getTable());
-                                System.out.println(Comm.getMemory().remainingMemory());
-                                System.out.println(waffle.peek().getMemoryRequirement());
-                                System.out.println(Comm.getMemory());
-                                System.out.println("WELL FUCK");
-                                while (!Comm.getMemory().getMain().isEmpty()){
-                                    Comm.getMemory().mainToDisk(Comm.getMemory().getMain().peek());
-                                }
+                                Comm.getMemory().wipe();
                                 Comm.getMemory().diskToMain(waffle.peek());
-                                System.out.println(Comm.getMemory().getTable());
-                                System.out.println(Comm.getMemory().remainingMemory());
-                                System.out.println(waffle.peek().getMemoryRequirement());
-                                System.out.println(Comm.getMemory());
-                                System.out.println("WELL OK");
                             }
                         }
 

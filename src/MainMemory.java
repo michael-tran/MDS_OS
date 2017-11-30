@@ -81,16 +81,8 @@ public class MainMemory {
     }
 
     public void map() {
-        int x = 1;
-        int index = this.disk.size() - x;
-        while (index > 0) {
-            this.diskToMain(this.disk.get(index));
-            int newSize = this.disk.size();
-            if (index == newSize) {
-                x++;
-            } else{
-                index = newSize;
-            }
+        for (PCB pcb : new LinkedList<PCB>(this.disk)) {
+            this.diskToMain(pcb);
         }
     }
 
@@ -139,6 +131,12 @@ public class MainMemory {
 
     public String getTable() {
         return "Disk: \n" + this.getDisk() + "\n\n Main: \n" + this.getMain();
+    }
+
+    public void wipe(){
+        for (PCB pcb : new LinkedList<PCB>(this.main)) {
+            this.mainToDisk(pcb);
+        }
     }
 
     class Page {

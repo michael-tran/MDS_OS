@@ -36,23 +36,23 @@ class Dispatcher {
         switch (process.getState()) {
             // NEW
             case 0:
-//                memory.map(process);
-//                process.setState(1);
-//                mainProcessQueue.add(process);
-                LinkedList<MainMemory.Page> pagesUsed = memory.allocateMemory(process.getMemoryRequirement());
-                if (pagesUsed.size() > 0) {
-                    process.setState(1);
-                    process.setPagesUsed(pagesUsed);
-                    mainProcessQueue.add(process);
-                } else {
-                    if(option == 0){
-                        process.setPriority(process.getPriority() - 1);
-                        unallocatedProcessQueue.add(process);
-                    }
-                    else if(option == 1){
-                        process.setPriority(process.getPriority() - 1);
-                    }
-                }
+                memory.map(process);
+                process.setState(1);
+                mainProcessQueue.add(process);
+//                LinkedList<MainMemory.Page> pagesUsed = memory.allocateMemory(process.getMemoryRequirement());
+//                if (pagesUsed.size() > 0) {
+//                    process.setState(1);
+//                    process.setPagesUsed(pagesUsed);
+//                    mainProcessQueue.add(process);
+//                } else {
+//                    if(option == 0){
+//                        process.setPriority(process.getPriority() - 1);
+//                        unallocatedProcessQueue.add(process);
+//                    }
+//                    else if(option == 1){
+//                        process.setPriority(process.getPriority() - 1);
+//                    }
+//                }
                 break;
 
             // READY
