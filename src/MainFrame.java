@@ -225,8 +225,8 @@ public class MainFrame extends JPanel {
     }
 
     private void createUIComponents() {
-        imageLabel2 = new JLabel(new ImageIcon("aaa.jpg"));
-        imageLabel = new JLabel(new ImageIcon("bbb.jpg"));
+        imageLabel2 = new JLabel(new ImageIcon(ClassLoader.getSystemResource("aaa.jpg")));
+        imageLabel = new JLabel(new ImageIcon(ClassLoader.getSystemResource("bbb.jpg")));
     }
 
     private void callExe(int n) {
