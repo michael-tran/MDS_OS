@@ -52,6 +52,7 @@ class CPU {
         System.out.println("Crunching " + process.getName());
         if (process.getRemainingBurstCycle() > 0) {
             burstCycle = process.getRemainingBurstCycle();
+            process.setRemainingBurstCycle(0);
         } else burstCycle = process.getBurstCycle();
 
         for (int i = min(QUANTUM, burstCycle); i > 0; i--) {

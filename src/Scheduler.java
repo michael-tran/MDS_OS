@@ -1,8 +1,6 @@
 import java.util.LinkedList;
 import java.util.Queue;
 
-//https://stackoverflow.com/questions/2622804/how-to-indefinitely-pause-a-thread-in-java-and-later-resume-it
-
 public class Scheduler implements Runnable {
     private CPU cpu;
     private final int QUANTUM = 15;
