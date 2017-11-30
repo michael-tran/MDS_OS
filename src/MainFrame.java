@@ -203,7 +203,7 @@ public class MainFrame extends JPanel {
                             System.exit(0);
                             break;
                         case "help":
-                            addText(mainDisplay, mddoc, "Displays Help");
+                            addText(mainDisplay, mddoc, "Displays the Mission Data Debriefing Software Help menu");
                             break;
                         default:
                             addText(mainDisplay, mddoc, "Please enter a valid command.");
