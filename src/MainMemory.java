@@ -4,8 +4,8 @@ import java.util.PriorityQueue;
 public class MainMemory {
 
     private final LinkedList<Page> MEMORY = new LinkedList<>();
-    private PriorityQueue<PCB> disk = new PriorityQueue<>();
-    private PriorityQueue<PCB> main = new PriorityQueue<>();
+    private LinkedList<PCB> disk = new LinkedList<>();
+    private LinkedList<PCB> main = new LinkedList<>();
 
     MainMemory() {
         for (int i = 0; i < 4096; i++) {
@@ -43,7 +43,15 @@ public class MainMemory {
         }
     }
 
-    private int getUsedCurrentMemory() {
+    public int mainMemoryUsage() {
+        int count = 0;
+        for (PCB pcb : this.main) {
+            count += pcb.getMemoryRequirement();
+        }
+        return count;
+    }
+
+    public int getUsedCurrentMemory() {
         int count = 0;
         for (Page page : MEMORY) {
             if (page.isUsed()) {
@@ -73,29 +81,32 @@ public class MainMemory {
     }
 
     public void map() {
-        for (PCB process: this.disk) {
-            LinkedList<Page> pagesUsed = this.allocateMemory(process.getMemoryRequirement());
-            if (pagesUsed.size() > 0) {
-                main.add(process);
-                process.setPagesUsed(pagesUsed);
+        int x = 1;
+        int index = this.disk.size() - x;
+        while (index > 0) {
+            this.diskToMain(this.disk.get(index));
+            int newSize = this.disk.size();
+            if (index == newSize) {
+                x++;
+            } else{
+                index = newSize;
             }
         }
     }
 
-    public PriorityQueue<PCB> getMain() {
+    public LinkedList<PCB> getMain() {
         return main;
     }
 
     public void addMain(PCB process) {
-        process.setPriority(process.getState() - 1);
         this.main.add(process);
     }
 
-    public void removeMain(PCB process) {
-        this.main.removeIf(x -> x.getPid() == process.getPid());
+    public boolean removeMain(PCB process) {
+        return this.main.removeIf(x -> x.getPid() == process.getPid());
     }
 
-    public PriorityQueue<PCB> getDisk() {
+    public LinkedList<PCB> getDisk() {
         return disk;
     }
 
@@ -104,21 +115,25 @@ public class MainMemory {
         this.disk.add(process);
     }
 
-    public void removeDisk(PCB process) {
-        this.disk.removeIf(x -> x.getPid() == process.getPid());
+    public boolean removeDisk(PCB process) {
+        return this.disk.removeIf(x -> x.getPid() == process.getPid());
     }
 
-    public void diskToMain(PCB process) {
-        this.removeDisk(process);
+    public boolean diskToMain(PCB process) {
         LinkedList<MainMemory.Page> pagesUsed = this.allocateMemory(process.getMemoryRequirement());
-        process.setPagesUsed(pagesUsed);
-        this.addMain(process);
+        if(pagesUsed.size() > 0){
+            boolean temp = this.removeDisk(process);
+            process.setPagesUsed(pagesUsed);
+            this.addMain(process);
+            return true;
+        }
+        return false;
     }
 
     public void mainToDisk(PCB process) {
         this.deallocateMemory(process, false);
         process.setPagesUsed(null);
-        this.removeMain(process);
+        boolean temp = this.removeMain(process);
         this.addDisk(process);
     }
 
@@ -148,5 +163,7 @@ public class MainMemory {
                 page.toggleUsed();
             }
         }
+        this.disk.clear();
+        this.main.clear();
     }
 }

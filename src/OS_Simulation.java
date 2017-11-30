@@ -13,7 +13,7 @@ public class OS_Simulation {
         Dispatcher dispatcher = new Dispatcher(mainMemory, scheduler);
         Computer computer = new Computer(dispatcher, mainMemory);
 
-        Comm comm = new Comm(scheduler, dispatcher, computer); // Communication between components
+        Comm comm = new Comm(scheduler, dispatcher, computer, mainMemory); // Communication between components
 
         SwingUtilities.invokeLater(() -> {
             MainFrame mf = new MainFrame(computer);

@@ -91,10 +91,6 @@ class Dispatcher {
         memory.reset();
     }
 
-    public MainMemory getMemory() {
-        return memory;
-    }
-
     void additionalDispatch() {
         // dispatches NEW processes whenever a process is terminated
         for (PCB process : unallocatedProcessQueue) {

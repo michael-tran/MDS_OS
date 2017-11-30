@@ -1,11 +1,13 @@
 public class Comm {
     private static Scheduler scheduler;
     private static Dispatcher dispatcher;
+    private static MainMemory memory;
     private static Computer computer;
 
-    Comm(Scheduler scheduler, Dispatcher dispatcher, Computer computer) {
+    Comm(Scheduler scheduler, Dispatcher dispatcher, Computer computer, MainMemory memory) {
         this.scheduler = scheduler;
         this.dispatcher = dispatcher;
+        this.memory = memory;
         this.computer = computer;
     }
 
@@ -22,7 +24,7 @@ public class Comm {
     }
 
     static MainMemory getMemory(){
-       return dispatcher.getMemory();
+       return memory;
     }
 
     static void reset() {
