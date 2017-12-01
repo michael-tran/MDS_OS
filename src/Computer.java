@@ -10,10 +10,19 @@ class Computer {
     private MainMemory mainMemory;
     private ProcessGenerator progen = new ProcessGenerator();
     private int processid = 0;
+    private boolean running = false;
 
     Computer(Dispatcher dispatcher, MainMemory mainMemory) {
         this.dispatcher = dispatcher;
         this.mainMemory = mainMemory;
+    }
+
+    boolean getRunning() {
+        return running;
+    }
+
+    void toggleRunning() {
+        running = !running;
     }
 
     // List of OS Commands below: load, exe, mem, proc

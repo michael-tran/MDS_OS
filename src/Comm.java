@@ -3,6 +3,7 @@ class Comm {
     private static Dispatcher dispatcher;
     private static MainMemory memory;
     private static Computer computer;
+    private static boolean pause = false;
 
     Comm(Scheduler scheduler, Dispatcher dispatcher, Computer computer, MainMemory memory) {
         Comm.scheduler = scheduler;
@@ -30,6 +31,18 @@ class Comm {
     static void reset() {
         dispatcher.reset();
         scheduler.reset();
+    }
+
+    static boolean getPause() {
+        return pause;
+    }
+
+    static void togglePause() {
+        pause = !pause;
+    }
+
+    static void toggleRunning() {
+        computer.toggleRunning();
     }
 
 }

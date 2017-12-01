@@ -62,17 +62,12 @@ class Dispatcher {
 
     void start(int n) {
         scheduler.setPauseCycle(n);
-        while(!this.mainProcessQueue.isEmpty()) {
+        while (!this.mainProcessQueue.isEmpty()) {
             for (PCB process : this.mainProcessQueue) {
                 scheduler.addPCB(process);
             }
             scheduler.run();
         }
-//        for (PCB process : this.mainProcessQueue) {
-//            this.dispatch(process, 0);
-//        }
-        //this.mainProcessQueue
-        //.removeIf(i -> (i.getState() == 4));
     }
 
     void reset() {

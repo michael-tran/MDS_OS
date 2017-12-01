@@ -6,7 +6,6 @@ import javax.swing.text.StyledDocument;
 public class MainFrame extends JPanel {
     private JPanel os_display;
     private final Computer computer;
-    private boolean running = false;
     private JButton exitButton;
     private JButton procButton;
     private JButton cleanButton;
@@ -61,8 +60,8 @@ public class MainFrame extends JPanel {
         cleanButton.addActionListener((e) -> mainDisplay.setText("Welcome to MDDS OS \n"));
 
         exeButton.addActionListener((e) -> {
-            if (!running) {
-                running = true;
+            if (!computer.getRunning()) {
+                computer.toggleRunning();
                 callExe(0);
             } else {
                 addText(mainDisplay, mddoc, "Simulation is already underway");
@@ -70,7 +69,17 @@ public class MainFrame extends JPanel {
         });
 
         pauseButton.addActionListener((e) -> {
-            // TO DO
+            if (!computer.getRunning()) {
+                addText(mainDisplay, mddoc, "Simulation is not running");
+            } else {
+                Comm.togglePause();
+                if (Comm.getPause()) {
+                    pauseButton.setText("Resume");
+                } else {
+                    pauseButton.setText("Pause");
+                }
+            }
+
         });
 
         //input text box
@@ -122,7 +131,7 @@ public class MainFrame extends JPanel {
         switch (args[0]) {
             case "exe":
                 if (input.equals("exe")) addText(mainDisplay, mddoc, "Argument must be an integer");
-                if (running) {
+                if (computer.getRunning()) {
                     addText(mainDisplay, mddoc, "Simulation is already underway");
                     break;
                 }
@@ -134,7 +143,7 @@ public class MainFrame extends JPanel {
                         addText(mainDisplay, mddoc, "Argument must be an integer");
                         break;
                     }
-                    running = true;
+                    computer.toggleRunning();
                     callExe(n);
                     break;
                 }
@@ -243,7 +252,7 @@ public class MainFrame extends JPanel {
             protected void done() {
                 addText(mainDisplay, mddoc, "------------------------\n" + "Simulation Complete\n" +
                         "------------------------\n");
-                running = false;
+                computer.toggleRunning();
             }
 
         };
@@ -253,7 +262,7 @@ public class MainFrame extends JPanel {
 
     private void updateResourceMonitor() {
         Timer timer = new Timer(10, (e) -> monitorDisplay.setText("System resource monitor\n\n" +
-                computer.mem() + "\n\n" + computer.proc()+ "\n\n" + computer.table()));
+                computer.mem() + "\n\n" + computer.proc() + "\n\n" + computer.table()));
         timer.start();
     }
 }

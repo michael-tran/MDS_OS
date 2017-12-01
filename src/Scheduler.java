@@ -44,7 +44,6 @@ public class Scheduler implements Runnable {
                             Comm.getMemory().diskToMain(pancake.peek());
                         }
                     }
-
                     PCB temp = pancake.poll(); //Takes the top of the stack
                     System.out.println("Scheduling " + temp.getName());
                     start(temp, 0);
@@ -79,10 +78,7 @@ public class Scheduler implements Runnable {
                     }
                 }
             }
-        } catch (
-                InterruptedException e)
-
-        {
+        } catch (InterruptedException e) {
             System.out.println("Thread interrupted");
         }
 
