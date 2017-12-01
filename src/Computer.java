@@ -80,6 +80,7 @@ class Computer {
     }
 
     String reset() {
+        processid = 0;
         dispatcher.reset();
         mainMemory.reset();
         return "Welcome to MDS OS\n";
@@ -174,7 +175,6 @@ class Computer {
             commands.add(new int[]{0, 150 + ThreadLocalRandom.current().nextInt(80)});
             commands.add(new int[]{0, 120 + ThreadLocalRandom.current().nextInt(60)});
             commands.add(new int[]{2, 0});
-            commands.add(new int[]{4, 0}); // Child process
             commands.add(new int[]{1, 45 + ThreadLocalRandom.current().nextInt(35)});
             commands.add(new int[]{1, 35 + ThreadLocalRandom.current().nextInt(25)});
             commands.add(new int[]{2, 0});
@@ -184,7 +184,8 @@ class Computer {
             commands.add(new int[]{0, 70 + ThreadLocalRandom.current().nextInt(150)});
             commands.add(new int[]{1, 25 + ThreadLocalRandom.current().nextInt(25)});
             commands.add(new int[]{0, 120 + ThreadLocalRandom.current().nextInt(30)});
-            commands.add(new int[]{1, 30 + ThreadLocalRandom.current().nextInt(25)});
+            commands.add(new int[]{0, 30 + ThreadLocalRandom.current().nextInt(25)});
+            commands.add(new int[]{4, 0}); // Child process
             commands.add(new int[]{3, 0});
 
             PCB tempPCB = new PCB(name, processid, 3, memoryRequirement,

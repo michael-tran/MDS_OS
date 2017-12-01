@@ -1,11 +1,12 @@
 import java.util.LinkedList;
+import java.util.PriorityQueue;
 import java.util.Queue;
 
 public class Scheduler implements Runnable {
     private CPU cpu;
     private final int QUANTUM = 15;
-    private Queue<PCB> pancake = new LinkedList<>(); // everything else round robin
-    private Queue<PCB> waffle = new LinkedList<>(); //I/O Round Robin
+    private PriorityQueue<PCB> pancake = new PriorityQueue<>(); // everything else round robin
+    private PriorityQueue<PCB> waffle = new PriorityQueue<>(); //I/O Round Robin
     private String threadName;
 
     Scheduler(CPU cpu, String threadName) {
@@ -15,6 +16,9 @@ public class Scheduler implements Runnable {
 
     synchronized void addPCB(PCB pcb) {
         pancake.add(pcb);
+        if (pcb.getParent() != null) {
+            pcb.getParent().addChildren(pcb);
+        }
     }
 
     public synchronized void run() {

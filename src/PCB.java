@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -12,7 +13,7 @@ public class PCB implements Comparable<PCB> {
     private int memoryRequirement;
     private int commandsIndex;
     private List<int[]> commands;
-    private List<PCB> children;
+    private List<PCB> children = new ArrayList<>();
     private PCB parent;
     private LinkedList<MainMemory.Page> pagesUsed;
 
@@ -67,6 +68,10 @@ public class PCB implements Comparable<PCB> {
 
     void setState(int state) {
         this.state = state;
+    }
+
+    PCB getParent() {
+        return parent;
     }
 
     List<PCB> getChildren() {
