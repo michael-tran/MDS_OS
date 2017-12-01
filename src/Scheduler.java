@@ -107,6 +107,9 @@ public class Scheduler implements Runnable {
                 Comm.callDispatcherToDelete(pcb);
                 Comm.callDispatcherForMore();
                 break;
+            case 4:
+                Comm.genChildProcess(pcb);
+                break;
         }
     }
 

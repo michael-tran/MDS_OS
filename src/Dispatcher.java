@@ -1,4 +1,3 @@
-import java.util.LinkedList;
 import java.util.PriorityQueue;
 
 class Dispatcher {
@@ -32,7 +31,7 @@ class Dispatcher {
                 "\t memory \n" + output.toString();
     }
 
-    void dispatch(PCB process, int option) {
+    void dispatch(PCB process) {
         switch (process.getState()) {
             // NEW
             case 0:
@@ -62,6 +61,12 @@ class Dispatcher {
 
             // TERMINATING
             case 4:
+                if (!process.getChildren().isEmpty()) {
+                    for (PCB pcb : process.getChildren()) {
+                        pcb.setState(4);
+                        dispatch(pcb);
+                    }
+                }
                 memory.deallocateMemory(process, true);
                 mainProcessQueue.remove(process);
                 memory.map();
@@ -94,7 +99,7 @@ class Dispatcher {
     void additionalDispatch() {
         // dispatches NEW processes whenever a process is terminated
         for (PCB process : unallocatedProcessQueue) {
-            dispatch(process, 1);
+            dispatch(process);
         }
         this.unallocatedProcessQueue.removeIf(i -> (i.getState() == 1));
     }

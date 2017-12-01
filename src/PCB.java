@@ -69,8 +69,12 @@ public class PCB implements Comparable<PCB> {
         this.state = state;
     }
 
-    int getPriority() {
-        return priority;
+    List<PCB> getChildren() {
+        return children;
+    }
+
+    void addChildren(PCB pcb) {
+        this.children.add(pcb);
     }
 
     void setPriority(int priority) {
@@ -113,7 +117,7 @@ public class PCB implements Comparable<PCB> {
         this.commandsIndex = commandsIndex;
     }
 
-    public int getPid() {
+    int getPid() {
         return pid;
     }
 

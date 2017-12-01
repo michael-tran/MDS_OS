@@ -18,8 +18,8 @@ public class MainFrame extends JPanel {
     private JTextPane monitorDisplay;
     private JButton pauseButton;
     private JButton genButton;
-    JLabel imageLabel;
     private JButton exeButton;
+    JLabel imageLabel;
     JLabel imageLabel2;
     private StyledDocument mddoc;
     private SimpleAttributeSet keyWord;
@@ -241,8 +241,8 @@ public class MainFrame extends JPanel {
 
             @Override
             protected void done() {
-                addText(mainDisplay, mddoc, "--------------==--------\n" + "Simulation Complete\n" +
-                        "--------==--------------\n");
+                addText(mainDisplay, mddoc, "------------------------\n" + "Simulation Complete\n" +
+                        "------------------------\n");
                 running = false;
             }
 

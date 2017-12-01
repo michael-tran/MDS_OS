@@ -1,18 +1,18 @@
-public class Comm {
+class Comm {
     private static Scheduler scheduler;
     private static Dispatcher dispatcher;
     private static MainMemory memory;
     private static Computer computer;
 
     Comm(Scheduler scheduler, Dispatcher dispatcher, Computer computer, MainMemory memory) {
-        this.scheduler = scheduler;
-        this.dispatcher = dispatcher;
-        this.memory = memory;
-        this.computer = computer;
+        Comm.scheduler = scheduler;
+        Comm.dispatcher = dispatcher;
+        Comm.memory = memory;
+        Comm.computer = computer;
     }
 
     static void callDispatcherToDelete(PCB pcb) {
-        dispatcher.dispatch(pcb, 0);
+        dispatcher.dispatch(pcb);
     }
 
     static void callDispatcherForMore() {

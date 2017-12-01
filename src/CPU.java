@@ -48,6 +48,7 @@ class CPU {
     }
 
     private int crunch(int QUANTUM, int option) {
+        process.setState(2);
         int burstCycle;
         System.out.println("Crunching " + process.getName());
         if (process.getRemainingBurstCycle() > 0) {
@@ -66,6 +67,7 @@ class CPU {
                 case 1:
                     // I/O
                     if (option == 0) {
+                        process.setState(1);
                         return 1;
                     } else {
                         System.out.println("IO");
@@ -82,13 +84,14 @@ class CPU {
                 case 3:
                     // Terminate
                     System.out.println("Terminating");
-                    process.setState(4);
                     clock.tick();
+                    process.setState(4);
                     return 3;
                 case 4:
                     // Generate child process
                     System.out.println("Generating child process");
                     clock.tick();
+                    process.setState(1);
                     return 4;
             }
 
@@ -103,6 +106,7 @@ class CPU {
                 if (input.equals("n")) return -1;
             }
         }
+        process.setState(1);
         return 0;
     }
 

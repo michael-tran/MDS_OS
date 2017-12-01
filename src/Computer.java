@@ -44,7 +44,7 @@ class Computer {
         }
         PCB newProcess = new PCB(name, processid, processType, memoryRequirement, burstCycle,
                 priority, commands, null);
-        dispatcher.dispatch(newProcess, 0);
+        dispatcher.dispatch(newProcess);
         processid++;
         return "Program " + name + " successfully loaded.";
     }
@@ -61,7 +61,7 @@ class Computer {
     }
 
     String table() {
-        return mainMemory.getTable().toString();
+        return mainMemory.getTable();
     }
 
     String proc() {
@@ -94,7 +94,6 @@ class Computer {
         private void wordProcessor(PCB parentProcess) {
             String name = "Word " + processid;
             int memoryRequirement = ThreadLocalRandom.current().nextInt(200, 400);
-//            int memoryRequirement = 700 + ThreadLocalRandom.current().nextInt(200, 400);
             int burstCycle = ThreadLocalRandom.current().nextInt(10, 25);
             int priority = ThreadLocalRandom.current().nextInt(3, 5);
             List<int[]> commands = new ArrayList<>();
@@ -116,7 +115,7 @@ class Computer {
             PCB tempPCB = new PCB(name, processid, 0, memoryRequirement,
                     burstCycle, priority, commands, parentProcess);
             processid++;
-            dispatcher.dispatch(tempPCB, 0);
+            dispatcher.dispatch(tempPCB);
         }
 
         private void game(PCB parentProcess) {
@@ -139,9 +138,9 @@ class Computer {
             commands.add(new int[]{3, 0});
 
             PCB tempPCB = new PCB(name, processid, 1, memoryRequirement,
-                    burstCycle, priority, commands,parentProcess);
+                    burstCycle, priority, commands, parentProcess);
             processid++;
-            dispatcher.dispatch(tempPCB, 0);
+            dispatcher.dispatch(tempPCB);
         }
 
         private void videoPlayer(PCB parentProcess) {
@@ -161,9 +160,9 @@ class Computer {
             commands.add(new int[]{3, 0});
 
             PCB tempPCB = new PCB(name, processid, 2, memoryRequirement,
-                    burstCycle, priority, commands,parentProcess);
+                    burstCycle, priority, commands, parentProcess);
             processid++;
-            dispatcher.dispatch(tempPCB, 0);
+            dispatcher.dispatch(tempPCB);
         }
 
         private void browser(PCB parentProcess) {
@@ -175,6 +174,7 @@ class Computer {
             commands.add(new int[]{0, 150 + ThreadLocalRandom.current().nextInt(80)});
             commands.add(new int[]{0, 120 + ThreadLocalRandom.current().nextInt(60)});
             commands.add(new int[]{2, 0});
+            commands.add(new int[]{4, 0}); // Child process
             commands.add(new int[]{1, 45 + ThreadLocalRandom.current().nextInt(35)});
             commands.add(new int[]{1, 35 + ThreadLocalRandom.current().nextInt(25)});
             commands.add(new int[]{2, 0});
@@ -188,9 +188,9 @@ class Computer {
             commands.add(new int[]{3, 0});
 
             PCB tempPCB = new PCB(name, processid, 3, memoryRequirement,
-                    burstCycle, priority, commands,parentProcess);
+                    burstCycle, priority, commands, parentProcess);
             processid++;
-            dispatcher.dispatch(tempPCB, 0);
+            dispatcher.dispatch(tempPCB);
         }
 
         private void antivirus(PCB parentProcess) {
@@ -214,9 +214,9 @@ class Computer {
             commands.add(new int[]{1, 30 + ThreadLocalRandom.current().nextInt(25)});
             commands.add(new int[]{3, 0});
             PCB tempPCB = new PCB(name, processid, 4, memoryRequirement,
-                    burstCycle, priority, commands,parentProcess);
+                    burstCycle, priority, commands, parentProcess);
             processid++;
-            dispatcher.dispatch(tempPCB, 0);
+            dispatcher.dispatch(tempPCB);
         }
 
         private void gen() {
