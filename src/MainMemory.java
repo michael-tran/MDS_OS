@@ -1,11 +1,15 @@
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.PriorityQueue;
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.SynchronousQueue;
 
 public class MainMemory {
 
     private final LinkedList<Page> MEMORY = new LinkedList<>();
-    private LinkedList<PCB> disk = new LinkedList<>();
-    private LinkedList<PCB> main = new LinkedList<>();
+    private Queue<PCB> disk = new ConcurrentLinkedQueue<>();
+    private Queue<PCB> main = new ConcurrentLinkedQueue<>();
 
     MainMemory() {
         for (int i = 0; i < 4096; i++) {
@@ -13,7 +17,7 @@ public class MainMemory {
         }
     }
 
-    LinkedList<Page> allocateMemory(int mem) {
+    private LinkedList<Page> allocateMemory(int mem) {
         LinkedList<Page> pagesUsed = new LinkedList<>();
         if (remainingMemory() > mem) {
             int count = 0;
@@ -30,7 +34,7 @@ public class MainMemory {
     }
 
     void deallocateMemory(PCB process, boolean remove) {
-        if(!(process.getPagesUsed() == null)) {
+        if (!(process.getPagesUsed() == null)) {
             for (Page page : process.getPagesUsed()) {
                 page.toggleUsed();
             }
@@ -51,7 +55,7 @@ public class MainMemory {
         return count;
     }
 
-    public int getUsedCurrentMemory() {
+    private int getUsedCurrentMemory() {
         int count = 0;
         for (Page page : MEMORY) {
             if (page.isUsed()) {
@@ -61,7 +65,7 @@ public class MainMemory {
         return count;
     }
 
-    public int remainingMemory() {
+    int remainingMemory() {
         return MEMORY.size() - getUsedCurrentMemory();
     }
 
@@ -70,7 +74,7 @@ public class MainMemory {
         return "Current memory usage: " + this.getUsedCurrentMemory() + "/4096 MB";
     }
 
-    public void map(PCB process) {
+    void map(PCB process) {
         LinkedList<Page> pagesUsed = this.allocateMemory(process.getMemoryRequirement());
         if (pagesUsed.size() > 0) {
             main.add(process);
@@ -80,40 +84,40 @@ public class MainMemory {
         }
     }
 
-    public void map() {
+    void map() {
         for (PCB pcb : new LinkedList<PCB>(this.disk)) {
             this.diskToMain(pcb);
         }
     }
 
-    public LinkedList<PCB> getMain() {
+    Queue<PCB> getMain() {
         return main;
     }
 
-    public void addMain(PCB process) {
+    private void addMain(PCB process) {
         this.main.add(process);
     }
 
-    public boolean removeMain(PCB process) {
+    private boolean removeMain(PCB process) {
         return this.main.removeIf(x -> x.getPid() == process.getPid());
     }
 
-    public LinkedList<PCB> getDisk() {
+    Queue<PCB> getDisk() {
         return disk;
     }
 
-    public void addDisk(PCB process) {
+    private void addDisk(PCB process) {
         process.setPriority(process.getState() - 1);
         this.disk.add(process);
     }
 
-    public boolean removeDisk(PCB process) {
+    private boolean removeDisk(PCB process) {
         return this.disk.removeIf(x -> x.getPid() == process.getPid());
     }
 
-    public boolean diskToMain(PCB process) {
+    boolean diskToMain(PCB process) {
         LinkedList<MainMemory.Page> pagesUsed = this.allocateMemory(process.getMemoryRequirement());
-        if(pagesUsed.size() > 0){
+        if (pagesUsed.size() > 0) {
             boolean temp = this.removeDisk(process);
             process.setPagesUsed(pagesUsed);
             this.addMain(process);
@@ -122,18 +126,34 @@ public class MainMemory {
         return false;
     }
 
-    public void mainToDisk(PCB process) {
+    void mainToDisk(PCB process) {
         this.deallocateMemory(process, false);
         process.setPagesUsed(null);
         boolean temp = this.removeMain(process);
         this.addDisk(process);
     }
 
-    public String getTable() {
-        return "Disk: \n" + this.getDisk() + "\n\n Main: \n" + this.getMain();
+    String getTable() {
+        StringBuilder output = new StringBuilder();
+
+        output.append("RAM:\n");
+        if (!this.main.isEmpty()) {
+            for (PCB pcb : this.main) {
+                output.append(pcb.toString());
+            }
+        }
+
+        output.append("\nDisk:\n");
+        if (!this.disk.isEmpty()) {
+            for (PCB pcb : this.disk) {
+                output.append(pcb.toString());
+            }
+        }
+
+        return (output.length() == 0) ? "No process loaded" : output.toString();
     }
 
-    public void wipe(){
+    void wipe() {
         for (PCB pcb : new LinkedList<PCB>(this.main)) {
             this.mainToDisk(pcb);
         }
