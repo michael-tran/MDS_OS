@@ -25,7 +25,7 @@ class CPU {
         try {
             Thread.sleep(10);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            System.out.println("System resetting...");
         }
         int state = this.crunch(QUANTUM, option);
         setOccupied(false);
@@ -129,5 +129,11 @@ class CPU {
 
     private void setOccupied(boolean occupied) {
         this.occupied = occupied;
+    }
+
+    void reset() {
+        clock.reset();
+        process = null;
+        setOccupied(false);
     }
 }

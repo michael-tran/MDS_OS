@@ -92,6 +92,7 @@ class Computer {
 
     String reset() {
         processid = 0;
+        scheduler.reset();
         dispatcher.reset();
         mainMemory.reset();
         return "Welcome to MDS OS\n";
@@ -134,7 +135,7 @@ class Computer {
             String name = "Game " + processid;
             int memoryRequirement = ThreadLocalRandom.current().nextInt(200, 800);
             int burstCycle = ThreadLocalRandom.current().nextInt(10, 25);
-            int priority = ThreadLocalRandom.current().nextInt(3, 5);
+            int priority = ThreadLocalRandom.current().nextInt(1, 3);
             List<int[]> commands = new ArrayList<>();
             commands.add(new int[]{0, 20 + ThreadLocalRandom.current().nextInt(30)});
             commands.add(new int[]{1, 25 + ThreadLocalRandom.current().nextInt(25)});
@@ -181,7 +182,7 @@ class Computer {
             String name = "Browser " + processid;
             int memoryRequirement = ThreadLocalRandom.current().nextInt(200, 800);
             int burstCycle = ThreadLocalRandom.current().nextInt(10, 25);
-            int priority = ThreadLocalRandom.current().nextInt(3, 5);
+            int priority = ThreadLocalRandom.current().nextInt(2, 4);
             List<int[]> commands = new ArrayList<>();
 //            commands.add(new int[]{4, 0}); // Child process
             commands.add(new int[]{0, 150 + ThreadLocalRandom.current().nextInt(80)});
@@ -211,7 +212,7 @@ class Computer {
             String name = "Antivirus " + processid;
             int memoryRequirement = ThreadLocalRandom.current().nextInt(200, 800);
             int burstCycle = ThreadLocalRandom.current().nextInt(10, 25);
-            int priority = ThreadLocalRandom.current().nextInt(3, 5);
+            int priority = ThreadLocalRandom.current().nextInt(4, 5);
             List<int[]> commands = new ArrayList<>();
             commands.add(new int[]{0, 150 + ThreadLocalRandom.current().nextInt(80)});
             commands.add(new int[]{0, 120 + ThreadLocalRandom.current().nextInt(60)});
