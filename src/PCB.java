@@ -143,6 +143,20 @@ public class PCB implements Comparable<PCB> {
         }
     }
 
+    ArrayList<PCB> killChildern(){
+        ArrayList<PCB> killList = new ArrayList<>();
+        while (!this.children.isEmpty()) {
+            for (PCB process :  new ArrayList<>(this.children)) {
+                ArrayList<PCB> temp = process.killChildern();
+                killList.addAll(temp);
+                process.setState(4);
+                killList.add(process);
+            }
+            this.children.clear();
+        }
+        return killList;
+    }
+
     @Override
     public String toString() {
         return name + "\t " + pid + "\t" + getStateName() + "\t     " + priority + "\t       " +

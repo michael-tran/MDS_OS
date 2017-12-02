@@ -39,8 +39,7 @@ public class MainMemory {
                 page.toggleUsed();
             }
         } else {
-            System.out.println("WHAT?");
-            System.exit(1);
+            this.disk.remove(process);
         }
         if (remove) {
             this.removeMain(process);

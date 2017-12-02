@@ -1,4 +1,6 @@
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 
 public class Scheduler implements Runnable {
@@ -19,7 +21,6 @@ public class Scheduler implements Runnable {
     }
 
     public synchronized void run() {
-        System.out.println("DO SOMETHING");
         while (!Comm.getPause()) {
             if (pancake.size() > 0 && !cpu.isOccupied()) { //PANCAKE
                 if (Comm.getMemory().getDisk().contains(pancake.peek())) { //checks and sees if the peek is in the disk
@@ -91,11 +92,18 @@ public class Scheduler implements Runnable {
                 pancake.add(pcb);//yield
                 break;
             case 3: //terminate
-                while (!pcb.getChildren().isEmpty()) {
-                    for (PCB process : pcb.getChildren()) {
-                        pancake.remove(process);
-                    }
+                ArrayList<PCB> killList = pcb.killChildern();
+                for (PCB childern : killList) {
+                    pancake.remove(childern);
+                    waffle.remove(childern);
+                    Comm.callDispatcherToDelete(childern);
                 }
+//                while (!pcb.getChildren().isEmpty()) {
+//                    for (PCB process :  new ArrayList<>(pcb.getChildren())) {
+//                        pancake.remove(process);
+//                        pcb.getChildren().remove(process);
+//                    }
+//                }
                 Comm.callDispatcherToDelete(pcb);
                 break;
             case 4:
@@ -111,73 +119,3 @@ public class Scheduler implements Runnable {
         cpu.getClock().reset();
     }
 }
-
-//import java.util.LinkedList;
-//import java.util.Queue;
-//
-//public class Scheduler implements Runnable {
-//
-//    private CPU cpu;
-//    private final int QUANTUM = 15;
-//    private Queue<PCB> pancake = new LinkedList<>(); // everything else round robin
-//    private Queue<PCB> waffle = new LinkedList<>(); //I/O Round Robin
-//
-//    public synchronized void run() {
-//        System.out.println("DO SOMETHING");
-//        try {
-//            while (true) {
-//                PCB temp = pancake.poll(); //Takes the top of the stack
-//                System.out.println("Scheduling " + temp.getName());
-//                start(temp, 0);
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            System.exit(1);
-//        }
-//    }
-//
-//    private void start(PCB pcb, int option) throws InterruptedException {
-//        int done = cpu.startProcess(pcb, QUANTUM, option);
-//        switch (done) {
-//            case -1:
-//                Comm.reset();
-//                break;
-//            case 0:
-//                pancake.add(pcb);//calc
-//                break;
-//            case 1:
-//                waffle.add(pcb);//i/o
-//                break;
-//            case 2:
-//                pancake.add(pcb);//yield
-//                break;
-//            case 3: //terminate
-//                Comm.callDispatcherToDelete(pcb);
-//                break;
-//            case 4:
-//                Comm.genChildProcess(pcb);
-//                break;
-//        }
-//    }
-//
-//    Scheduler(CPU cpu) {
-//        this.cpu = cpu;
-//    }
-//
-//    void addPCB(PCB pcb) {
-//        pancake.add(pcb);
-//        if (pcb.getParent() != null) {
-//            pcb.getParent().addChildren(pcb);
-//        }
-//    }
-//
-//    void setPauseCycle(int pauseCycle) {
-//        cpu.setPauseCycles(pauseCycle);
-//    }
-//
-//    void reset() {
-//        pancake.clear();
-//        waffle.clear();
-//        cpu.getClock().reset();
-//    }
-//}
