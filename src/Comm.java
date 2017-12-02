@@ -29,10 +29,6 @@ class Comm {
         scheduler.reset();
     }
 
-    static boolean getPause() {
-        return pause;
-    }
-
     static void togglePause() {
         pause = !pause;
     }

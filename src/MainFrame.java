@@ -15,7 +15,6 @@ public class MainFrame extends JPanel {
     private JTextPane mainDisplay;
     private JTextField inputField;
     private JTextPane monitorDisplay;
-    private JButton pauseButton;
     private JButton genButton;
     private JButton exeButton;
     JLabel imageLabel;
@@ -66,20 +65,6 @@ public class MainFrame extends JPanel {
             } else {
                 addText(mainDisplay, mddoc, "Simulation is already underway");
             }
-        });
-
-        pauseButton.addActionListener((e) -> {
-            if (!computer.getRunning()) {
-                addText(mainDisplay, mddoc, "Simulation is not running");
-            } else {
-                Comm.togglePause();
-                if (Comm.getPause()) {
-                    pauseButton.setText("Resume");
-                } else {
-                    pauseButton.setText("Pause");
-                }
-            }
-
         });
 
         //input text box
@@ -178,7 +163,6 @@ public class MainFrame extends JPanel {
             case "reset":
                 mainDisplay.setText(computer.reset());
                 worker.cancel(true);
-                computer.reset();
                 break;
             case "exit":
                 System.exit(0);

@@ -20,7 +20,7 @@ public class Scheduler implements Runnable {
     }
 
     public synchronized void run() {
-        while (!Comm.getPause()) {
+        while (true) {
             if (pancake.size() > 0 && !cpu.isOccupied()) { //PANCAKE
                 if (Comm.getMemory().getDisk().contains(pancake.peek())) { //checks and sees if the peek is in the disk
                     boolean allocated = false;
@@ -97,12 +97,6 @@ public class Scheduler implements Runnable {
                     waffle.remove(childern);
                     Comm.callDispatcherToDelete(childern);
                 }
-//                while (!pcb.getChildren().isEmpty()) {
-//                    for (PCB process :  new ArrayList<>(pcb.getChildren())) {
-//                        pancake.remove(process);
-//                        pcb.getChildren().remove(process);
-//                    }
-//                }
                 Comm.callDispatcherToDelete(pcb);
                 break;
             case 4:

@@ -102,11 +102,6 @@ class CPU {
             if (process.getCommands().get(process.getCommandsIndex())[1] == 0)
                 process.setCommandsIndex(process.getCommandsIndex() + 1);
 
-            // New pausing code
-            if (Comm.getPause()) {
-                Comm.toggleRunning();
-            }
-
             // Old pausing code
             if ((clock.getClockCycle() != 0) && (clock.getClockCycle() % this.pauseCycles) == 0) {
                 Scanner scan = new Scanner(System.in);
