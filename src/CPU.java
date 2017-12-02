@@ -54,17 +54,16 @@ class CPU {
     private int crunch(int QUANTUM, int option) {
         process.setState(2);
         int burstCycle;
-        System.out.println("Crunching " + process.getName());
         if (process.getRemainingBurstCycle() > 0) {
             burstCycle = process.getRemainingBurstCycle();
             process.setRemainingBurstCycle(0);
         } else burstCycle = process.getBurstCycle();
-
+        System.out.println("Crunching " + process.getName() + " for " + min(QUANTUM, burstCycle) + " cycles");
         for (int i = min(QUANTUM, burstCycle); i > 0; i--) {
             switch (process.getCommands().get(process.getCommandsIndex())[0]) {
                 case 0:
                     // calculate
-                    System.out.println("Calc");
+                    //System.out.println("Calc");
                     process.getCommands().get(process.getCommandsIndex())[1]--;
                     clock.tick();
                     break;
@@ -74,26 +73,26 @@ class CPU {
                         process.setState(1);
                         return 1;
                     } else {
-                        System.out.println("IO");
+                        //System.out.println("IO");
                         process.getCommands().get(process.getCommandsIndex())[1]--;
                         clock.tick();
                         break;
                     }
                 case 2:
                     // Yield
-                    System.out.println("Yield");
+                    System.out.println(process.getName() + " Yield");
                     clock.tick();
                     process.setRemainingBurstCycle(i);
                     break;
                 case 3:
                     // Terminate
-                    System.out.println("Terminating");
+                    System.out.println(process.getName() + " Terminating");
                     clock.tick();
                     process.setState(4);
                     return 3;
                 case 4:
                     // Generate child process
-                    System.out.println("Generating child process");
+                    System.out.println(process.getName() + " Generating child process");
                     clock.tick();
                     process.setCommandsIndex(process.getCommandsIndex() + 1);
                     process.setState(1);

@@ -49,7 +49,7 @@ public class MainFrame extends JPanel {
 
         procButton.addActionListener((e) -> addText(mainDisplay, mddoc, computer.proc()));
 
-        genButton.addActionListener((e) -> addText(mainDisplay, mddoc, computer.gen(5)));
+        genButton.addActionListener((e) -> addText(mainDisplay, mddoc, callGen(5)));
 
         memButton.addActionListener((e) -> addText(mainDisplay, mddoc, computer.mem()));
 
@@ -171,9 +171,9 @@ public class MainFrame extends JPanel {
                         addText(mainDisplay, mddoc, "Argument must be an integer");
                         break;
                     }
-                    addText(mainDisplay, mddoc, computer.gen(n));
+                    addText(mainDisplay, mddoc, callGen(n));
                     break;
-                } else addText(mainDisplay, mddoc, computer.gen(5));
+                } else addText(mainDisplay, mddoc, callGen(5));
                 break;
             case "reset":
                 mainDisplay.setText(computer.reset());
@@ -258,6 +258,19 @@ public class MainFrame extends JPanel {
         };
 
         worker.execute();
+    }
+
+    private String callGen(int n) {
+        worker = new SwingWorker<>() {
+            @Override
+            protected Void doInBackground() throws Exception {
+                computer.gen(n);
+                return null;
+            }
+        };
+
+        worker.execute();
+        return "Generated " + n + " process(es).";
     }
 
     private void updateResourceMonitor() {

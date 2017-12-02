@@ -80,11 +80,10 @@ class Computer {
         return dispatcher.displayProcesses();
     }
 
-    String gen(int numberOfProcesses) {
+    void gen(int numberOfProcesses) {
         for (int i = 0; i < numberOfProcesses; i++) {
             progen.gen();
         }
-        return "Generated " + numberOfProcesses + " process(es).";
     }
 
     void genChildProcess(PCB parentProcess) {

@@ -13,7 +13,7 @@ class Dispatcher implements Runnable {
         this.scheduler = scheduler;
     }
 
-    String displayProcesses() {
+    synchronized String displayProcesses() {
         StringBuilder output = new StringBuilder();
 
         Queue<PCB> main = new ConcurrentLinkedQueue<>(this.mainProcessQueue);
@@ -23,11 +23,6 @@ class Dispatcher implements Runnable {
                 output.append(readyProcess.toString());
             }
         }
-//        if (!unallocatedProcessQueue.isEmpty()) {
-//            for (PCB newProcess : this.unallocatedProcessQueue) {
-//                output.append(newProcess.toString());
-//            }
-//        }
 
         return (output.length() == 0) ? "No process loaded" : "Name \t pid \t state \t priority \t burstCycle " +
                 "\t memory \n" + output.toString();
