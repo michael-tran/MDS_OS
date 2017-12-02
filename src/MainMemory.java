@@ -174,6 +174,27 @@ public class MainMemory {
         }
     }
 
+    void check(PCB process){
+        if (this.disk.contains(process)) { //checks and sees if the peek is in the disk
+            boolean allocated = false;
+            if (this.remainingMemory() > process.getMemoryRequirement()) //Checks if there is available space
+                allocated = Comm.getMemory().diskToMain(process);
+            else {
+                for (PCB item : this.getMain()) { //Checks to find a process in main and move it to disk
+                    if ((item.getMemoryRequirement() + this.remainingMemory()) > item.getMemoryRequirement()) {
+                        this.mainToDisk(item);
+                        allocated = this.diskToMain(process);
+                        break;
+                    }
+                }
+            }
+            if (!allocated) { //if failed to find any available space wipes the main and allocates the process
+                this.wipe();
+               this.diskToMain(process);
+            }
+        }
+    }
+
     void reset() {
         for (Page page : MEMORY) {
             if (page.isUsed()) {

@@ -22,45 +22,11 @@ public class Scheduler implements Runnable {
     public synchronized void run() {
         while (true) {
             if (pancake.size() > 0 && !cpu.isOccupied()) { //PANCAKE
-                if (Comm.getMemory().getDisk().contains(pancake.peek())) { //checks and sees if the peek is in the disk
-                    boolean allocated = false;
-                    if (Comm.getMemory().remainingMemory() > pancake.peek().getMemoryRequirement()) //Checks if there is available space
-                        allocated = Comm.getMemory().diskToMain(pancake.peek());
-                    else {
-                        for (PCB process : Comm.getMemory().getMain()) { //Checks to find a process in main and move it to disk
-                            if ((process.getMemoryRequirement() + Comm.getMemory().remainingMemory()) > pancake.peek().getMemoryRequirement()) {
-                                Comm.getMemory().mainToDisk(process);
-                                allocated = Comm.getMemory().diskToMain(pancake.peek());
-                                break;
-                            }
-                        }
-                    }
-                    if (!allocated) { //if failed to find any available space wipes the main and allocates the process
-                        Comm.getMemory().wipe();
-                        Comm.getMemory().diskToMain(pancake.peek());
-                    }
-                }
+                Comm.getMemory().check(pancake.peek());
                 start(pancake.poll(), 0);
             } else { //WAFFLE
                 if (waffle.size() > 0 && !cpu.isOccupied()) {
-                    if (Comm.getMemory().getDisk().contains(waffle.peek())) { //checks and sees if the peek is in the disk
-                        boolean allocated = false;
-                        if (Comm.getMemory().remainingMemory() > waffle.peek().getMemoryRequirement()) //Checks if there is available space
-                            allocated = Comm.getMemory().diskToMain(waffle.peek());
-                        else {
-                            for (PCB process : Comm.getMemory().getMain()) { //Checks to find a process in main and move it to disk
-                                if ((process.getMemoryRequirement() + Comm.getMemory().remainingMemory()) > waffle.peek().getMemoryRequirement()) {
-                                    Comm.getMemory().mainToDisk(process);
-                                    allocated = Comm.getMemory().diskToMain(waffle.peek());
-                                    break;
-                                }
-                            }
-                        }
-                        if (!allocated) { //if failed to find any available space wipes the main and allocates the process
-                            Comm.getMemory().wipe();
-                            Comm.getMemory().diskToMain(waffle.peek());
-                        }
-                    }
+                    Comm.getMemory().check(waffle.peek());
                     start(waffle.poll(), 1);
                 } else {
                     System.out.println(cpu.getClock().getClockCycle());
