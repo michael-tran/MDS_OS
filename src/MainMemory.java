@@ -78,7 +78,7 @@ class MainMemory {
         }
     }
 
-    private Queue<PCB> getMain() {
+    Queue<PCB> getMain() {
         return main;
     }
 
