@@ -157,9 +157,6 @@
 %----------------------------------------------------------------------------------------
 
 
-
-\section{Introduction}
-
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=\linewidth]{Untitled}
@@ -168,22 +165,50 @@
 
 \section{Commands}
 
+You may either use the buttons or type the commands into the input field on the bottom.
+
 \subsection{Exe}
 
+Argument(s): $n$ where $n$ is the number of cycles to simulate. You must enter $y/n$ in the console to continue the simulation.
+If $n = 0$, the simulation will run until all processes are finished. The Exe button is $exe$ $0$ by default.
 
-\section{Other Requirements}
+\subsection{Proc}
 
-\begin{appendices}
+Argument(s): None. Displays all current processes.
+This function is made obsolete because the information is constantly updated in the System Resource Monitor.
 
-	\section{Performance requirements}
+\subsection{Gen}
 
-	\lipsum[10]
+Argument(s): $n$ where $n$ is the number of process(es) to generate. The Gen button is $gen$ $5$ by default.
 
-	\section{Safety requirements}
+\subsection{Load}
 
-	\lipsum[10]
+Argument(s): $name$ where $name$ is the file name (without extension) of the program you wish to load.
 
-\end{appendices}
+Example: $load$ $word$ will load the word.txt file into the simulation.
+
+\subsection{Mem}
+
+Argument(s): None. Displays current RAM usage.
+This function is made obsolete because the information is constantly updated in the System Resource Monitor.
+
+\subsection{Reset}
+
+Argument(s): None. Forces the simulation to stop and resets all components of the system.
+
+\subsection{Clean}
+
+Argument(s): None. Clears the console (left) screen.
+
+\subsection{Exit}
+
+Argument(s): None. Finally! You don't have to look at this thing anymore.
+
+\section{Requirements}
+
+This simulation is written and compiled in Java SDK 9.0.
+
+To manually load program files, you must place them in the same folder as MDS\_OS.jar.
 
 
 

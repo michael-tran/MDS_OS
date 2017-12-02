@@ -238,15 +238,12 @@ class Computer {
             switch (randomInt) {
                 case 0:
                     wordProcessor(null);
-//                    browser(null);
                     break;
                 case 1:
                     game(null);
-//                    browser(null);
                     break;
                 case 2:
                     videoPlayer(null);
-//                    browser(null);
                     break;
                 case 3:
                     browser(null);
