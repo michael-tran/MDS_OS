@@ -43,8 +43,10 @@ public class MainFrame extends JPanel {
                         "\n Proc: Shows all unfinished Processes" +
                         "\n Mem: Shows the current Usage of memory space" +
                         "\n Exe: Lets the simulation run on its own" +
-                        "\n Load: loads a program" +
-                        "\n Reset: Resets everything"));
+                        "\n Load: Loads a program" +
+                        "\n Reset: Resets everything" +
+                        "\n Gen: Generates n process(es)")
+        );
 
         procButton.addActionListener((e) -> addText(mainDisplay, mddoc, computer.proc()));
 
@@ -169,8 +171,13 @@ public class MainFrame extends JPanel {
                 } else addText(mainDisplay, mddoc, callGen(5));
                 break;
             case "reset":
-                mainDisplay.setText(computer.reset());
                 worker.cancel(true);
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e1) {
+                    e1.printStackTrace();
+                }
+                mainDisplay.setText(computer.reset());
                 break;
             case "exit":
                 System.exit(0);
@@ -215,8 +222,9 @@ public class MainFrame extends JPanel {
                             "\n Proc: Shows all unfinished Processes" +
                             "\n Mem: Shows the current Usage of memory space" +
                             "\n Exe: Lets the simulation run on its own" +
-                            "\n Load: loads a program" +
-                            "\n Reset: Resets everything");
+                            "\n Load: Loads a program" +
+                            "\n Reset: Resets everything" +
+                            "\n Gen: Generates n process(es)");
                 }
                 break;
             default:

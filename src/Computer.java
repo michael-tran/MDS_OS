@@ -184,7 +184,6 @@ class Computer {
             int burstCycle = ThreadLocalRandom.current().nextInt(10, 25);
             int priority = ThreadLocalRandom.current().nextInt(2, 4);
             List<int[]> commands = new ArrayList<>();
-//            commands.add(new int[]{4, 0}); // Child process
             commands.add(new int[]{0, 150 + ThreadLocalRandom.current().nextInt(80)});
             commands.add(new int[]{0, 120 + ThreadLocalRandom.current().nextInt(60)});
             commands.add(new int[]{2, 0});
