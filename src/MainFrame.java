@@ -52,7 +52,15 @@ public class MainFrame extends JPanel {
 
         memButton.addActionListener((e) -> addText(mainDisplay, mddoc, computer.mem()));
 
-        resetButton.addActionListener((e) -> mainDisplay.setText(computer.reset()));
+        resetButton.addActionListener((e) -> {
+            worker.cancel(true);
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e1) {
+                e1.printStackTrace();
+            }
+            mainDisplay.setText(computer.reset());
+        });
 
         exitButton.addActionListener((e) -> System.exit(0));
 
