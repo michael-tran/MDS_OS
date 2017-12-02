@@ -6,10 +6,10 @@ import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 
 class Computer {
-    private Dispatcher dispatcher;
-    private MainMemory mainMemory;
-    private Scheduler scheduler;
-    private ProcessGenerator progen = new ProcessGenerator();
+    private final Dispatcher dispatcher;
+    private final MainMemory mainMemory;
+    private final Scheduler scheduler;
+    private final ProcessGenerator progen = new ProcessGenerator();
     private int processid = 0;
     private boolean running = false;
 

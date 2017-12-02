@@ -2,19 +2,19 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-public class PCB implements Comparable<PCB> {
-    private String name;
-    private int processType;
-    private int pid;
+class PCB implements Comparable<PCB> {
+    private final String name;
+    private final int processType;
+    private final int pid;
     private int state;
     private int priority;
-    private int burstCycle;
+    private final int burstCycle;
     private int remainingBurstCycle;
-    private int memoryRequirement;
+    private final int memoryRequirement;
     private int commandsIndex;
-    private List<int[]> commands;
-    private List<PCB> children = new ArrayList<>();
-    private PCB parent;
+    private final List<int[]> commands;
+    private final List<PCB> children = new ArrayList<>();
+    private final PCB parent;
     private LinkedList<MainMemory.Page> pagesUsed;
 
     /**
@@ -143,11 +143,11 @@ public class PCB implements Comparable<PCB> {
         }
     }
 
-    ArrayList<PCB> killChildern(){
+    ArrayList<PCB> killChildren() {
         ArrayList<PCB> killList = new ArrayList<>();
         while (!this.children.isEmpty()) {
-            for (PCB process :  new ArrayList<>(this.children)) {
-                ArrayList<PCB> temp = process.killChildern();
+            for (PCB process : new ArrayList<>(this.children)) {
+                ArrayList<PCB> temp = process.killChildren();
                 killList.addAll(temp);
                 process.setState(4);
                 killList.add(process);

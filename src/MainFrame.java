@@ -19,8 +19,8 @@ public class MainFrame extends JPanel {
     private JButton exeButton;
     JLabel imageLabel;
     JLabel imageLabel2;
-    private StyledDocument mddoc;
-    private SimpleAttributeSet keyWord;
+    private final StyledDocument mddoc;
+    private final SimpleAttributeSet keyWord;
     private SwingWorker<Void, Void> worker;
 
     //The main constructor for the JFrame

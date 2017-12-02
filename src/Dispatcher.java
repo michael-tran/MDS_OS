@@ -3,9 +3,9 @@ import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 class Dispatcher {
-    private MainMemory memory;
-    private Scheduler scheduler;
-    private PriorityQueue<PCB> mainProcessQueue; // All new mainProcessQueue// go here
+    private final MainMemory memory;
+    private final Scheduler scheduler;
+    private final PriorityQueue<PCB> mainProcessQueue; // All new mainProcessQueue// go here
 
     Dispatcher(MainMemory memory, Scheduler scheduler) {
         this.memory = memory;

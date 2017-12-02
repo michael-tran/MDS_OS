@@ -20,21 +20,13 @@ class Comm {
         computer.genChildProcess(parentProcess);
     }
 
-    static MainMemory getMemory(){
-       return memory;
+    static MainMemory getMemory() {
+        return memory;
     }
 
     static void reset() {
         dispatcher.reset();
         scheduler.reset();
-    }
-
-    static void togglePause() {
-        pause = !pause;
-    }
-
-    static void toggleRunning() {
-        computer.toggleRunning();
     }
 
 }

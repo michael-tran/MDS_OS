@@ -2,11 +2,10 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
-public class Scheduler implements Runnable {
-    private CPU cpu;
-    private final int QUANTUM = 15;
-    private Queue<PCB> pancake = new LinkedList<>(); // everything else round robin
-    private Queue<PCB> waffle = new LinkedList<>(); //I/O Round Robin
+class Scheduler implements Runnable {
+    private final CPU cpu;
+    private final Queue<PCB> pancake = new LinkedList<>(); // everything else round robin
+    private final Queue<PCB> waffle = new LinkedList<>(); //I/O Round Robin
 
     Scheduler(CPU cpu) {
         this.cpu = cpu;
@@ -21,11 +20,11 @@ public class Scheduler implements Runnable {
 
     public synchronized void run() {
         while (true) {
-            if (pancake.size() > 0 && !cpu.isOccupied()) { //PANCAKE
+            if (pancake.size() > 0 && cpu.isOccupied()) { //PANCAKE
                 Comm.getMemory().check(pancake.peek());
                 start(pancake.poll(), 0);
             } else { //WAFFLE
-                if (waffle.size() > 0 && !cpu.isOccupied()) {
+                if (waffle.size() > 0 && cpu.isOccupied()) {
                     Comm.getMemory().check(waffle.peek());
                     start(waffle.poll(), 1);
                 } else {
@@ -42,6 +41,7 @@ public class Scheduler implements Runnable {
     }
 
     private void start(PCB pcb, int option) {
+        int QUANTUM = 15;
         int done = cpu.startProcess(pcb, QUANTUM, option);
         switch (done) {
             case -1:
@@ -57,11 +57,11 @@ public class Scheduler implements Runnable {
                 pancake.add(pcb);//yield
                 break;
             case 3: //terminate
-                ArrayList<PCB> killList = pcb.killChildern();
-                for (PCB childern : killList) {
-                    pancake.remove(childern);
-                    waffle.remove(childern);
-                    Comm.callDispatcherToDelete(childern);
+                ArrayList<PCB> killList = pcb.killChildren();
+                for (PCB children : killList) {
+                    pancake.remove(children);
+                    waffle.remove(children);
+                    Comm.callDispatcherToDelete(children);
                 }
                 Comm.callDispatcherToDelete(pcb);
                 break;

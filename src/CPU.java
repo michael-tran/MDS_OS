@@ -3,7 +3,7 @@ import java.util.Scanner;
 import static java.lang.Math.min;
 
 class CPU {
-    private Clock clock;
+    private final Clock clock;
     private int pauseCycles;
     private PCB process;
     private boolean occupied;
@@ -124,7 +124,7 @@ class CPU {
     }
 
     boolean isOccupied() {
-        return occupied;
+        return !occupied;
     }
 
     private void setOccupied(boolean occupied) {
