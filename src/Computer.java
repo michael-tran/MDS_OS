@@ -8,13 +8,15 @@ import java.util.concurrent.ThreadLocalRandom;
 class Computer {
     private Dispatcher dispatcher;
     private MainMemory mainMemory;
+    private Scheduler scheduler;
     private ProcessGenerator progen = new ProcessGenerator();
     private int processid = 0;
     private boolean running = false;
 
-    Computer(Dispatcher dispatcher, MainMemory mainMemory) {
+    Computer(Dispatcher dispatcher, MainMemory mainMemory, Scheduler scheduler) {
         this.dispatcher = dispatcher;
         this.mainMemory = mainMemory;
+        this.scheduler = scheduler;
     }
 
     boolean getRunning() {
@@ -59,10 +61,11 @@ class Computer {
     }
 
     void exe(int n) {
-        if (dispatcher.displayProcesses().equals("No process loaded")) {
+        if (dispatcher.getMainProcessQueue().isEmpty()) {
             gen(5);
         }
-        dispatcher.start(n);
+        scheduler.setPauseCycle(n);
+        scheduler.run();
     }
 
     String mem() {
@@ -233,25 +236,19 @@ class Computer {
             int randomInt = ThreadLocalRandom.current().nextInt(5);
             switch (randomInt) {
                 case 0:
-//                    wordProcessor(null);
-
-                    browser(null);
+                    //wordProcessor(null);
                     break;
                 case 1:
-//                    game(null);
-
-                    browser(null);
+                    //game(null);
                     break;
                 case 2:
-//                    videoPlayer(null);
-                    browser(null);
+                    //videoPlayer(null);
                     break;
                 case 3:
                     browser(null);
                     break;
                 case 4:
-//                    antivirus(null);
-                    browser(null);
+                    //antivirus(null);
                     break;
             }
         }

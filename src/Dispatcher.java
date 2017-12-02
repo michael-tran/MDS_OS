@@ -2,7 +2,7 @@ import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-class Dispatcher {
+class Dispatcher implements Runnable {
     private MainMemory memory;
     private Scheduler scheduler;
     private PriorityQueue<PCB> mainProcessQueue; // All new mainProcessQueue// go here
@@ -40,11 +40,13 @@ class Dispatcher {
                 memory.map(process);
                 process.setState(1);
                 mainProcessQueue.add(process);
+                scheduler.addPCB(process);
                 break;
 
             // READY
             case 1:
-                scheduler.addPCB(process);
+                //scheduler.addPCB(process);
+                mainProcessQueue.remove(process);
                 break;
 
             // TERMINATING
@@ -62,18 +64,21 @@ class Dispatcher {
         }
     }
 
-    void start(int n) {
-        scheduler.setPauseCycle(n);
-        while (!this.mainProcessQueue.isEmpty()) {
-            for (PCB process : this.mainProcessQueue) {
-                this.dispatch(process);
-            }
-            scheduler.run();
-        }
+    PriorityQueue<PCB> getMainProcessQueue() {
+        return mainProcessQueue;
     }
 
     void reset() {
         mainProcessQueue.clear();
         memory.reset();
+    }
+
+    @Override
+    public void run() {
+        while (!this.mainProcessQueue.isEmpty()) {
+            for (PCB process : this.mainProcessQueue) {
+                this.dispatch(process);
+            }
+        }
     }
 }

@@ -18,11 +18,15 @@ class CPU {
         return clock;
     }
 
-    int startProcess(PCB pcb, int QUANTUM, int option) throws InterruptedException {
+    int startProcess(PCB pcb, int QUANTUM, int option) {
         setOccupied(true);
         process = pcb;
         process.setState(2);
-        Thread.sleep(10);
+        try {
+            Thread.sleep(10);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         int state = this.crunch(QUANTUM, option);
         setOccupied(false);
         switch (state) {

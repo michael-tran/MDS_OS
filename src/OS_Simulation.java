@@ -9,7 +9,7 @@ public class OS_Simulation {
         Scheduler scheduler = new Scheduler(cpu);
 
         Dispatcher dispatcher = new Dispatcher(mainMemory, scheduler);
-        Computer computer = new Computer(dispatcher, mainMemory);
+        Computer computer = new Computer(dispatcher, mainMemory, scheduler);
 
         Comm comm = new Comm(scheduler, dispatcher, computer, mainMemory); // Communication between components
 
