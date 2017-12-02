@@ -91,6 +91,7 @@ class CPU {
                     // Generate child process
                     System.out.println("Generating child process");
                     clock.tick();
+                    process.setCommandsIndex(process.getCommandsIndex() + 1);
                     process.setState(1);
                     return 4;
             }

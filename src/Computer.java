@@ -181,19 +181,19 @@ class Computer {
             int burstCycle = ThreadLocalRandom.current().nextInt(10, 25);
             int priority = ThreadLocalRandom.current().nextInt(3, 5);
             List<int[]> commands = new ArrayList<>();
-            commands.add(new int[]{0, 150 + ThreadLocalRandom.current().nextInt(80)});
-            commands.add(new int[]{0, 120 + ThreadLocalRandom.current().nextInt(60)});
-            commands.add(new int[]{2, 0});
-            commands.add(new int[]{1, 45 + ThreadLocalRandom.current().nextInt(35)});
-            commands.add(new int[]{1, 35 + ThreadLocalRandom.current().nextInt(25)});
-            commands.add(new int[]{2, 0});
-            commands.add(new int[]{0, 100 + ThreadLocalRandom.current().nextInt(50)});
-            commands.add(new int[]{1, 25 + ThreadLocalRandom.current().nextInt(25)});
-            commands.add(new int[]{2, 0});
-            commands.add(new int[]{0, 70 + ThreadLocalRandom.current().nextInt(150)});
-            commands.add(new int[]{1, 25 + ThreadLocalRandom.current().nextInt(25)});
-            commands.add(new int[]{0, 120 + ThreadLocalRandom.current().nextInt(30)});
-            commands.add(new int[]{0, 30 + ThreadLocalRandom.current().nextInt(25)});
+//            commands.add(new int[]{0, 150 + ThreadLocalRandom.current().nextInt(80)});
+//            commands.add(new int[]{0, 120 + ThreadLocalRandom.current().nextInt(60)});
+//            commands.add(new int[]{2, 0});
+//            commands.add(new int[]{1, 45 + ThreadLocalRandom.current().nextInt(35)});
+//            commands.add(new int[]{1, 35 + ThreadLocalRandom.current().nextInt(25)});
+//            commands.add(new int[]{2, 0});
+//            commands.add(new int[]{0, 100 + ThreadLocalRandom.current().nextInt(50)});
+//            commands.add(new int[]{1, 25 + ThreadLocalRandom.current().nextInt(25)});
+//            commands.add(new int[]{2, 0});
+//            commands.add(new int[]{0, 70 + ThreadLocalRandom.current().nextInt(150)});
+//            commands.add(new int[]{1, 25 + ThreadLocalRandom.current().nextInt(25)});
+//            commands.add(new int[]{0, 120 + ThreadLocalRandom.current().nextInt(30)});
+//            commands.add(new int[]{0, 30 + ThreadLocalRandom.current().nextInt(25)});
             commands.add(new int[]{4, 0}); // Child process
             commands.add(new int[]{3, 0});
 
@@ -233,19 +233,25 @@ class Computer {
             int randomInt = ThreadLocalRandom.current().nextInt(5);
             switch (randomInt) {
                 case 0:
-                    wordProcessor(null);
+//                    wordProcessor(null);
+
+                    browser(null);
                     break;
                 case 1:
-                    game(null);
+//                    game(null);
+
+                    browser(null);
                     break;
                 case 2:
-                    videoPlayer(null);
+//                    videoPlayer(null);
+                    browser(null);
                     break;
                 case 3:
                     browser(null);
                     break;
                 case 4:
-                    antivirus(null);
+//                    antivirus(null);
+                    browser(null);
                     break;
             }
         }

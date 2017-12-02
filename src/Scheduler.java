@@ -1,17 +1,14 @@
 import java.util.LinkedList;
-import java.util.PriorityQueue;
 import java.util.Queue;
 
 public class Scheduler implements Runnable {
     private CPU cpu;
     private final int QUANTUM = 15;
-    private PriorityQueue<PCB> pancake = new PriorityQueue<>(); // everything else round robin
-    private PriorityQueue<PCB> waffle = new PriorityQueue<>(); //I/O Round Robin
-    private String threadName;
+    private Queue<PCB> pancake = new LinkedList<>(); // everything else round robin
+    private Queue<PCB> waffle = new LinkedList<>(); //I/O Round Robin
 
-    Scheduler(CPU cpu, String threadName) {
+    Scheduler(CPU cpu) {
         this.cpu = cpu;
-        this.threadName = threadName;
     }
 
     synchronized void addPCB(PCB pcb) {
@@ -22,7 +19,7 @@ public class Scheduler implements Runnable {
     }
 
     public synchronized void run() {
-        System.out.println(threadName + " running");
+        System.out.println("DO SOMETHING");
         try {
             while (true) {
                 if (pancake.size() > 0 && !cpu.isOccupied()) { //PANCAKE
@@ -44,9 +41,7 @@ public class Scheduler implements Runnable {
                             Comm.getMemory().diskToMain(pancake.peek());
                         }
                     }
-                    PCB temp = pancake.poll(); //Takes the top of the stack
-                    System.out.println("Scheduling " + temp.getName());
-                    start(temp, 0);
+                    start(pancake.poll(), 0);
                 } else { //WAFFLE
                     if (waffle.size() > 0 && !cpu.isOccupied()) {
                         if (Comm.getMemory().getDisk().contains(waffle.peek())) { //checks and sees if the peek is in the disk
@@ -67,10 +62,7 @@ public class Scheduler implements Runnable {
                                 Comm.getMemory().diskToMain(waffle.peek());
                             }
                         }
-
-                        PCB temp = waffle.poll(); //takes the top of the stack
-                        System.out.println("I/O Scheduling " + temp.getName());
-                        start(temp, 1);
+                        start(waffle.poll(), 1);
                     } else {
                         System.out.println(cpu.getClock().getClockCycle());
                         System.out.println("Waiting for processes");
@@ -105,10 +97,10 @@ public class Scheduler implements Runnable {
                 break;
             case 3: //terminate
                 Comm.callDispatcherToDelete(pcb);
-                Comm.callDispatcherForMore();
                 break;
             case 4:
                 Comm.genChildProcess(pcb);
+                pancake.add(pcb);//yield
                 break;
         }
     }
@@ -119,3 +111,73 @@ public class Scheduler implements Runnable {
         cpu.getClock().reset();
     }
 }
+
+//import java.util.LinkedList;
+//import java.util.Queue;
+//
+//public class Scheduler implements Runnable {
+//
+//    private CPU cpu;
+//    private final int QUANTUM = 15;
+//    private Queue<PCB> pancake = new LinkedList<>(); // everything else round robin
+//    private Queue<PCB> waffle = new LinkedList<>(); //I/O Round Robin
+//
+//    public synchronized void run() {
+//        System.out.println("DO SOMETHING");
+//        try {
+//            while (true) {
+//                PCB temp = pancake.poll(); //Takes the top of the stack
+//                System.out.println("Scheduling " + temp.getName());
+//                start(temp, 0);
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            System.exit(1);
+//        }
+//    }
+//
+//    private void start(PCB pcb, int option) throws InterruptedException {
+//        int done = cpu.startProcess(pcb, QUANTUM, option);
+//        switch (done) {
+//            case -1:
+//                Comm.reset();
+//                break;
+//            case 0:
+//                pancake.add(pcb);//calc
+//                break;
+//            case 1:
+//                waffle.add(pcb);//i/o
+//                break;
+//            case 2:
+//                pancake.add(pcb);//yield
+//                break;
+//            case 3: //terminate
+//                Comm.callDispatcherToDelete(pcb);
+//                break;
+//            case 4:
+//                Comm.genChildProcess(pcb);
+//                break;
+//        }
+//    }
+//
+//    Scheduler(CPU cpu) {
+//        this.cpu = cpu;
+//    }
+//
+//    void addPCB(PCB pcb) {
+//        pancake.add(pcb);
+//        if (pcb.getParent() != null) {
+//            pcb.getParent().addChildren(pcb);
+//        }
+//    }
+//
+//    void setPauseCycle(int pauseCycle) {
+//        cpu.setPauseCycles(pauseCycle);
+//    }
+//
+//    void reset() {
+//        pancake.clear();
+//        waffle.clear();
+//        cpu.getClock().reset();
+//    }
+//}

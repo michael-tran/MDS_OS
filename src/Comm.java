@@ -16,10 +16,6 @@ class Comm {
         dispatcher.dispatch(pcb);
     }
 
-    static void callDispatcherForMore() {
-        dispatcher.additionalDispatch();
-    }
-
     static void genChildProcess(PCB parentProcess) {
         computer.genChildProcess(parentProcess);
     }

@@ -1,31 +1,33 @@
 import java.util.PriorityQueue;
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 class Dispatcher {
     private MainMemory memory;
     private Scheduler scheduler;
     private PriorityQueue<PCB> mainProcessQueue; // All new mainProcessQueue// go here
-    private PriorityQueue<PCB> unallocatedProcessQueue; // All unallocated processes go here
 
     Dispatcher(MainMemory memory, Scheduler scheduler) {
         this.memory = memory;
         this.mainProcessQueue = new PriorityQueue<>();
-        this.unallocatedProcessQueue = new PriorityQueue<>();
         this.scheduler = scheduler;
     }
 
     String displayProcesses() {
         StringBuilder output = new StringBuilder();
 
+        Queue<PCB> main = new ConcurrentLinkedQueue<>(this.mainProcessQueue);
+
         if (!mainProcessQueue.isEmpty()) {
-            for (PCB readyProcess : this.mainProcessQueue) {
+            for (PCB readyProcess : main) {
                 output.append(readyProcess.toString());
             }
         }
-        if (!unallocatedProcessQueue.isEmpty()) {
-            for (PCB newProcess : this.unallocatedProcessQueue) {
-                output.append(newProcess.toString());
-            }
-        }
+//        if (!unallocatedProcessQueue.isEmpty()) {
+//            for (PCB newProcess : this.unallocatedProcessQueue) {
+//                output.append(newProcess.toString());
+//            }
+//        }
 
         return (output.length() == 0) ? "No process loaded" : "Name \t pid \t state \t priority \t burstCycle " +
                 "\t memory \n" + output.toString();
@@ -64,7 +66,7 @@ class Dispatcher {
         scheduler.setPauseCycle(n);
         while (!this.mainProcessQueue.isEmpty()) {
             for (PCB process : this.mainProcessQueue) {
-                scheduler.addPCB(process);
+                this.dispatch(process);
             }
             scheduler.run();
         }
@@ -72,16 +74,6 @@ class Dispatcher {
 
     void reset() {
         mainProcessQueue.clear();
-        unallocatedProcessQueue.clear();
-        scheduler.reset();
         memory.reset();
-    }
-
-    void additionalDispatch() {
-        // dispatches NEW processes whenever a process is terminated
-        for (PCB process : unallocatedProcessQueue) {
-            dispatch(process);
-        }
-        this.unallocatedProcessQueue.removeIf(i -> (i.getState() == 1));
     }
 }
