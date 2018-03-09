@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="MDS_OS:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/MDS_OS_jar</output-path>
+    <root id="archive" name="MDS_OS.jar">
+      <element id="module-output" name="MDS_OS" />
+    </root>
+  </artifact>
+</component>
