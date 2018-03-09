@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 class Scheduler implements Runnable {
     private final CPU cpu;
@@ -76,5 +77,28 @@ class Scheduler implements Runnable {
         pancake.clear();
         waffle.clear();
         cpu.reset();
+    }
+
+    String displayProcesses() {
+        StringBuilder output = new StringBuilder();
+
+        Queue<PCB> pancake = new ConcurrentLinkedQueue<>(this.pancake);
+        Queue<PCB> waffle = new ConcurrentLinkedQueue<>(this.waffle);
+
+        output.append("RR:\n");
+        if (!pancake.isEmpty()) {
+            for (PCB readyProcess : pancake) {
+                output.append(readyProcess.toString());
+            }
+        }
+        output.append("\nIO:\n");
+        if (!waffle.isEmpty()) {
+            for (PCB readyProcess : waffle) {
+                output.append(readyProcess.toString());
+            }
+        }
+
+        return (output.length() == 0) ? "No process loaded" : "Name \t pid \t state \t priority \t burstCycle " +
+                "\t memory \n" + output.toString();
     }
 }

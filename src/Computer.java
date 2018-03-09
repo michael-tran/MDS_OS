@@ -61,7 +61,7 @@ class Computer {
     }
 
     void exe(int n) {
-        if (dispatcher.getMainProcessQueue().isEmpty()) {
+        if (mainMemory.getMain().isEmpty()) {
             gen(5);
         }
         scheduler.setPauseCycle(n);
@@ -77,7 +77,7 @@ class Computer {
     }
 
     String proc() {
-        return dispatcher.displayProcesses();
+        return scheduler.displayProcesses();
     }
 
     void gen(int numberOfProcesses) {
